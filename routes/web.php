@@ -13,7 +13,15 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::get('/logout', 'Auth\LoginController@logout');
+
+Route::get('/register', 'RegisterController@showRegistrationForm');
+Route::post('/register', 'RegisterController@register');
+Auth::routes();
+
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 Route::get('category/{slug}', 'CategoryController@index')->name('category');
 
@@ -47,3 +55,11 @@ Route::resource('admin/posts', 'Admin\PostsController')
 
 
 
+
+
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

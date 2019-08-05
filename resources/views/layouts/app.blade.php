@@ -2,50 +2,25 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+{{--    <link rel="icon" href="http://www.shtorm-lorch.ru/favicon.ico">--}}
+    <title>{{ config('app.name', 'Laravel') }} / Личный кабинет</title>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@yield('additional_css')
 
-    <title>Corp @yield('title')</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('css/skins/_all-skins.css') }}">--}}
 </head>
-<body>
-    <div class = "container">
-        <!-- Start Header -->
-        <div id="header" class = "row">
-            <div class = "col">
-                <div id = "logo"></div>
-            </div>
-        </div>
-        <!-- End Header -->
+<body class="skin-corp">
+<div class="wrapper container">
+        @yield('content')
+</div>
 
-        <div class="row">
-            <div class="col-9">
-                @yield('content')
-            </div>
-            <div class="col-3">
-                <div class="sidebar">
-                    <a {{ (request()->is('/')) ? 'class= active ' : null }} href="{{ route('home') }}">Новости</a>
-                    @foreach($categories as $category)
-                        <a {{ (request()->is('category/'.$category->slug)) ? 'class= active ' : null }} href="{{ route('category', $category->slug) }}">{{ $category->title }}</a>
-                    @endforeach
-                </div>
-
-            </div>
-        </div>
-
-
-    </div>
+@yield('additional_js')
 </body>
 </html>
+
