@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile_number');
             $table->string('work_number');
             $table->string('position');
-            $table->binary('avatar')->default(0);
+            $table->string('avatar')->default('');
             $table->rememberToken();
         });
     }
