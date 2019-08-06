@@ -1,0 +1,33 @@
+.sidebar
+	position: relative
+	&-menu
+		white-space: nowrap
+		overflow: hidden
+		list-style: none
+		margin: 0
+		padding: 0 0 0 0
+		&>li
+			position: relative
+			margin: 0
+			padding: 0px 10px
+			&>a
+				display: block
+				padding: 15px 5px 15px 15px
+				.fa,
+				.ion
+					width: 30px
+					font-size: 18px
+					display: inline-block
+					vertical-align: middle
+					padding-left: 5px
+					margin-right: 10px
+				&:active,
+				&:focus,
+				&:hover
+					color: #404040
+					background: #D9D9D6
+			&.active > a
+				background: #c2222e
+				color: #ffffff
+				i
+					color: #ffffff

@@ -28,10 +28,44 @@
 		-webkit-transition-duration: .3s
 		-o-transition-duration: .3s
 		transition-duration: .3s
+	&-feedback
+		position: absolute
+		top: 0
+		right: 0
+		z-index: 2
+		display: block
+		width: 34px
+		height: 34px
+		line-height: 34px
+		text-align: center
+		pointer-events: none
+.input-group .input-group-addon
+	border-radius: 0px
+	border-color: #d2d6de
+	background: #ffffff
+.input-group-addon
+	font-weight: 300
+	padding: .5rem .75rem
+	margin-bottom: 0
+	font-size: 1rem
+	line-height: 1.25
+	color: #495057
+	text-align: center
+	background: #e9eeef
+	border: 1px solid rgba(0,0,0,.15)
+	border-radius: .25rem
+	white-space: nowrap
+	vertical-align: middle
+	display: flex
+	align-items: center
+	&:not(:last-child)
+		border-right: 0
+		border-top-right-radius: 0
+		border-bottom-right-radius: 0
+
 // Checkbox
 [type=checkbox]
 	&+label
-		font-weight: 300
 		position: relative
 		padding-left: 35px
 		cursor: pointer

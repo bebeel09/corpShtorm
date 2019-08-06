@@ -10644,6 +10644,192 @@ a.text-dark:focus {
   }
 }
 
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.input-group > .form-control,
+.input-group > .form-control-plaintext,
+.input-group > .custom-select,
+.input-group > .custom-file {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  margin-bottom: 0;
+}
+
+.input-group > .form-control + .form-control,
+.input-group > .form-control + .custom-select,
+.input-group > .form-control + .custom-file,
+.input-group > .form-control-plaintext + .form-control,
+.input-group > .form-control-plaintext + .custom-select,
+.input-group > .form-control-plaintext + .custom-file,
+.input-group > .custom-select + .form-control,
+.input-group > .custom-select + .custom-select,
+.input-group > .custom-select + .custom-file,
+.input-group > .custom-file + .form-control,
+.input-group > .custom-file + .custom-select,
+.input-group > .custom-file + .custom-file {
+  margin-left: -1px;
+}
+
+.input-group > .form-control:focus,
+.input-group > .custom-select:focus,
+.input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
+  z-index: 3;
+}
+
+.input-group > .custom-file .custom-file-input:focus {
+  z-index: 4;
+}
+
+.input-group > .form-control:not(:last-child),
+.input-group > .custom-select:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group > .form-control:not(:first-child),
+.input-group > .custom-select:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-group > .custom-file {
+  display: flex;
+  align-items: center;
+}
+
+.input-group > .custom-file:not(:last-child) .custom-file-label,
+.input-group > .custom-file:not(:last-child) .custom-file-label::after {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group > .custom-file:not(:first-child) .custom-file-label {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-group-prepend,
+.input-group-append {
+  display: flex;
+}
+
+.input-group-prepend .btn,
+.input-group-append .btn {
+  position: relative;
+  z-index: 2;
+}
+
+.input-group-prepend .btn:focus,
+.input-group-append .btn:focus {
+  z-index: 3;
+}
+
+.input-group-prepend .btn + .btn,
+.input-group-prepend .btn + .input-group-text,
+.input-group-prepend .input-group-text + .input-group-text,
+.input-group-prepend .input-group-text + .btn,
+.input-group-append .btn + .btn,
+.input-group-append .btn + .input-group-text,
+.input-group-append .input-group-text + .input-group-text,
+.input-group-append .input-group-text + .btn {
+  margin-left: -1px;
+}
+
+.input-group-prepend {
+  margin-right: -1px;
+}
+
+.input-group-append {
+  margin-left: -1px;
+}
+
+.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.input-group-text input[type=radio],
+.input-group-text input[type=checkbox] {
+  margin-top: 0;
+}
+
+.input-group-lg > .form-control:not(textarea),
+.input-group-lg > .custom-select {
+  height: calc(1.5em + 1rem + 2px);
+}
+
+.input-group-lg > .form-control,
+.input-group-lg > .custom-select,
+.input-group-lg > .input-group-prepend > .input-group-text,
+.input-group-lg > .input-group-append > .input-group-text,
+.input-group-lg > .input-group-prepend > .btn,
+.input-group-lg > .input-group-append > .btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+.input-group-sm > .form-control:not(textarea),
+.input-group-sm > .custom-select {
+  height: calc(1.5em + 0.5rem + 2px);
+}
+
+.input-group-sm > .form-control,
+.input-group-sm > .custom-select,
+.input-group-sm > .input-group-prepend > .input-group-text,
+.input-group-sm > .input-group-append > .input-group-text,
+.input-group-sm > .input-group-prepend > .btn,
+.input-group-sm > .input-group-append > .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+.input-group-lg > .custom-select,
+.input-group-sm > .custom-select {
+  padding-right: 1.75rem;
+}
+
+.input-group > .input-group-prepend > .btn,
+.input-group > .input-group-prepend > .input-group-text,
+.input-group > .input-group-append:not(:last-child) > .btn,
+.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group > .input-group-append > .btn,
+.input-group > .input-group-append > .input-group-text,
+.input-group > .input-group-prepend:not(:first-child) > .btn,
+.input-group > .input-group-prepend:not(:first-child) > .input-group-text,
+.input-group > .input-group-prepend:first-child > .btn:not(:first-child),
+.input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -25154,6 +25340,53 @@ a.text-dark:focus {
   margin-top: 40px;
 }
 
+h1 {
+  font-weight: 200;
+  color: #222;
+  font-size: 42px;
+  line-height: 1.3em;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 1.3em;
+  color: #222;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 22px;
+  line-height: 1.3em;
+  color: #222;
+  font-weight: 200;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #222;
+  line-height: 1.3em;
+}
+
+p {
+  margin-bottom: 20px;
+  line-height: 1.45em;
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.lg-text {
+  font-size: 18px;
+}
+
+.md-text {
+  font-size: 16px;
+}
+
+.sm-text {
+  font-size: 12px;
+}
+
 .btn {
   border-radius: 4px;
   box-shadow: none;
@@ -25216,8 +25449,49 @@ a.text-dark:focus {
   transition-duration: 0.3s;
 }
 
-[type=checkbox] + label {
+.form-element .form-control-feedback {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.input-group .input-group-addon {
+  border-radius: 0px;
+  border-color: #d2d6de;
+  background: #ffffff;
+}
+
+.input-group-addon {
   font-weight: 300;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #495057;
+  text-align: center;
+  background: #e9eeef;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+}
+
+.input-group-addon:not(:last-child) {
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+[type=checkbox] + label {
   position: relative;
   padding-left: 35px;
   cursor: pointer;
@@ -25326,7 +25600,10 @@ a.text-dark:focus {
 }
 
 body {
-  font-size: 13px;
+  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  border-top: 3px solid #0088cc;
+  background-color: #e9e9e9;
+  font-size: 14px;
 }
 
 a {
@@ -25339,6 +25616,828 @@ a:hover {
   outline: 0;
   text-decoration: none;
   color: #398bf7;
+}
+
+.header {
+  position: relative;
+  background: #ffffff;
+}
+
+.header_inner {
+  height: 94px;
+}
+
+.header_logo,
+.header_section-title {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header_logo {
+  background: url(/images/logo.png?a062ed360e9c7cc7e61dcafdc9e994a8);
+  width: 167px;
+  height: 57px;
+}
+
+.header_section-title {
+  font-weight: 400;
+  line-height: 20px;
+  font-size: 16px;
+  color: #DC2B34;
+  text-transform: lowercase;
+}
+
+.header_user-profile > a > img {
+  width: 50px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.box {
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+  position: relative;
+}
+
+.sidebar-menu {
+  white-space: nowrap;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0;
+}
+
+.sidebar-menu > li {
+  position: relative;
+  margin: 0;
+  padding: 0px 10px;
+}
+
+.sidebar-menu > li > a {
+  display: block;
+  padding: 15px 5px 15px 15px;
+}
+
+.sidebar-menu > li > a .fa,
+.sidebar-menu > li > a .ion,
+.sidebar-menu > li > a .ionicons,
+.sidebar-menu > li > a .ion-alert:before,
+.sidebar-menu > li > a .ion-alert-circled:before,
+.sidebar-menu > li > a .ion-android-add:before,
+.sidebar-menu > li > a .ion-android-add-circle:before,
+.sidebar-menu > li > a .ion-android-alarm-clock:before,
+.sidebar-menu > li > a .ion-android-alert:before,
+.sidebar-menu > li > a .ion-android-apps:before,
+.sidebar-menu > li > a .ion-android-archive:before,
+.sidebar-menu > li > a .ion-android-arrow-back:before,
+.sidebar-menu > li > a .ion-android-arrow-down:before,
+.sidebar-menu > li > a .ion-android-arrow-dropdown:before,
+.sidebar-menu > li > a .ion-android-arrow-dropdown-circle:before,
+.sidebar-menu > li > a .ion-android-arrow-dropleft:before,
+.sidebar-menu > li > a .ion-android-arrow-dropleft-circle:before,
+.sidebar-menu > li > a .ion-android-arrow-dropright:before,
+.sidebar-menu > li > a .ion-android-arrow-dropright-circle:before,
+.sidebar-menu > li > a .ion-android-arrow-dropup:before,
+.sidebar-menu > li > a .ion-android-arrow-dropup-circle:before,
+.sidebar-menu > li > a .ion-android-arrow-forward:before,
+.sidebar-menu > li > a .ion-android-arrow-up:before,
+.sidebar-menu > li > a .ion-android-attach:before,
+.sidebar-menu > li > a .ion-android-bar:before,
+.sidebar-menu > li > a .ion-android-bicycle:before,
+.sidebar-menu > li > a .ion-android-boat:before,
+.sidebar-menu > li > a .ion-android-bookmark:before,
+.sidebar-menu > li > a .ion-android-bulb:before,
+.sidebar-menu > li > a .ion-android-bus:before,
+.sidebar-menu > li > a .ion-android-calendar:before,
+.sidebar-menu > li > a .ion-android-call:before,
+.sidebar-menu > li > a .ion-android-camera:before,
+.sidebar-menu > li > a .ion-android-cancel:before,
+.sidebar-menu > li > a .ion-android-car:before,
+.sidebar-menu > li > a .ion-android-cart:before,
+.sidebar-menu > li > a .ion-android-chat:before,
+.sidebar-menu > li > a .ion-android-checkbox:before,
+.sidebar-menu > li > a .ion-android-checkbox-blank:before,
+.sidebar-menu > li > a .ion-android-checkbox-outline:before,
+.sidebar-menu > li > a .ion-android-checkbox-outline-blank:before,
+.sidebar-menu > li > a .ion-android-checkmark-circle:before,
+.sidebar-menu > li > a .ion-android-clipboard:before,
+.sidebar-menu > li > a .ion-android-close:before,
+.sidebar-menu > li > a .ion-android-cloud:before,
+.sidebar-menu > li > a .ion-android-cloud-circle:before,
+.sidebar-menu > li > a .ion-android-cloud-done:before,
+.sidebar-menu > li > a .ion-android-cloud-outline:before,
+.sidebar-menu > li > a .ion-android-color-palette:before,
+.sidebar-menu > li > a .ion-android-compass:before,
+.sidebar-menu > li > a .ion-android-contact:before,
+.sidebar-menu > li > a .ion-android-contacts:before,
+.sidebar-menu > li > a .ion-android-contract:before,
+.sidebar-menu > li > a .ion-android-create:before,
+.sidebar-menu > li > a .ion-android-delete:before,
+.sidebar-menu > li > a .ion-android-desktop:before,
+.sidebar-menu > li > a .ion-android-document:before,
+.sidebar-menu > li > a .ion-android-done:before,
+.sidebar-menu > li > a .ion-android-done-all:before,
+.sidebar-menu > li > a .ion-android-download:before,
+.sidebar-menu > li > a .ion-android-drafts:before,
+.sidebar-menu > li > a .ion-android-exit:before,
+.sidebar-menu > li > a .ion-android-expand:before,
+.sidebar-menu > li > a .ion-android-favorite:before,
+.sidebar-menu > li > a .ion-android-favorite-outline:before,
+.sidebar-menu > li > a .ion-android-film:before,
+.sidebar-menu > li > a .ion-android-folder:before,
+.sidebar-menu > li > a .ion-android-folder-open:before,
+.sidebar-menu > li > a .ion-android-funnel:before,
+.sidebar-menu > li > a .ion-android-globe:before,
+.sidebar-menu > li > a .ion-android-hand:before,
+.sidebar-menu > li > a .ion-android-hangout:before,
+.sidebar-menu > li > a .ion-android-happy:before,
+.sidebar-menu > li > a .ion-android-home:before,
+.sidebar-menu > li > a .ion-android-image:before,
+.sidebar-menu > li > a .ion-android-laptop:before,
+.sidebar-menu > li > a .ion-android-list:before,
+.sidebar-menu > li > a .ion-android-locate:before,
+.sidebar-menu > li > a .ion-android-lock:before,
+.sidebar-menu > li > a .ion-android-mail:before,
+.sidebar-menu > li > a .ion-android-map:before,
+.sidebar-menu > li > a .ion-android-menu:before,
+.sidebar-menu > li > a .ion-android-microphone:before,
+.sidebar-menu > li > a .ion-android-microphone-off:before,
+.sidebar-menu > li > a .ion-android-more-horizontal:before,
+.sidebar-menu > li > a .ion-android-more-vertical:before,
+.sidebar-menu > li > a .ion-android-navigate:before,
+.sidebar-menu > li > a .ion-android-notifications:before,
+.sidebar-menu > li > a .ion-android-notifications-none:before,
+.sidebar-menu > li > a .ion-android-notifications-off:before,
+.sidebar-menu > li > a .ion-android-open:before,
+.sidebar-menu > li > a .ion-android-options:before,
+.sidebar-menu > li > a .ion-android-people:before,
+.sidebar-menu > li > a .ion-android-person:before,
+.sidebar-menu > li > a .ion-android-person-add:before,
+.sidebar-menu > li > a .ion-android-phone-landscape:before,
+.sidebar-menu > li > a .ion-android-phone-portrait:before,
+.sidebar-menu > li > a .ion-android-pin:before,
+.sidebar-menu > li > a .ion-android-plane:before,
+.sidebar-menu > li > a .ion-android-playstore:before,
+.sidebar-menu > li > a .ion-android-print:before,
+.sidebar-menu > li > a .ion-android-radio-button-off:before,
+.sidebar-menu > li > a .ion-android-radio-button-on:before,
+.sidebar-menu > li > a .ion-android-refresh:before,
+.sidebar-menu > li > a .ion-android-remove:before,
+.sidebar-menu > li > a .ion-android-remove-circle:before,
+.sidebar-menu > li > a .ion-android-restaurant:before,
+.sidebar-menu > li > a .ion-android-sad:before,
+.sidebar-menu > li > a .ion-android-search:before,
+.sidebar-menu > li > a .ion-android-send:before,
+.sidebar-menu > li > a .ion-android-settings:before,
+.sidebar-menu > li > a .ion-android-share:before,
+.sidebar-menu > li > a .ion-android-share-alt:before,
+.sidebar-menu > li > a .ion-android-star:before,
+.sidebar-menu > li > a .ion-android-star-half:before,
+.sidebar-menu > li > a .ion-android-star-outline:before,
+.sidebar-menu > li > a .ion-android-stopwatch:before,
+.sidebar-menu > li > a .ion-android-subway:before,
+.sidebar-menu > li > a .ion-android-sunny:before,
+.sidebar-menu > li > a .ion-android-sync:before,
+.sidebar-menu > li > a .ion-android-textsms:before,
+.sidebar-menu > li > a .ion-android-time:before,
+.sidebar-menu > li > a .ion-android-train:before,
+.sidebar-menu > li > a .ion-android-unlock:before,
+.sidebar-menu > li > a .ion-android-upload:before,
+.sidebar-menu > li > a .ion-android-volume-down:before,
+.sidebar-menu > li > a .ion-android-volume-mute:before,
+.sidebar-menu > li > a .ion-android-volume-off:before,
+.sidebar-menu > li > a .ion-android-volume-up:before,
+.sidebar-menu > li > a .ion-android-walk:before,
+.sidebar-menu > li > a .ion-android-warning:before,
+.sidebar-menu > li > a .ion-android-watch:before,
+.sidebar-menu > li > a .ion-android-wifi:before,
+.sidebar-menu > li > a .ion-aperture:before,
+.sidebar-menu > li > a .ion-archive:before,
+.sidebar-menu > li > a .ion-arrow-down-a:before,
+.sidebar-menu > li > a .ion-arrow-down-b:before,
+.sidebar-menu > li > a .ion-arrow-down-c:before,
+.sidebar-menu > li > a .ion-arrow-expand:before,
+.sidebar-menu > li > a .ion-arrow-graph-down-left:before,
+.sidebar-menu > li > a .ion-arrow-graph-down-right:before,
+.sidebar-menu > li > a .ion-arrow-graph-up-left:before,
+.sidebar-menu > li > a .ion-arrow-graph-up-right:before,
+.sidebar-menu > li > a .ion-arrow-left-a:before,
+.sidebar-menu > li > a .ion-arrow-left-b:before,
+.sidebar-menu > li > a .ion-arrow-left-c:before,
+.sidebar-menu > li > a .ion-arrow-move:before,
+.sidebar-menu > li > a .ion-arrow-resize:before,
+.sidebar-menu > li > a .ion-arrow-return-left:before,
+.sidebar-menu > li > a .ion-arrow-return-right:before,
+.sidebar-menu > li > a .ion-arrow-right-a:before,
+.sidebar-menu > li > a .ion-arrow-right-b:before,
+.sidebar-menu > li > a .ion-arrow-right-c:before,
+.sidebar-menu > li > a .ion-arrow-shrink:before,
+.sidebar-menu > li > a .ion-arrow-swap:before,
+.sidebar-menu > li > a .ion-arrow-up-a:before,
+.sidebar-menu > li > a .ion-arrow-up-b:before,
+.sidebar-menu > li > a .ion-arrow-up-c:before,
+.sidebar-menu > li > a .ion-asterisk:before,
+.sidebar-menu > li > a .ion-at:before,
+.sidebar-menu > li > a .ion-backspace:before,
+.sidebar-menu > li > a .ion-backspace-outline:before,
+.sidebar-menu > li > a .ion-bag:before,
+.sidebar-menu > li > a .ion-battery-charging:before,
+.sidebar-menu > li > a .ion-battery-empty:before,
+.sidebar-menu > li > a .ion-battery-full:before,
+.sidebar-menu > li > a .ion-battery-half:before,
+.sidebar-menu > li > a .ion-battery-low:before,
+.sidebar-menu > li > a .ion-beaker:before,
+.sidebar-menu > li > a .ion-beer:before,
+.sidebar-menu > li > a .ion-bluetooth:before,
+.sidebar-menu > li > a .ion-bonfire:before,
+.sidebar-menu > li > a .ion-bookmark:before,
+.sidebar-menu > li > a .ion-bowtie:before,
+.sidebar-menu > li > a .ion-briefcase:before,
+.sidebar-menu > li > a .ion-bug:before,
+.sidebar-menu > li > a .ion-calculator:before,
+.sidebar-menu > li > a .ion-calendar:before,
+.sidebar-menu > li > a .ion-camera:before,
+.sidebar-menu > li > a .ion-card:before,
+.sidebar-menu > li > a .ion-cash:before,
+.sidebar-menu > li > a .ion-chatbox:before,
+.sidebar-menu > li > a .ion-chatbox-working:before,
+.sidebar-menu > li > a .ion-chatboxes:before,
+.sidebar-menu > li > a .ion-chatbubble:before,
+.sidebar-menu > li > a .ion-chatbubble-working:before,
+.sidebar-menu > li > a .ion-chatbubbles:before,
+.sidebar-menu > li > a .ion-checkmark:before,
+.sidebar-menu > li > a .ion-checkmark-circled:before,
+.sidebar-menu > li > a .ion-checkmark-round:before,
+.sidebar-menu > li > a .ion-chevron-down:before,
+.sidebar-menu > li > a .ion-chevron-left:before,
+.sidebar-menu > li > a .ion-chevron-right:before,
+.sidebar-menu > li > a .ion-chevron-up:before,
+.sidebar-menu > li > a .ion-clipboard:before,
+.sidebar-menu > li > a .ion-clock:before,
+.sidebar-menu > li > a .ion-close:before,
+.sidebar-menu > li > a .ion-close-circled:before,
+.sidebar-menu > li > a .ion-close-round:before,
+.sidebar-menu > li > a .ion-closed-captioning:before,
+.sidebar-menu > li > a .ion-cloud:before,
+.sidebar-menu > li > a .ion-code:before,
+.sidebar-menu > li > a .ion-code-download:before,
+.sidebar-menu > li > a .ion-code-working:before,
+.sidebar-menu > li > a .ion-coffee:before,
+.sidebar-menu > li > a .ion-compass:before,
+.sidebar-menu > li > a .ion-compose:before,
+.sidebar-menu > li > a .ion-connection-bars:before,
+.sidebar-menu > li > a .ion-contrast:before,
+.sidebar-menu > li > a .ion-crop:before,
+.sidebar-menu > li > a .ion-cube:before,
+.sidebar-menu > li > a .ion-disc:before,
+.sidebar-menu > li > a .ion-document:before,
+.sidebar-menu > li > a .ion-document-text:before,
+.sidebar-menu > li > a .ion-drag:before,
+.sidebar-menu > li > a .ion-earth:before,
+.sidebar-menu > li > a .ion-easel:before,
+.sidebar-menu > li > a .ion-edit:before,
+.sidebar-menu > li > a .ion-egg:before,
+.sidebar-menu > li > a .ion-eject:before,
+.sidebar-menu > li > a .ion-email:before,
+.sidebar-menu > li > a .ion-email-unread:before,
+.sidebar-menu > li > a .ion-erlenmeyer-flask:before,
+.sidebar-menu > li > a .ion-erlenmeyer-flask-bubbles:before,
+.sidebar-menu > li > a .ion-eye:before,
+.sidebar-menu > li > a .ion-eye-disabled:before,
+.sidebar-menu > li > a .ion-female:before,
+.sidebar-menu > li > a .ion-filing:before,
+.sidebar-menu > li > a .ion-film-marker:before,
+.sidebar-menu > li > a .ion-fireball:before,
+.sidebar-menu > li > a .ion-flag:before,
+.sidebar-menu > li > a .ion-flame:before,
+.sidebar-menu > li > a .ion-flash:before,
+.sidebar-menu > li > a .ion-flash-off:before,
+.sidebar-menu > li > a .ion-folder:before,
+.sidebar-menu > li > a .ion-fork:before,
+.sidebar-menu > li > a .ion-fork-repo:before,
+.sidebar-menu > li > a .ion-forward:before,
+.sidebar-menu > li > a .ion-funnel:before,
+.sidebar-menu > li > a .ion-gear-a:before,
+.sidebar-menu > li > a .ion-gear-b:before,
+.sidebar-menu > li > a .ion-grid:before,
+.sidebar-menu > li > a .ion-hammer:before,
+.sidebar-menu > li > a .ion-happy:before,
+.sidebar-menu > li > a .ion-happy-outline:before,
+.sidebar-menu > li > a .ion-headphone:before,
+.sidebar-menu > li > a .ion-heart:before,
+.sidebar-menu > li > a .ion-heart-broken:before,
+.sidebar-menu > li > a .ion-help:before,
+.sidebar-menu > li > a .ion-help-buoy:before,
+.sidebar-menu > li > a .ion-help-circled:before,
+.sidebar-menu > li > a .ion-home:before,
+.sidebar-menu > li > a .ion-icecream:before,
+.sidebar-menu > li > a .ion-image:before,
+.sidebar-menu > li > a .ion-images:before,
+.sidebar-menu > li > a .ion-information:before,
+.sidebar-menu > li > a .ion-information-circled:before,
+.sidebar-menu > li > a .ion-ionic:before,
+.sidebar-menu > li > a .ion-ios-alarm:before,
+.sidebar-menu > li > a .ion-ios-alarm-outline:before,
+.sidebar-menu > li > a .ion-ios-albums:before,
+.sidebar-menu > li > a .ion-ios-albums-outline:before,
+.sidebar-menu > li > a .ion-ios-americanfootball:before,
+.sidebar-menu > li > a .ion-ios-americanfootball-outline:before,
+.sidebar-menu > li > a .ion-ios-analytics:before,
+.sidebar-menu > li > a .ion-ios-analytics-outline:before,
+.sidebar-menu > li > a .ion-ios-arrow-back:before,
+.sidebar-menu > li > a .ion-ios-arrow-down:before,
+.sidebar-menu > li > a .ion-ios-arrow-forward:before,
+.sidebar-menu > li > a .ion-ios-arrow-left:before,
+.sidebar-menu > li > a .ion-ios-arrow-right:before,
+.sidebar-menu > li > a .ion-ios-arrow-thin-down:before,
+.sidebar-menu > li > a .ion-ios-arrow-thin-left:before,
+.sidebar-menu > li > a .ion-ios-arrow-thin-right:before,
+.sidebar-menu > li > a .ion-ios-arrow-thin-up:before,
+.sidebar-menu > li > a .ion-ios-arrow-up:before,
+.sidebar-menu > li > a .ion-ios-at:before,
+.sidebar-menu > li > a .ion-ios-at-outline:before,
+.sidebar-menu > li > a .ion-ios-barcode:before,
+.sidebar-menu > li > a .ion-ios-barcode-outline:before,
+.sidebar-menu > li > a .ion-ios-baseball:before,
+.sidebar-menu > li > a .ion-ios-baseball-outline:before,
+.sidebar-menu > li > a .ion-ios-basketball:before,
+.sidebar-menu > li > a .ion-ios-basketball-outline:before,
+.sidebar-menu > li > a .ion-ios-bell:before,
+.sidebar-menu > li > a .ion-ios-bell-outline:before,
+.sidebar-menu > li > a .ion-ios-body:before,
+.sidebar-menu > li > a .ion-ios-body-outline:before,
+.sidebar-menu > li > a .ion-ios-bolt:before,
+.sidebar-menu > li > a .ion-ios-bolt-outline:before,
+.sidebar-menu > li > a .ion-ios-book:before,
+.sidebar-menu > li > a .ion-ios-book-outline:before,
+.sidebar-menu > li > a .ion-ios-bookmarks:before,
+.sidebar-menu > li > a .ion-ios-bookmarks-outline:before,
+.sidebar-menu > li > a .ion-ios-box:before,
+.sidebar-menu > li > a .ion-ios-box-outline:before,
+.sidebar-menu > li > a .ion-ios-briefcase:before,
+.sidebar-menu > li > a .ion-ios-briefcase-outline:before,
+.sidebar-menu > li > a .ion-ios-browsers:before,
+.sidebar-menu > li > a .ion-ios-browsers-outline:before,
+.sidebar-menu > li > a .ion-ios-calculator:before,
+.sidebar-menu > li > a .ion-ios-calculator-outline:before,
+.sidebar-menu > li > a .ion-ios-calendar:before,
+.sidebar-menu > li > a .ion-ios-calendar-outline:before,
+.sidebar-menu > li > a .ion-ios-camera:before,
+.sidebar-menu > li > a .ion-ios-camera-outline:before,
+.sidebar-menu > li > a .ion-ios-cart:before,
+.sidebar-menu > li > a .ion-ios-cart-outline:before,
+.sidebar-menu > li > a .ion-ios-chatboxes:before,
+.sidebar-menu > li > a .ion-ios-chatboxes-outline:before,
+.sidebar-menu > li > a .ion-ios-chatbubble:before,
+.sidebar-menu > li > a .ion-ios-chatbubble-outline:before,
+.sidebar-menu > li > a .ion-ios-checkmark:before,
+.sidebar-menu > li > a .ion-ios-checkmark-empty:before,
+.sidebar-menu > li > a .ion-ios-checkmark-outline:before,
+.sidebar-menu > li > a .ion-ios-circle-filled:before,
+.sidebar-menu > li > a .ion-ios-circle-outline:before,
+.sidebar-menu > li > a .ion-ios-clock:before,
+.sidebar-menu > li > a .ion-ios-clock-outline:before,
+.sidebar-menu > li > a .ion-ios-close:before,
+.sidebar-menu > li > a .ion-ios-close-empty:before,
+.sidebar-menu > li > a .ion-ios-close-outline:before,
+.sidebar-menu > li > a .ion-ios-cloud:before,
+.sidebar-menu > li > a .ion-ios-cloud-download:before,
+.sidebar-menu > li > a .ion-ios-cloud-download-outline:before,
+.sidebar-menu > li > a .ion-ios-cloud-outline:before,
+.sidebar-menu > li > a .ion-ios-cloud-upload:before,
+.sidebar-menu > li > a .ion-ios-cloud-upload-outline:before,
+.sidebar-menu > li > a .ion-ios-cloudy:before,
+.sidebar-menu > li > a .ion-ios-cloudy-night:before,
+.sidebar-menu > li > a .ion-ios-cloudy-night-outline:before,
+.sidebar-menu > li > a .ion-ios-cloudy-outline:before,
+.sidebar-menu > li > a .ion-ios-cog:before,
+.sidebar-menu > li > a .ion-ios-cog-outline:before,
+.sidebar-menu > li > a .ion-ios-color-filter:before,
+.sidebar-menu > li > a .ion-ios-color-filter-outline:before,
+.sidebar-menu > li > a .ion-ios-color-wand:before,
+.sidebar-menu > li > a .ion-ios-color-wand-outline:before,
+.sidebar-menu > li > a .ion-ios-compose:before,
+.sidebar-menu > li > a .ion-ios-compose-outline:before,
+.sidebar-menu > li > a .ion-ios-contact:before,
+.sidebar-menu > li > a .ion-ios-contact-outline:before,
+.sidebar-menu > li > a .ion-ios-copy:before,
+.sidebar-menu > li > a .ion-ios-copy-outline:before,
+.sidebar-menu > li > a .ion-ios-crop:before,
+.sidebar-menu > li > a .ion-ios-crop-strong:before,
+.sidebar-menu > li > a .ion-ios-download:before,
+.sidebar-menu > li > a .ion-ios-download-outline:before,
+.sidebar-menu > li > a .ion-ios-drag:before,
+.sidebar-menu > li > a .ion-ios-email:before,
+.sidebar-menu > li > a .ion-ios-email-outline:before,
+.sidebar-menu > li > a .ion-ios-eye:before,
+.sidebar-menu > li > a .ion-ios-eye-outline:before,
+.sidebar-menu > li > a .ion-ios-fastforward:before,
+.sidebar-menu > li > a .ion-ios-fastforward-outline:before,
+.sidebar-menu > li > a .ion-ios-filing:before,
+.sidebar-menu > li > a .ion-ios-filing-outline:before,
+.sidebar-menu > li > a .ion-ios-film:before,
+.sidebar-menu > li > a .ion-ios-film-outline:before,
+.sidebar-menu > li > a .ion-ios-flag:before,
+.sidebar-menu > li > a .ion-ios-flag-outline:before,
+.sidebar-menu > li > a .ion-ios-flame:before,
+.sidebar-menu > li > a .ion-ios-flame-outline:before,
+.sidebar-menu > li > a .ion-ios-flask:before,
+.sidebar-menu > li > a .ion-ios-flask-outline:before,
+.sidebar-menu > li > a .ion-ios-flower:before,
+.sidebar-menu > li > a .ion-ios-flower-outline:before,
+.sidebar-menu > li > a .ion-ios-folder:before,
+.sidebar-menu > li > a .ion-ios-folder-outline:before,
+.sidebar-menu > li > a .ion-ios-football:before,
+.sidebar-menu > li > a .ion-ios-football-outline:before,
+.sidebar-menu > li > a .ion-ios-game-controller-a:before,
+.sidebar-menu > li > a .ion-ios-game-controller-a-outline:before,
+.sidebar-menu > li > a .ion-ios-game-controller-b:before,
+.sidebar-menu > li > a .ion-ios-game-controller-b-outline:before,
+.sidebar-menu > li > a .ion-ios-gear:before,
+.sidebar-menu > li > a .ion-ios-gear-outline:before,
+.sidebar-menu > li > a .ion-ios-glasses:before,
+.sidebar-menu > li > a .ion-ios-glasses-outline:before,
+.sidebar-menu > li > a .ion-ios-grid-view:before,
+.sidebar-menu > li > a .ion-ios-grid-view-outline:before,
+.sidebar-menu > li > a .ion-ios-heart:before,
+.sidebar-menu > li > a .ion-ios-heart-outline:before,
+.sidebar-menu > li > a .ion-ios-help:before,
+.sidebar-menu > li > a .ion-ios-help-empty:before,
+.sidebar-menu > li > a .ion-ios-help-outline:before,
+.sidebar-menu > li > a .ion-ios-home:before,
+.sidebar-menu > li > a .ion-ios-home-outline:before,
+.sidebar-menu > li > a .ion-ios-infinite:before,
+.sidebar-menu > li > a .ion-ios-infinite-outline:before,
+.sidebar-menu > li > a .ion-ios-information:before,
+.sidebar-menu > li > a .ion-ios-information-empty:before,
+.sidebar-menu > li > a .ion-ios-information-outline:before,
+.sidebar-menu > li > a .ion-ios-ionic-outline:before,
+.sidebar-menu > li > a .ion-ios-keypad:before,
+.sidebar-menu > li > a .ion-ios-keypad-outline:before,
+.sidebar-menu > li > a .ion-ios-lightbulb:before,
+.sidebar-menu > li > a .ion-ios-lightbulb-outline:before,
+.sidebar-menu > li > a .ion-ios-list:before,
+.sidebar-menu > li > a .ion-ios-list-outline:before,
+.sidebar-menu > li > a .ion-ios-location:before,
+.sidebar-menu > li > a .ion-ios-location-outline:before,
+.sidebar-menu > li > a .ion-ios-locked:before,
+.sidebar-menu > li > a .ion-ios-locked-outline:before,
+.sidebar-menu > li > a .ion-ios-loop:before,
+.sidebar-menu > li > a .ion-ios-loop-strong:before,
+.sidebar-menu > li > a .ion-ios-medical:before,
+.sidebar-menu > li > a .ion-ios-medical-outline:before,
+.sidebar-menu > li > a .ion-ios-medkit:before,
+.sidebar-menu > li > a .ion-ios-medkit-outline:before,
+.sidebar-menu > li > a .ion-ios-mic:before,
+.sidebar-menu > li > a .ion-ios-mic-off:before,
+.sidebar-menu > li > a .ion-ios-mic-outline:before,
+.sidebar-menu > li > a .ion-ios-minus:before,
+.sidebar-menu > li > a .ion-ios-minus-empty:before,
+.sidebar-menu > li > a .ion-ios-minus-outline:before,
+.sidebar-menu > li > a .ion-ios-monitor:before,
+.sidebar-menu > li > a .ion-ios-monitor-outline:before,
+.sidebar-menu > li > a .ion-ios-moon:before,
+.sidebar-menu > li > a .ion-ios-moon-outline:before,
+.sidebar-menu > li > a .ion-ios-more:before,
+.sidebar-menu > li > a .ion-ios-more-outline:before,
+.sidebar-menu > li > a .ion-ios-musical-note:before,
+.sidebar-menu > li > a .ion-ios-musical-notes:before,
+.sidebar-menu > li > a .ion-ios-navigate:before,
+.sidebar-menu > li > a .ion-ios-navigate-outline:before,
+.sidebar-menu > li > a .ion-ios-nutrition:before,
+.sidebar-menu > li > a .ion-ios-nutrition-outline:before,
+.sidebar-menu > li > a .ion-ios-paper:before,
+.sidebar-menu > li > a .ion-ios-paper-outline:before,
+.sidebar-menu > li > a .ion-ios-paperplane:before,
+.sidebar-menu > li > a .ion-ios-paperplane-outline:before,
+.sidebar-menu > li > a .ion-ios-partlysunny:before,
+.sidebar-menu > li > a .ion-ios-partlysunny-outline:before,
+.sidebar-menu > li > a .ion-ios-pause:before,
+.sidebar-menu > li > a .ion-ios-pause-outline:before,
+.sidebar-menu > li > a .ion-ios-paw:before,
+.sidebar-menu > li > a .ion-ios-paw-outline:before,
+.sidebar-menu > li > a .ion-ios-people:before,
+.sidebar-menu > li > a .ion-ios-people-outline:before,
+.sidebar-menu > li > a .ion-ios-person:before,
+.sidebar-menu > li > a .ion-ios-person-outline:before,
+.sidebar-menu > li > a .ion-ios-personadd:before,
+.sidebar-menu > li > a .ion-ios-personadd-outline:before,
+.sidebar-menu > li > a .ion-ios-photos:before,
+.sidebar-menu > li > a .ion-ios-photos-outline:before,
+.sidebar-menu > li > a .ion-ios-pie:before,
+.sidebar-menu > li > a .ion-ios-pie-outline:before,
+.sidebar-menu > li > a .ion-ios-pint:before,
+.sidebar-menu > li > a .ion-ios-pint-outline:before,
+.sidebar-menu > li > a .ion-ios-play:before,
+.sidebar-menu > li > a .ion-ios-play-outline:before,
+.sidebar-menu > li > a .ion-ios-plus:before,
+.sidebar-menu > li > a .ion-ios-plus-empty:before,
+.sidebar-menu > li > a .ion-ios-plus-outline:before,
+.sidebar-menu > li > a .ion-ios-pricetag:before,
+.sidebar-menu > li > a .ion-ios-pricetag-outline:before,
+.sidebar-menu > li > a .ion-ios-pricetags:before,
+.sidebar-menu > li > a .ion-ios-pricetags-outline:before,
+.sidebar-menu > li > a .ion-ios-printer:before,
+.sidebar-menu > li > a .ion-ios-printer-outline:before,
+.sidebar-menu > li > a .ion-ios-pulse:before,
+.sidebar-menu > li > a .ion-ios-pulse-strong:before,
+.sidebar-menu > li > a .ion-ios-rainy:before,
+.sidebar-menu > li > a .ion-ios-rainy-outline:before,
+.sidebar-menu > li > a .ion-ios-recording:before,
+.sidebar-menu > li > a .ion-ios-recording-outline:before,
+.sidebar-menu > li > a .ion-ios-redo:before,
+.sidebar-menu > li > a .ion-ios-redo-outline:before,
+.sidebar-menu > li > a .ion-ios-refresh:before,
+.sidebar-menu > li > a .ion-ios-refresh-empty:before,
+.sidebar-menu > li > a .ion-ios-refresh-outline:before,
+.sidebar-menu > li > a .ion-ios-reload:before,
+.sidebar-menu > li > a .ion-ios-reverse-camera:before,
+.sidebar-menu > li > a .ion-ios-reverse-camera-outline:before,
+.sidebar-menu > li > a .ion-ios-rewind:before,
+.sidebar-menu > li > a .ion-ios-rewind-outline:before,
+.sidebar-menu > li > a .ion-ios-rose:before,
+.sidebar-menu > li > a .ion-ios-rose-outline:before,
+.sidebar-menu > li > a .ion-ios-search:before,
+.sidebar-menu > li > a .ion-ios-search-strong:before,
+.sidebar-menu > li > a .ion-ios-settings:before,
+.sidebar-menu > li > a .ion-ios-settings-strong:before,
+.sidebar-menu > li > a .ion-ios-shuffle:before,
+.sidebar-menu > li > a .ion-ios-shuffle-strong:before,
+.sidebar-menu > li > a .ion-ios-skipbackward:before,
+.sidebar-menu > li > a .ion-ios-skipbackward-outline:before,
+.sidebar-menu > li > a .ion-ios-skipforward:before,
+.sidebar-menu > li > a .ion-ios-skipforward-outline:before,
+.sidebar-menu > li > a .ion-ios-snowy:before,
+.sidebar-menu > li > a .ion-ios-speedometer:before,
+.sidebar-menu > li > a .ion-ios-speedometer-outline:before,
+.sidebar-menu > li > a .ion-ios-star:before,
+.sidebar-menu > li > a .ion-ios-star-half:before,
+.sidebar-menu > li > a .ion-ios-star-outline:before,
+.sidebar-menu > li > a .ion-ios-stopwatch:before,
+.sidebar-menu > li > a .ion-ios-stopwatch-outline:before,
+.sidebar-menu > li > a .ion-ios-sunny:before,
+.sidebar-menu > li > a .ion-ios-sunny-outline:before,
+.sidebar-menu > li > a .ion-ios-telephone:before,
+.sidebar-menu > li > a .ion-ios-telephone-outline:before,
+.sidebar-menu > li > a .ion-ios-tennisball:before,
+.sidebar-menu > li > a .ion-ios-tennisball-outline:before,
+.sidebar-menu > li > a .ion-ios-thunderstorm:before,
+.sidebar-menu > li > a .ion-ios-thunderstorm-outline:before,
+.sidebar-menu > li > a .ion-ios-time:before,
+.sidebar-menu > li > a .ion-ios-time-outline:before,
+.sidebar-menu > li > a .ion-ios-timer:before,
+.sidebar-menu > li > a .ion-ios-timer-outline:before,
+.sidebar-menu > li > a .ion-ios-toggle:before,
+.sidebar-menu > li > a .ion-ios-toggle-outline:before,
+.sidebar-menu > li > a .ion-ios-trash:before,
+.sidebar-menu > li > a .ion-ios-trash-outline:before,
+.sidebar-menu > li > a .ion-ios-undo:before,
+.sidebar-menu > li > a .ion-ios-undo-outline:before,
+.sidebar-menu > li > a .ion-ios-unlocked:before,
+.sidebar-menu > li > a .ion-ios-unlocked-outline:before,
+.sidebar-menu > li > a .ion-ios-upload:before,
+.sidebar-menu > li > a .ion-ios-upload-outline:before,
+.sidebar-menu > li > a .ion-ios-videocam:before,
+.sidebar-menu > li > a .ion-ios-videocam-outline:before,
+.sidebar-menu > li > a .ion-ios-volume-high:before,
+.sidebar-menu > li > a .ion-ios-volume-low:before,
+.sidebar-menu > li > a .ion-ios-wineglass:before,
+.sidebar-menu > li > a .ion-ios-wineglass-outline:before,
+.sidebar-menu > li > a .ion-ios-world:before,
+.sidebar-menu > li > a .ion-ios-world-outline:before,
+.sidebar-menu > li > a .ion-ipad:before,
+.sidebar-menu > li > a .ion-iphone:before,
+.sidebar-menu > li > a .ion-ipod:before,
+.sidebar-menu > li > a .ion-jet:before,
+.sidebar-menu > li > a .ion-key:before,
+.sidebar-menu > li > a .ion-knife:before,
+.sidebar-menu > li > a .ion-laptop:before,
+.sidebar-menu > li > a .ion-leaf:before,
+.sidebar-menu > li > a .ion-levels:before,
+.sidebar-menu > li > a .ion-lightbulb:before,
+.sidebar-menu > li > a .ion-link:before,
+.sidebar-menu > li > a .ion-load-a:before,
+.sidebar-menu > li > a .ion-load-b:before,
+.sidebar-menu > li > a .ion-load-c:before,
+.sidebar-menu > li > a .ion-load-d:before,
+.sidebar-menu > li > a .ion-location:before,
+.sidebar-menu > li > a .ion-lock-combination:before,
+.sidebar-menu > li > a .ion-locked:before,
+.sidebar-menu > li > a .ion-log-in:before,
+.sidebar-menu > li > a .ion-log-out:before,
+.sidebar-menu > li > a .ion-loop:before,
+.sidebar-menu > li > a .ion-magnet:before,
+.sidebar-menu > li > a .ion-male:before,
+.sidebar-menu > li > a .ion-man:before,
+.sidebar-menu > li > a .ion-map:before,
+.sidebar-menu > li > a .ion-medkit:before,
+.sidebar-menu > li > a .ion-merge:before,
+.sidebar-menu > li > a .ion-mic-a:before,
+.sidebar-menu > li > a .ion-mic-b:before,
+.sidebar-menu > li > a .ion-mic-c:before,
+.sidebar-menu > li > a .ion-minus:before,
+.sidebar-menu > li > a .ion-minus-circled:before,
+.sidebar-menu > li > a .ion-minus-round:before,
+.sidebar-menu > li > a .ion-model-s:before,
+.sidebar-menu > li > a .ion-monitor:before,
+.sidebar-menu > li > a .ion-more:before,
+.sidebar-menu > li > a .ion-mouse:before,
+.sidebar-menu > li > a .ion-music-note:before,
+.sidebar-menu > li > a .ion-navicon:before,
+.sidebar-menu > li > a .ion-navicon-round:before,
+.sidebar-menu > li > a .ion-navigate:before,
+.sidebar-menu > li > a .ion-network:before,
+.sidebar-menu > li > a .ion-no-smoking:before,
+.sidebar-menu > li > a .ion-nuclear:before,
+.sidebar-menu > li > a .ion-outlet:before,
+.sidebar-menu > li > a .ion-paintbrush:before,
+.sidebar-menu > li > a .ion-paintbucket:before,
+.sidebar-menu > li > a .ion-paper-airplane:before,
+.sidebar-menu > li > a .ion-paperclip:before,
+.sidebar-menu > li > a .ion-pause:before,
+.sidebar-menu > li > a .ion-person:before,
+.sidebar-menu > li > a .ion-person-add:before,
+.sidebar-menu > li > a .ion-person-stalker:before,
+.sidebar-menu > li > a .ion-pie-graph:before,
+.sidebar-menu > li > a .ion-pin:before,
+.sidebar-menu > li > a .ion-pinpoint:before,
+.sidebar-menu > li > a .ion-pizza:before,
+.sidebar-menu > li > a .ion-plane:before,
+.sidebar-menu > li > a .ion-planet:before,
+.sidebar-menu > li > a .ion-play:before,
+.sidebar-menu > li > a .ion-playstation:before,
+.sidebar-menu > li > a .ion-plus:before,
+.sidebar-menu > li > a .ion-plus-circled:before,
+.sidebar-menu > li > a .ion-plus-round:before,
+.sidebar-menu > li > a .ion-podium:before,
+.sidebar-menu > li > a .ion-pound:before,
+.sidebar-menu > li > a .ion-power:before,
+.sidebar-menu > li > a .ion-pricetag:before,
+.sidebar-menu > li > a .ion-pricetags:before,
+.sidebar-menu > li > a .ion-printer:before,
+.sidebar-menu > li > a .ion-pull-request:before,
+.sidebar-menu > li > a .ion-qr-scanner:before,
+.sidebar-menu > li > a .ion-quote:before,
+.sidebar-menu > li > a .ion-radio-waves:before,
+.sidebar-menu > li > a .ion-record:before,
+.sidebar-menu > li > a .ion-refresh:before,
+.sidebar-menu > li > a .ion-reply:before,
+.sidebar-menu > li > a .ion-reply-all:before,
+.sidebar-menu > li > a .ion-ribbon-a:before,
+.sidebar-menu > li > a .ion-ribbon-b:before,
+.sidebar-menu > li > a .ion-sad:before,
+.sidebar-menu > li > a .ion-sad-outline:before,
+.sidebar-menu > li > a .ion-scissors:before,
+.sidebar-menu > li > a .ion-search:before,
+.sidebar-menu > li > a .ion-settings:before,
+.sidebar-menu > li > a .ion-share:before,
+.sidebar-menu > li > a .ion-shuffle:before,
+.sidebar-menu > li > a .ion-skip-backward:before,
+.sidebar-menu > li > a .ion-skip-forward:before,
+.sidebar-menu > li > a .ion-social-android:before,
+.sidebar-menu > li > a .ion-social-android-outline:before,
+.sidebar-menu > li > a .ion-social-angular:before,
+.sidebar-menu > li > a .ion-social-angular-outline:before,
+.sidebar-menu > li > a .ion-social-apple:before,
+.sidebar-menu > li > a .ion-social-apple-outline:before,
+.sidebar-menu > li > a .ion-social-bitcoin:before,
+.sidebar-menu > li > a .ion-social-bitcoin-outline:before,
+.sidebar-menu > li > a .ion-social-buffer:before,
+.sidebar-menu > li > a .ion-social-buffer-outline:before,
+.sidebar-menu > li > a .ion-social-chrome:before,
+.sidebar-menu > li > a .ion-social-chrome-outline:before,
+.sidebar-menu > li > a .ion-social-codepen:before,
+.sidebar-menu > li > a .ion-social-codepen-outline:before,
+.sidebar-menu > li > a .ion-social-css3:before,
+.sidebar-menu > li > a .ion-social-css3-outline:before,
+.sidebar-menu > li > a .ion-social-designernews:before,
+.sidebar-menu > li > a .ion-social-designernews-outline:before,
+.sidebar-menu > li > a .ion-social-dribbble:before,
+.sidebar-menu > li > a .ion-social-dribbble-outline:before,
+.sidebar-menu > li > a .ion-social-dropbox:before,
+.sidebar-menu > li > a .ion-social-dropbox-outline:before,
+.sidebar-menu > li > a .ion-social-euro:before,
+.sidebar-menu > li > a .ion-social-euro-outline:before,
+.sidebar-menu > li > a .ion-social-facebook:before,
+.sidebar-menu > li > a .ion-social-facebook-outline:before,
+.sidebar-menu > li > a .ion-social-foursquare:before,
+.sidebar-menu > li > a .ion-social-foursquare-outline:before,
+.sidebar-menu > li > a .ion-social-freebsd-devil:before,
+.sidebar-menu > li > a .ion-social-github:before,
+.sidebar-menu > li > a .ion-social-github-outline:before,
+.sidebar-menu > li > a .ion-social-google:before,
+.sidebar-menu > li > a .ion-social-google-outline:before,
+.sidebar-menu > li > a .ion-social-googleplus:before,
+.sidebar-menu > li > a .ion-social-googleplus-outline:before,
+.sidebar-menu > li > a .ion-social-hackernews:before,
+.sidebar-menu > li > a .ion-social-hackernews-outline:before,
+.sidebar-menu > li > a .ion-social-html5:before,
+.sidebar-menu > li > a .ion-social-html5-outline:before,
+.sidebar-menu > li > a .ion-social-instagram:before,
+.sidebar-menu > li > a .ion-social-instagram-outline:before,
+.sidebar-menu > li > a .ion-social-javascript:before,
+.sidebar-menu > li > a .ion-social-javascript-outline:before,
+.sidebar-menu > li > a .ion-social-linkedin:before,
+.sidebar-menu > li > a .ion-social-linkedin-outline:before,
+.sidebar-menu > li > a .ion-social-markdown:before,
+.sidebar-menu > li > a .ion-social-nodejs:before,
+.sidebar-menu > li > a .ion-social-octocat:before,
+.sidebar-menu > li > a .ion-social-pinterest:before,
+.sidebar-menu > li > a .ion-social-pinterest-outline:before,
+.sidebar-menu > li > a .ion-social-python:before,
+.sidebar-menu > li > a .ion-social-reddit:before,
+.sidebar-menu > li > a .ion-social-reddit-outline:before,
+.sidebar-menu > li > a .ion-social-rss:before,
+.sidebar-menu > li > a .ion-social-rss-outline:before,
+.sidebar-menu > li > a .ion-social-sass:before,
+.sidebar-menu > li > a .ion-social-skype:before,
+.sidebar-menu > li > a .ion-social-skype-outline:before,
+.sidebar-menu > li > a .ion-social-snapchat:before,
+.sidebar-menu > li > a .ion-social-snapchat-outline:before,
+.sidebar-menu > li > a .ion-social-tumblr:before,
+.sidebar-menu > li > a .ion-social-tumblr-outline:before,
+.sidebar-menu > li > a .ion-social-tux:before,
+.sidebar-menu > li > a .ion-social-twitch:before,
+.sidebar-menu > li > a .ion-social-twitch-outline:before,
+.sidebar-menu > li > a .ion-social-twitter:before,
+.sidebar-menu > li > a .ion-social-twitter-outline:before,
+.sidebar-menu > li > a .ion-social-usd:before,
+.sidebar-menu > li > a .ion-social-usd-outline:before,
+.sidebar-menu > li > a .ion-social-vimeo:before,
+.sidebar-menu > li > a .ion-social-vimeo-outline:before,
+.sidebar-menu > li > a .ion-social-whatsapp:before,
+.sidebar-menu > li > a .ion-social-whatsapp-outline:before,
+.sidebar-menu > li > a .ion-social-windows:before,
+.sidebar-menu > li > a .ion-social-windows-outline:before,
+.sidebar-menu > li > a .ion-social-wordpress:before,
+.sidebar-menu > li > a .ion-social-wordpress-outline:before,
+.sidebar-menu > li > a .ion-social-yahoo:before,
+.sidebar-menu > li > a .ion-social-yahoo-outline:before,
+.sidebar-menu > li > a .ion-social-yen:before,
+.sidebar-menu > li > a .ion-social-yen-outline:before,
+.sidebar-menu > li > a .ion-social-youtube:before,
+.sidebar-menu > li > a .ion-social-youtube-outline:before,
+.sidebar-menu > li > a .ion-soup-can:before,
+.sidebar-menu > li > a .ion-soup-can-outline:before,
+.sidebar-menu > li > a .ion-speakerphone:before,
+.sidebar-menu > li > a .ion-speedometer:before,
+.sidebar-menu > li > a .ion-spoon:before,
+.sidebar-menu > li > a .ion-star:before,
+.sidebar-menu > li > a .ion-stats-bars:before,
+.sidebar-menu > li > a .ion-steam:before,
+.sidebar-menu > li > a .ion-stop:before,
+.sidebar-menu > li > a .ion-thermometer:before,
+.sidebar-menu > li > a .ion-thumbsdown:before,
+.sidebar-menu > li > a .ion-thumbsup:before,
+.sidebar-menu > li > a .ion-toggle:before,
+.sidebar-menu > li > a .ion-toggle-filled:before,
+.sidebar-menu > li > a .ion-transgender:before,
+.sidebar-menu > li > a .ion-trash-a:before,
+.sidebar-menu > li > a .ion-trash-b:before,
+.sidebar-menu > li > a .ion-trophy:before,
+.sidebar-menu > li > a .ion-tshirt:before,
+.sidebar-menu > li > a .ion-tshirt-outline:before,
+.sidebar-menu > li > a .ion-umbrella:before,
+.sidebar-menu > li > a .ion-university:before,
+.sidebar-menu > li > a .ion-unlocked:before,
+.sidebar-menu > li > a .ion-upload:before,
+.sidebar-menu > li > a .ion-usb:before,
+.sidebar-menu > li > a .ion-videocamera:before,
+.sidebar-menu > li > a .ion-volume-high:before,
+.sidebar-menu > li > a .ion-volume-low:before,
+.sidebar-menu > li > a .ion-volume-medium:before,
+.sidebar-menu > li > a .ion-volume-mute:before,
+.sidebar-menu > li > a .ion-wand:before,
+.sidebar-menu > li > a .ion-waterdrop:before,
+.sidebar-menu > li > a .ion-wifi:before,
+.sidebar-menu > li > a .ion-wineglass:before,
+.sidebar-menu > li > a .ion-woman:before,
+.sidebar-menu > li > a .ion-wrench:before,
+.sidebar-menu > li > a .ion-xbox:before {
+  width: 30px;
+  font-size: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 5px;
+  margin-right: 10px;
+}
+
+.sidebar-menu > li > a:active,
+.sidebar-menu > li > a:focus,
+.sidebar-menu > li > a:hover {
+  color: #404040;
+  background: #D9D9D6;
+}
+
+.sidebar-menu > li.active > a {
+  background: #c2222e;
+  color: #ffffff;
+}
+
+.sidebar-menu > li.active > a i {
+  color: #ffffff;
 }
 
 .login-page {
@@ -25392,18 +26491,5 @@ a:hover {
 
 .login-page .login-box .has-feedback {
   position: relative;
-}
-
-.login-page .form-control-feedback {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  display: block;
-  width: 34px;
-  height: 34px;
-  line-height: 34px;
-  text-align: center;
-  pointer-events: none;
 }
 

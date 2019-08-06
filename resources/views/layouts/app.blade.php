@@ -4,23 +4,32 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-{{--    <link rel="icon" href="http://www.shtorm-lorch.ru/favicon.ico">--}}
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>{{ config('app.name', 'Laravel') }} / Личный кабинет</title>
 
-@yield('additional_css')
+    @yield('additional_css')
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-{{--    <link rel="stylesheet" href="{{ asset('css/skins/_all-skins.css') }}">--}}
 </head>
 <body class="skin-corp">
-<div class="wrapper container">
-        @yield('content')
-</div>
+    <div class="wrapper">
+        @include('sections.header')
+        <div class="row" style="margin-top: 50px">
+            <div class="col-8">
+                @yield('content')
+            </div>
+            <div class="col-4">
+                <section class="sidebar">
+                    @include('sections.sidebar')
+                </section>
+            </div>
+        </div>
+    </div>
 
-@yield('additional_js')
+    @yield('additional_js')
 </body>
 </html>
 
