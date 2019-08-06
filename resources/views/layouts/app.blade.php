@@ -17,14 +17,16 @@
 <body class="skin-corp">
     <div class="wrapper">
         @include('sections.header')
-        <div class="row" style="margin-top: 50px">
-            <div class="col-8">
-                @yield('content')
-            </div>
-            <div class="col-4">
-                <section class="sidebar">
-                    @include('sections.sidebar')
-                </section>
+        <div class="wrapper_section-content">
+            <div class="row">
+                <div class="col-9" style="background: #ffffff">
+                    @yield('content')
+                </div>
+                <div class="col-3">
+                    <section class="sidebar">
+                        @include('sections.sidebar')
+                    </section>
+                </div>
             </div>
         </div>
     </div>
