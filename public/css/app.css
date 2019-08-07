@@ -25661,8 +25661,39 @@ a:hover {
   margin-right: 10px;
 }
 
+.user-profile {
+  position: relative;
+}
+
+.user-profile img {
+  width: 50px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.tags {
+  margin-bottom: 20px;
+}
+
+.tags > a {
+  margin-right: 15px;
+}
+
+.tags > a:last-child {
+  margin-right: 0px;
+}
+
 .box {
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.box-footer {
+  border-top: 1px solid #D2D7DB;
+  padding-top: 10px;
+  margin-top: 25px;
 }
 
 .sidebar {

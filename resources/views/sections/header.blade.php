@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="col-auto pull-right header_user-profile">
-            <a href="index.html">
+            <a href="index.html" class="user-profile">
                 <img src="https://pp.userapi.com/c639230/v639230484/330e0/xBUNIhelAh0.jpg?ava=1" alt="user">
                 <span>Евгения Лунина</span>
             </a>

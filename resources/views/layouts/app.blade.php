@@ -19,7 +19,7 @@
         @include('sections.header')
         <div class="wrapper_section-content">
             <div class="row">
-                <div class="col-9" style="background: #ffffff">
+                <div class="col-9">
                     @yield('content')
                 </div>
                 <div class="col-3">
