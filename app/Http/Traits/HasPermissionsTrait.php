@@ -8,8 +8,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use App\PermissionRegistrar;
-use App\Permission\Exceptions\PermissionDoesNotExist;
-use App\Permission\Exceptions\GuardDoesNotMatch;
+use App\Http\Exceptions\PermissionDoesNotExist;
+use App\Http\Exceptions\GuardDoesNotMatch;
 
 trait HasPermissionsTrait
 {

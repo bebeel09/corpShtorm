@@ -1,6 +1,7 @@
 <?php
 
 use App\Providers\PermissionsServiceProvider;
+use App\Providers\ViewServiceProvider;
 
 return [
 
@@ -164,6 +165,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 		App\Providers\PermissionsServiceProvider::class,
+		App\Providers\ViewServiceProvider::class,
 
         /*
          * Package Service Providers...
