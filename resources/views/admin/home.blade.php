@@ -1,2 +1,2 @@
-@extends('admin.layouts.admin')
+@extends('layouts.admin.app')
 

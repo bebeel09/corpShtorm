@@ -12,7 +12,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^5.8.26"
+        "laravelcollective/html": "^5.8.26",
+        "summernote/summernote": "^0.8.8",
+        "unisharp/laravel-filemanager": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

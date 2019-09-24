@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'sur_name', 'last_name', 'email', 'login', 'password','mobile_phone','work_phone','region_id', 'office_id', 'department_id', 'position', 'avatar'
     ];
 
     /**
@@ -37,4 +37,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
+    }
+
+    public function Region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(department::class);
+    }
 }

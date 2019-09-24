@@ -232,7 +232,8 @@ caption {
   padding-bottom: 0.75rem;
   color: #6c757d;
   text-align: left;
-  caption-side: bottom;
+  caption-side: top;
+  font-size:22px;
 }
 
 th {
@@ -25656,6 +25657,7 @@ a:hover {
 }
 
 .header_user-profile > a > img {
+  height: 50px;
   width: 50px;
   border-radius: 100%;
   margin-right: 10px;
@@ -25666,6 +25668,7 @@ a:hover {
 }
 
 .user-profile img {
+  height: 50px;
   width: 50px;
   border-radius: 100%;
   margin-right: 10px;

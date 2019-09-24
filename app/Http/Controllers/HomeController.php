@@ -4,29 +4,69 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Category;
+use App\User;
 use Illuminate\Http\Request;
+use DB;
+use Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-		$posts = Post::where('is_published', 1)->paginate(10);
-		$categories = Category::all('title', 'slug');
-		return view('home', compact('posts', 'categories'));
-    }
+  /**
+   * Show the application dashboard.
+   *
+   * @return \Illuminate\Contracts\Support\Renderable
+   */
+  public function index()
+  {
+    $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
+      ->where('category_id','1')
+      ->with(['category:id,slug,title'])
+      ->with(['user:id,last_name,sur_name,first_name,avatar'])
+      ->paginate(15);
+
+    return view('home', compact('postsData'));
+  }
+
+  public function getPhoneBookPage()
+  {
+    $users = User::select('id', 'email', 'first_name', 'sur_name', 'last_name', 'mobile_phone', 'work_phone', 'position', 'avatar', 'region_id', 'department_id', 'office_id')->orderBy('office_id')
+      ->with(['region:id,region_appellation'])
+      ->with(['department:id,department_appellation'])
+      ->with(['office:id,office_appellation'])
+      ->get();
+
+    return view('phoneBook', compact('users'));
+  }
+
+  public function getProfilePage($id){
+
+    $userMetaData= User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'region_id', 'department_id', 'office_id')
+    ->with(['region:id,region_appellation'])
+    ->with(['department:id,department_appellation'])
+    ->with(['office:id,office_appellation'])
+    ->findOrFail($id);
+
+    return view('profile', compact('userMetaData'));
+
+  }
+
+  public function getListTypeCategory($id){
+
+    $currentCategory=Category::find($id);
+    $postsСategories=Post::where('category_id',$id)->get();
+    $subcategories=Category::where('parent_id',$id)->get();
+
+    return view('listCategoryPage', compact('currentCategory', 'postsСategories', 'subcategories'));
+
+  }
 }

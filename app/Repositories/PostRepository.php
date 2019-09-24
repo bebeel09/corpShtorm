@@ -16,16 +16,18 @@ class PostRepository extends CoreRepository
         $columns = [
             'id',
             'title',
+            'slug',
             'is_published',
             'published_at',
             'user_id',
-            'category_id'
+            'category_id',
+            'created_at'
         ];
 
         $result = $this->startConditions()
             ->select($columns)
             ->orderBy('id', 'DESC')
-            ->with(['category:id,title', 'user:id,name'])
+            ->with(['category:id,title,slug', 'user:id,first_name,sur_name,last_name'])
             ->paginate(25);
 
         return $result;

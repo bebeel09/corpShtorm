@@ -1,20 +1,31 @@
 <header class="header container-fluid">
-    <div class="header_inner row align-items-center justify-content-around">
-        <div class="col-auto">
-            <span class="header_logo"></span>
-            <span class="header_section-title">Корпоративный портал</span>
+    <div class=" row align-items-center justify-content-between pl-3 pr-3">
+    <label for="nav-toggle" class="nav-toggle d-block d-md-none">
+    </label>
+        <div class="">
+            <a href="{{route('news')}}"><span class="header_logo" style="background-size: 80%; background-repeat: no-repeat; background-position: center;"></span></a>
+            <span class="header_section-title d-xl-inline d-none">Корпоративный портал</span>
         </div>
-{{--        <div class="col-6">--}}
-{{--            <div class="input-group">--}}
-{{--                <span class="input-group-addon"><i class="fa fa-search"></i></span>--}}
-{{--                <input type="search" class="form-control" placeholder="Сотрудник, мероприятие или любой контент">--}}
-{{--            </div>--}}
-{{--        </div>--}}
-        <div class="offset-6 col-auto pull-right header_user-profile">
-            <a href="index.html" class="user-profile">
-                <img src="https://pp.userapi.com/c639230/v639230484/330e0/xBUNIhelAh0.jpg?ava=1" alt="user">
-                <span>{{$CurrentUser->name}}</span>
+
+        <div class=" offset-md-6 col-auto header_user-profile dropdown p-0">
+            <a class="user-profile dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if (!$currentUser->avatar=="")
+                <img src="{{$currentUser->avatar}}" alt="user">
+                @endif
+                <span class="d-xl-inline d-none ">{{$currentUser->first_name}} {{$currentUser->sur_name}} {{$currentUser->last_name}}</span>
             </a>
+
+
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item ml-0" href="{{ route('profile', $currentUser['id'])}}">Моя страница</a>
+                @role('admin')
+                <a class="dropdown-item ml-0" href="{{route('admin.dashboard')}}">Админ панель</a>
+                @endrole
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item ml-0" href="{{route('logout')}}">Выход</a>
+            </div>
+
         </div>
     </div>
 </header>
