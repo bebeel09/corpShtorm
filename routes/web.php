@@ -27,8 +27,9 @@ Route::get('events', 'Admin\EventsController@getFrontPage')->name('events');
 Auth::routes();
 
 
-Route::get('/news', 'HomeController@index')->name('news');
-Route::get('category/{id}','HomeController@getListTypeCategory')->name('listTypeCategory');
+// Route::get('/news', 'HomeController@index')->name('news');
+Route::get('list/{id}','HomeController@getRubricTypeList')->name('rubricTypeList');
+Route::get('category/{id}','HomeController@getRubricTypeCategory')->name('rubricTypeCategory');
 
     Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function (){
         Route::resource('posts','PostController')->names('blog.posts');

@@ -49,7 +49,7 @@ class PostController extends Controller
     public function showPost($categorySlug, $postSlug)
     {
        
-        $category=Category::select('id','slug','title','parent_id')->where('slug', $categorySlug)->first();
+        $category=Category::select('id','slug','title','parent_id', 'type_id')->where('slug', $categorySlug)->first();
         
 
         $postBreadcrump=[];
@@ -57,7 +57,7 @@ class PostController extends Controller
         PostController::breadcrumbs($category, $postBreadcrump); 
         krsort($postBreadcrump);
 
-        $post=Post::select('slug', 'title', 'content_html', 'created_at', 'user_id', 'category_id')
+        $post=Post::select('id','slug', 'title', 'content_html', 'created_at', 'user_id', 'category_id')
         ->where('slug', $postSlug)
         ->where('category_id', $category->id)
         ->with(['user:id,first_name,sur_name,last_name,avatar'])
@@ -69,13 +69,13 @@ class PostController extends Controller
 
     //Осторожно рекрусия!!!
     // $category - объект категории для поиска родительской категорий
-    // &$arraySelf - ссылка на массив куда записываем найденные объекты
-    protected function breadcrumbs($category, &$arraySelf){
+    // &$arraySave - ссылка на массив куда записываем найденные объекты
+    protected function breadcrumbs($category, &$arraySave){
         if ($category->parent_id == 0) return;
         else{
-        $parentCategory=Category::select('id','slug','title','parent_id')->where('id', $category->parent_id)->first();
-        array_push($arraySelf, $parentCategory);
-        $this->breadcrumbs($parentCategory, $arraySelf);
+        $parentCategory=Category::select('id','slug','title','parent_id','type_id')->where('id', $category->parent_id)->first();
+        array_push($arraySave, $parentCategory);
+        $this->breadcrumbs($parentCategory, $arraySave);
         }
     }
 

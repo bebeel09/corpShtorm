@@ -11,7 +11,7 @@
 @foreach($subcategories as $subcategory)
     <div class="post-body">
         <h3 class="post_title"> <b>	
-&#128194;</b> <a href="{{route('listTypeCategory', $subcategory->id)}}">{{ $subcategory->title }}<hr></a></h3>
+&#128194;</b> <a href="{{route('rubricTypeList', $subcategory->id)}}">{{ $subcategory->title }}<hr></a></h3>
     </div>
     @endforeach
 

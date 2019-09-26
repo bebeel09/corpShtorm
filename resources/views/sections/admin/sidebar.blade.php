@@ -7,7 +7,7 @@
                     <li class="header nav-small-cap"></li>
                     @role('admin')
                         <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
-                            <a href="{{ route('news') }}">
+                            <a href="{{ route('rubricTypeCategory', 1) }}">
                                 <i class="fa fa-arrow-left"></i> <span>Перейти на сайт</span>
                             </a>
                         </li>

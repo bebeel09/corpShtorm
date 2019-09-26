@@ -3,7 +3,7 @@
     <label for="nav-toggle" class="nav-toggle d-block d-md-none">
     </label>
         <div class="">
-            <a href="{{route('news')}}"><span class="header_logo" style="background-size: 80%; background-repeat: no-repeat; background-position: center;"></span></a>
+            <a href="{{route('rubricTypeCategory', 1)}}"><span class="header_logo" style="background-size: 80%; background-repeat: no-repeat; background-position: center;"></span></a>
             <span class="header_section-title d-xl-inline d-none">Корпоративный портал</span>
         </div>
 

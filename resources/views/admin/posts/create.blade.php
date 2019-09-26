@@ -89,18 +89,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="typeCategory">Тип рубрики</label>
-                                <select type="text" name="typeCategory" id="typeCategory" class="form-control" required="">
-                                @foreach($types as $type)
+                                <select type="text" onchange="sortParentRubricByType()" name="typeCategory" id="typeCategory" class="form-control" required="">
+                                    @foreach($types as $type)
                                     <option value="{{$type->id}}">{{$type->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="newCategoryName">Родительская рубрика</label>
-                                <select class="form-control" style="width: 100%;" name="newCategoryParent">
-                                <option value="0" selected>Без родительской категории</option>
+                                <select class="form-control" style="width: 100%;" id="parentRubric" name="newCategoryParent">
+                                    <option value="0" selected>Без родительской категории</option>
                                     @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->title}}</option>
+                                    <option data-type="{{$category->type_id}}" value="{{$category->id}}">{{$category->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -174,11 +174,11 @@
 </script>
 <script>
     $(document).ready(function() {
+        sortParentRubricByType();
         $('.select2').select2();
         $('[data-widget=hider]').on('click', function(event) {
             if (event) event.preventDefault();
             var isOpen = $('#addCategoryForm').is('.collapsed-box');
-            console.log(isOpen);
             if (isOpen) {
                 $('#addCategoryForm').slideUp(300, function() {
                     $(this).removeClass('collapsed-box');
@@ -191,6 +191,16 @@
         })
     });
 
+    function sortParentRubricByType() {
+        var typeId = $('#typeCategory').val(),
+            optionsCount = $("#parentRubric option").length;
+
+        $("#parentRubric option").each(function() {
+            if (this.dataset.type == typeId) {
+                this.hidden=false;
+            }else this.hidden=true;
+        });
+    }
 
     function addPost(msg) {
         var data = {};
@@ -224,7 +234,6 @@
         });
     }
 
-
     function addCategory(el) {
         var data = $('#addCategoryForm').serialize();
 
@@ -241,7 +250,7 @@
                     .categoryName + '</option>');
             },
             error: function(jqXhr, json, errorThrown) {
-                console.log('NO Успех');
+                alert(jqXhr.responseJSON.message);
             }
         });
     }

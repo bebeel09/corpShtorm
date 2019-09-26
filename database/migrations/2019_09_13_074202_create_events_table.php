@@ -16,6 +16,7 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->tinyInteger('repeats')->comment('Повтор событий: 1-ежемесячно, 2-ежегодно');
             $table->string('className');
             $table->date('start');
             $table->date('end');

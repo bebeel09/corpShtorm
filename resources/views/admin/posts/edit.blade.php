@@ -78,7 +78,7 @@
                         <h5>Выбрать рубрику:</h5>
                         <div class="controls">
                             <select class="form-control select2" style="width: 100%;" name="category">
-                                @foreach($categoryList as $category)
+                                @foreach($categories as $category)
                                 <option @if($category->id == $item->category->id) selected @endif
                                     value="{{$category->id}}">{{$category->title}}</option>
                                 @endforeach
@@ -96,7 +96,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="typeCategory">Тип рубрики</label>
-                                <select type="text" name="typeCategory" id="typeCategory" class="form-control" required="">
+                                <select type="text"  onchange="sortParentRubricByType()" name="typeCategory" id="typeCategory" class="form-control" required="">
                                 @foreach($types as $type)
                                     <option value="{{$type->id}}">{{$type->name}}</option>
                                     @endforeach
@@ -104,10 +104,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="newCategoryName">Родительская рубрика</label>
-                                <select class="form-control" style="width: 100%;" name="newCategoryParent">
+                                <select class="form-control" style="width: 100%;" id="parentRubric" name="newCategoryParent">
                                 <option value="0" selected>Без родительской категории</option>
-                                    @foreach($categoryList as $category)
-                                    <option value="{{$category->id}}">{{$category->title}}</option>
+                                    @foreach($categories as $category)
+                                    <option data-type="{{$category->type_id}}" value="{{$category->id}}">{{$category->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -183,6 +183,7 @@ function sendCMSFile(file) {
 </script>
 <script>
 $(document).ready(function() {
+    sortParentRubricByType();
     $('.select2').select2();
     $('[data-widget=hider]').on('click', function(event) {
         if (event) event.preventDefault();
@@ -199,6 +200,19 @@ $(document).ready(function() {
         }
     })
 });
+
+function sortParentRubricByType() {
+        var typeId = $('#typeCategory').val(),
+            optionsCount = $("#parentRubric option").length;
+
+        $("#parentRubric option").each(function() {
+            if (this.dataset.type == typeId) {
+                this.hidden=false;
+            }else this.hidden=true;
+        });
+    }
+
+
 
 function editPost(msg) {
     var data = {};

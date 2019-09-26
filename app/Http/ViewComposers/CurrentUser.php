@@ -12,10 +12,17 @@ class CurrentUser
 	public function compose(View $view)
 	{
 		$currentUser = Auth::user();
-		$TypeCategory = Category::select('parent_id', 'id', 'type_id', 'slug', 'title')->where('parent_id', 0)
+		$typeList = Category::select('parent_id', 'id', 'type_id', 'slug', 'title')->where('parent_id', 0)
 			->where('type_id', 2)
 			->with(['type:id,name'])
 			->get();
+
+		$typeCategory = Category::select('parent_id', 'id', 'type_id', 'slug', 'title')->where('parent_id', 0)
+			->where('type_id', 1)
+			->with(['type:id,name'])
+			->get();
+
+
 
 		$dateCurrentWeek = $this->x_week_range(date('Y-m-d'));
 
@@ -38,7 +45,8 @@ class CurrentUser
 
 		// dd($currentUser);
 		$view->with('currentUser', $currentUser);
-		$view->with('TypeCategory', $TypeCategory);
+		$view->with('typeCategory', $typeCategory);
+		$view->with('typeList', $typeList);
 		$view->with('eventsDate', $eventsDate);
 	}
 

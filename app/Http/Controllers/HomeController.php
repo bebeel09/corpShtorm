@@ -26,16 +26,17 @@ class HomeController extends Controller
    *
    * @return \Illuminate\Contracts\Support\Renderable
    */
-  public function index()
-  {
-    $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
-      ->where('category_id','1')
-      ->with(['category:id,slug,title'])
-      ->with(['user:id,last_name,sur_name,first_name,avatar'])
-      ->paginate(15);
 
-    return view('home', compact('postsData'));
-  }
+  // public function index()
+  // {
+  //   $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
+  //     ->where('category_id','1')
+  //     ->with(['category:id,slug,title'])
+  //     ->with(['user:id,last_name,sur_name,first_name,avatar'])
+  //     ->paginate(15);
+
+  //   return view('home', compact('postsData'));
+  // }
 
   public function getPhoneBookPage()
   {
@@ -60,13 +61,24 @@ class HomeController extends Controller
 
   }
 
-  public function getListTypeCategory($id){
+  public function getRubricTypeList($idRubric){
 
-    $currentCategory=Category::find($id);
-    $postsСategories=Post::where('category_id',$id)->get();
-    $subcategories=Category::where('parent_id',$id)->get();
+    $currentCategory=Category::find($idRubric);
+    $postsСategories=Post::where('category_id',$idRubric)->get();
+    $subcategories=Category::where('parent_id',$idRubric)->get();
 
-    return view('listCategoryPage', compact('currentCategory', 'postsСategories', 'subcategories'));
+    return view('listPage', compact('currentCategory', 'postsСategories', 'subcategories'));
+  }
 
+  public function getRubricTypeCategory($idRubric){
+
+    $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
+      ->where('category_id', $idRubric)
+      ->with(['category:id,slug,title'])
+      ->with(['user:id,last_name,sur_name,first_name,avatar'])
+      ->orderBy('id', 'DESC')
+      ->paginate(15);
+
+    return view('categoryPage', compact('postsData'));
   }
 }
