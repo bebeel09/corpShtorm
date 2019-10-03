@@ -18,6 +18,7 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/files/{fileName}','Admin\FileManagerController@getFile');
+Route::get('/files/{fileName}','Admin\FileManagerController@getCatalogFile');
 Route::get('/img/{ImgName}','Admin\FileManagerController@getImg');
 Route::get('/phone-directory', 'HomeController@getPhoneBookPage')->name('phoneBook');
 Route::get('/profile/{id}','HomeController@getProfilePage')->name('profile');
@@ -30,9 +31,10 @@ Auth::routes();
 // Route::get('/news', 'HomeController@index')->name('news');
 Route::get('list/{id}','HomeController@getRubricTypeList')->name('rubricTypeList');
 Route::get('category/{id}','HomeController@getRubricTypeCategory')->name('rubricTypeCategory');
+Route::get('catalog/{catalogSlug}/{catalogPostSlug}', 'HomeController@getPostCatalog')->name('catalogPost.show');
 
     Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function (){
         Route::resource('posts','PostController')->names('blog.posts');
         Route::get('posts/{categorySlug}/{postSlug}', 'PostController@showPost');
         Route::resource('category','CategoryController')->names('blog.category');
-    });
+            });

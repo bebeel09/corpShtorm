@@ -15,14 +15,16 @@ class FileManagerController extends Controller
 
         $originalName=date('U').$request->file('files')->getClientOriginalName();
 
-        
-       
         $linkToFile = $request->file('files')->storeAs('files',$originalName,'public');
         echo url($linkToFile);
     }
 
     public function getFile($fileName){
         return Storage::download('public/files/'.$fileName, $fileName);
+    }
+
+    public function getCatalogFile($fileName){
+        return Storage::download('public/Catalog/'.$fileName, $fileName);
     }
 
     public function getImgURL(Request $request){

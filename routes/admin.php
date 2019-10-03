@@ -15,6 +15,13 @@ Route::post('events/updateEvent', 'EventsController@updateEvent')->name('updateE
 Route::post('events/deleteEvent', 'EventsController@deleteEvent')->name('deleteEvent');
 #-------------------------------END EVENT ROUTE----------------------
 
+#-------------------------------START CATALOGPOST ROUTE----------------------
+Route::resource('/catalogsPost', 'CatalogPostsController')->except(['update'])->names('catalogPost');
+Route::post('/catalogsPost/update/{postId}', 'CatalogPostsController@update')->name('catalogPost.update');
+
+Route::post('/catalogsPost/addCatalog', 'CatalogPostsController@addCatalog' )->name('addCatalog');
+
+#-------------------------------END CATALOGPOST ROUTE------------------------
 
 #-------------------------------START CATEGORY ROUTE----------------------
 Route::get('/categories', 'CategoryController@index')

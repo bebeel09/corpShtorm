@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Repositories\CategoryRepository;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\PostRepository;
-use App\Post;
+use Illuminate\Http\Request;
+use App\CategoryType;
 use App\Category;
 use Validator;
-use Str;
-use Auth;
 use Response;
-use App\CategoryType;
+use App\Post;
+use Auth;
+use Str;
+
+
+
 
 class PostsController extends Controller
 {
@@ -27,8 +30,6 @@ class PostsController extends Controller
 
     public function index(Request $request)
     {
-
-
 
         $columns = [
             'id',

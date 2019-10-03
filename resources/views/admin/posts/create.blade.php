@@ -226,10 +226,16 @@
                     '</a>').slideDown(800);
             },
             error: function(jqxhr, json, errorThrown) {
+                var errors = jqXhr.responseJSON;
+                var errorsHtml = '<ul>';
+                $.each(errors['errors'], function(index, value) {
+                    errorsHtml += '<li>' + value + '</li>';
+                });
+                errorsHtml += '</ul>';
                 $('html,body').animate({
                     scrollTop: 0
                 }, 300);
-                $('.alert').removeClass('alert-success').addClass('alert-danger').html("В этой категории уже существует пост с таким названием").slideDown(800);
+                $('.alert').removeClass('alert-success').addClass('alert-danger').html(errorsHtml).slideDown(800);
             }
         });
     }

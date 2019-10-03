@@ -81,4 +81,8 @@ class HomeController extends Controller
 
     return view('categoryPage', compact('postsData'));
   }
+
+  public function getPostCatalog($catalogSlug, $catalogPostSlug){
+
+  }
 }

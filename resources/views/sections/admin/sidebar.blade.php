@@ -46,6 +46,18 @@
                                 <li><a href="{{route('admin.posts.index')}}"><i class="fa fa-circle-thin"></i>Список постов</a></li>
                             </ul>
                         </li>
+                        <li class="{{ (Request::routeIs('admin.catalogPost.*')) ? 'active' : '' }}">
+                            <a href="{{route('admin.catalogPost.index')}}">
+                                <i class="fa fa-list "></i> <span>Каталоги</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-right pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{route('admin.catalogPost.create')}}"><i class="fa fa-circle-thin"></i>Добавить каталог</a></li>
+                                <li><a href="{{route('admin.catalogPost.index')}}"><i class="fa fa-circle-thin"></i>Список каталогов</a></li>
+                            </ul>
+                        </li>
                     @endrole
                 </ul>
             </section>
