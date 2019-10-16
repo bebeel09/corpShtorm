@@ -1,9 +1,9 @@
 <header class="header container-fluid">
     <div class=" row align-items-center justify-content-between pl-3 pr-3">
-    <label for="nav-toggle" class="nav-toggle d-block d-md-none">
-    </label>
+        <label for="nav-toggle" class="nav-toggle d-block d-md-none">
+        </label>
         <div class="">
-            <a href="{{route('rubricTypeCategory', 1)}}"><span class="header_logo" style="background-size: 80%; background-repeat: no-repeat; background-position: center;"></span></a>
+            <a href="{{route('showCategory', 'novosti')}}"><span class="header_logo" style="background-size: 80%; background-repeat: no-repeat; background-position: center;"></span></a>
             <span class="header_section-title d-xl-inline d-none">Корпоративный портал</span>
         </div>
 
@@ -19,9 +19,9 @@
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item ml-0" href="{{ route('profile', $currentUser['id'])}}">Моя страница</a>
-                @role('admin')
+                @if($currentUser->hasPermissionTo('access webPanel') || $currentUser->hasAnyRole(['admin','grant admin','posts editor', 'catalogs editor']))
                 <a class="dropdown-item ml-0" href="{{route('admin.dashboard')}}">Админ панель</a>
-                @endrole
+                @endif
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item ml-0" href="{{route('logout')}}">Выход</a>
             </div>

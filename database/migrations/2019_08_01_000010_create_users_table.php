@@ -21,15 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('sur_name');
             $table->string('last_name');
-            $table->string('mobile_phone');
-            $table->string('work_phone');
+            $table->string('mobile_phone')->nullable();
+            $table->string('work_phone')->nullable();
 
             $table->integer('region_id')->unsigned();
             $table->integer('office_id')->unsigned();
             $table->integer('department_id')->unsigned();
             
             $table->string('position');
-            $table->string('avatar')->default('');
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
             

@@ -35,6 +35,7 @@
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
                                     <a href="{{route('admin.users.edit', $user->id)}}"><button title="Редактировать пользователя" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
+                                    <a href="{{route('admin.users.permission.edit', $user->id)}}"><button title="Редактировать права пользователя" type="submit"><span class="fa fa-shield text-primary"></span></button></a>
                                     <form action="{{route('admin.users.destroy', $user->id)}}" method="POST">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">

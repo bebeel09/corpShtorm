@@ -13,6 +13,10 @@
         line-height: 60px !important;
         font-size: 14px !important;
     }
+
+    label>span{
+        color: red;
+    }
 </style>
 @endsection
 @section('content')
@@ -45,15 +49,15 @@
                         <div class="form-group">
                             <div class="d-flex">
                                 <div class="col pl-0">
-                                    <label for="exampleInputFirstName1">Фамилия</label>
+                                    <label for="exampleInputFirstName1">Фамилия <span>*</span></label>
                                     <input type="text" autocomplete="off" name="first_name" class="form-control" aria-describedby="nameHelp" placeholder="Петров">
                                 </div>
                                 <div class="col">
-                                    <label for="exampleInputSurName1">Имя</label>
+                                    <label for="exampleInputSurName1">Имя <span>*</span></label>
                                     <input type="text" autocomplete="off" name="sur_name" class="form-control" aria-describedby="nameHelp" placeholder="Пётр">
                                 </div>
                                 <div class="col pr-0">
-                                    <label for="exampleInputLastName1">Отчество</label>
+                                    <label for="exampleInputLastName1">Отчество <span>*</span></label>
                                     <input type="text" autocomplete="off" name="last_name" class="form-control" aria-describedby="nameHelp" placeholder="Петрович">
                                 </div>
                             </div>
@@ -61,19 +65,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
+                            <label for="exampleInputEmail1">Email <span>*</span></label>
                             <input type="email" autocomplete="off" name="email" class="form-control" aria-describedby="DepartmentHelp" placeholder="admin@shtorm-its.ru">
                             <small id="DepartmentHelp" class="form-text text-muted">Введите электронную почту сотрудника</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputLogin1">Логин</label>
+                            <label for="exampleInputLogin1">Логин <span>*</span></label>
                             <input type="login" autocomplete="off" name="login" class="form-control" aria-describedby="loginHelp" placeholder="admin">
                             <small id="loginHelp" class="form-text text-muted">Придумайте логин</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Пароль</label>
+                            <label for="exampleInputPassword1">Пароль <span>*</span></label>
                             <input type="password" autocomplete="off" name="password" class="form-control" aria-describedby="passwordHelp" placeholder="">
                             <small id="passwordHelp" class="form-text text-muted">Придумайте пароль</small>
                         </div>
@@ -85,7 +89,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputDepartment1">Отдел</label>
+                            <label for="exampleInputDepartment1">Отдел <span>*</span></label>
                             <select type="text" autocomplete="off" name="department" id="department" class="form-control" aria-describedby="DepartmentHelp" placeholder="Логистика">
                                 @foreach($departments as $department)
                                 <option value="{{$department['id']}}">{{$department->department_appellation}}</option>
@@ -115,7 +119,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPos1">Должность</label>
+                            <label for="exampleInputPos1">Должность <span>*</span></label>
                             <input type="text" autocomplete="off" name="position" class="form-control" aria-describedby="posHelp" placeholder="Старший специалист">
                             <small id="posHelp" class="form-text text-muted">Введите должность сотрудника</small>
                         </div>
@@ -127,13 +131,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPhone1">Личный телефон</label>
+                            <label for="exampleInputPhone1">Личный телефон <span>*</span></label>
                             <input id='personalPhone' type="text" autocomplete="off" name="mobile_phone" class="form-control" aria-describedby="phoneHelp" placeholder="79929999999">
                             <small id="phoneHelp" class="form-text text-muted">Личный телефон сотрудника</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputReg1">Регион</label>
+                            <label for="exampleInputReg1">Регион <span>*</span></label>
                             <select type="text" autocomplete="off" name="region" id="region" class="form-control" aria-describedby="regHelp" placeholder="Верхняя Пышма">
                                 @foreach($regions as $region)
                                 <option value="{{$region['id']}}">{{$region->region_appellation}}</option>
@@ -164,7 +168,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputReg1">филиал </label>
+                            <label for="exampleInputReg1">филиал <span>*</span> </label>
                             <select type="text" name="office" id="Office" class="form-control" aria-describedby="regHelp">
                                 @foreach($offices as $office)
                                 <option value="{{$office['id']}}">{{$office->office_appellation}}</option>
@@ -216,7 +220,7 @@
 
         jQuery(function($) {
             $("#personalPhone").mask("+7(999) 99-99-999");
-            $("#workPhone").mask("+7(999) 99-99-999");
+            $("#workPhone").mask("999");
         });
     });
 </script>

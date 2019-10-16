@@ -164,7 +164,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-		App\Providers\PermissionsServiceProvider::class,
+		Spatie\Permission\PermissionServiceProvider::class,
 		App\Providers\ViewServiceProvider::class,
 
         /*

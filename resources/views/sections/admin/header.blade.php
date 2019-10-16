@@ -43,7 +43,7 @@
 						</li>
 {{--                        <li class="user-profile__text"></li>--}}
 						<li class="user-profile__logout">
-							<a href=""><i class="fa fa-power-off"></i> Выйти</a>
+							<!-- <a href="{{route('logout')}}"><i class="fa fa-power-off"></i></a> -->
 						</li>
 
                     </ul>

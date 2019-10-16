@@ -6,7 +6,6 @@ use App\Repositories\CategoryRepository;
 use App\Http\Controllers\Controller;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
-use App\CategoryType;
 use App\Category;
 use Validator;
 use Response;
@@ -97,18 +96,16 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $types = CategoryType::all();
 
-        return view('admin.posts.create', compact('categories', 'types'));
+        return view('admin.posts.create', compact('categories'));
     }
 
     public function edit($id)
     {
         $item = $this->PostRepository->getEdit($id);
         $categories = Category::all();
-        $types = CategoryType::all();
 
-        return view('admin.posts.edit', compact('item', 'categories', 'types'));
+        return view('admin.posts.edit', compact('item', 'categories'));
     }
 
     public function destroy(Post $post)

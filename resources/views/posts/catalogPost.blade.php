@@ -16,7 +16,7 @@
 <div>
     <span>
         @foreach ($postBreadcrump as $breadcrump)
-        <a href="{{route('showCategory', $breadcrump->slug)}}">{{$breadcrump->title}} </a>>>
+        <a href="{{route('catalog.show', $breadcrump->slug)}}">{{$breadcrump->title}} </a>>>
         @endforeach
         <span>
 </div>
@@ -26,13 +26,15 @@
             {{$post->created_at}}
         </div>
         <h3 class="post_title"><a href=""></a></h3>
-        <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{$category->title}}</a>
+        <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{$catalog->title}}</a>
             @role('admin')
-            <a href="{{route('admin.posts.edit', $post->id)}}"><button title="Редактировать пост" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
+            <a href="{{route('admin.catalogPost.edit', $post->id)}}"><button title="Редактировать пост" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
             @endrole</p>
 
-        {!! $post->content_html !!}
+        @foreach(json_decode($post->content_json) as $pathFile)
+        <a href="{{asset($pathFile)}}"><span class="fa fa-file"></span>{{substr($pathFile, strripos($pathFile, '/')+1)}}</a><br>
 
+        @endforeach
     </div>
     <div class="post-footer">
         <div class="row align-items-center justify-content-between mt-3">

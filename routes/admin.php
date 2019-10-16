@@ -8,55 +8,54 @@ Route::get('/employee', 'EmployeeController@index')
 
 
 #-------------------------------START EVENT ROUTE----------------------
-Route::get('/events', 'EventsController@getPage')->name('events');
+Route::group(['middleware' => ['role_or_permission:grant admin|posts editor|delete events|create events|edit events']], function () {
+	Route::get('/events', 'EventsController@getPage')->name('events');
 
-Route::post('events/addEvent', 'EventsController@addEvent')->name('addEvent');
-Route::post('events/updateEvent', 'EventsController@updateEvent')->name('updateEvent');
-Route::post('events/deleteEvent', 'EventsController@deleteEvent')->name('deleteEvent');
+	Route::post('events/addEvent', 'EventsController@addEvent')->name('addEvent');
+	Route::post('events/updateEvent', 'EventsController@updateEvent')->name('updateEvent');
+	Route::post('events/deleteEvent', 'EventsController@deleteEvent')->name('deleteEvent');
+});
 #-------------------------------END EVENT ROUTE----------------------
 
 #-------------------------------START CATALOGPOST ROUTE----------------------
-Route::resource('/catalogsPost', 'CatalogPostsController')->except(['update'])->names('catalogPost');
-Route::post('/catalogsPost/update/{postId}', 'CatalogPostsController@update')->name('catalogPost.update');
+Route::group(['middleware' => ['role_or_permission:grant admin|catalogs editor|delete postsCatalog|create postsCatalog|edit postsCatalog']], function () {
+	Route::resource('/catalogPosts', 'CatalogPostsController')->except(['update'])->names('catalogPost');
+	Route::post('/catalogsPost/update/{postId}', 'CatalogPostsController@update')->name('catalogPost.update');
 
-Route::post('/catalogsPost/addCatalog', 'CatalogPostsController@addCatalog' )->name('addCatalog');
-
+	Route::post('/catalogsPost/addCatalog', 'CatalogPostsController@addCatalog')->name('addCatalog');
+});
 #-------------------------------END CATALOGPOST ROUTE------------------------
 
-#-------------------------------START CATEGORY ROUTE----------------------
-Route::get('/categories', 'CategoryController@index')
-	->name('categories');
-
-Route::get('/categories/{category}/edit', 'CategoryController@edit')
-	->name('categories.edit');
-
-Route::get('/categories/create', 'CategoryController@create')
-	->name('categories.create');
-
-Route::post('/categories/store', 'CategoryController@store')
-	->name('store');
-
-Route::patch('/categories/{category}', 'CategoryController@update')
-	->name('update');
-#-------------------------------END CATEGORY ROUTE----------------------
-
-
 #-------------------------------START POST ROUTE----------------------
-Route::resource('/posts', 'PostsController')
-	->only(['index', 'create', 'edit', 'destroy', 'update'])
-	->names('posts');
+Route::group(['middleware' => ['role_or_permission:grant admin|posts editor|delete posts|create posts|edit posts']], function () {
+	Route::resource('/posts', 'PostsController')
+		->only(['index', 'create', 'edit', 'destroy', 'update'])
+		->names('posts');
+	Route::post('/addpost', 'PostsController@store')->name('addpost.store');
 
-Route::post('/addpost', 'PostsController@store')->name('addpost.store');
+	Route::post('/posts/create/linkfile', 'FileManagerController@getFileURL');
+	Route::post('/posts/create/linkImg', 'FileManagerController@getImgURL')->name('create.linkImg');
+});
 
-Route::post('/posts/create/linkfile', 'FileManagerController@getFileURL');
-Route::post('/posts/create/linkImg', 'FileManagerController@getImgURL')->name('create.linkImg');
 #--------------------------------END POST ROUTE-------------------------
 
 #-------------------------------START USER ROUTE----------------------
-Route::resource('/users', 'UserController')
-	->only(['index', 'create', 'edit', 'destroy', 'addOffice'])
-	->names('users');
+Route::group(['middleware' => ['role_or_permission:grant admin|admin|create users|edit users|delete users']], function () {
+	Route::resource('/users', 'UserController')
+		->only(['index', 'create', 'edit', 'destroy'])
+		->names('users');
 
+		Route::post('/users/changePassword/{id}', 'UserController@changePasswordAdmin')->name('users.changePassword');
+
+	Route::group(['middleware' => ['role_or_permission:admin|grant admin|edit rolesAndPermissions'], 'prefix' => 'users'], function () {
+		Route::resource('permission', 'PermissionController')
+			->only(['index', 'create', 'edit', 'destroy'])
+			->names('users.permission');
+		Route::post('permission/update/{id}', 'PermissionController@update')->name('users.permission.update');
+		Route::post('role/edit')->name('editRole');
+	});
+
+	
 Route::post('/users/addOffice', 'UserController@addOffice')->name('addOffice');
 Route::post('/users/addRegion', 'UserController@addRegion')->name('addRegion');
 Route::post('/users/addDepartment', 'UserController@addDepartment')->name('addDepartment');
@@ -65,4 +64,6 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/updateUser', 'Auth\RegisterController@register')->name('updateUser');
 
 Route::post('/users/update/{id}', 'UserController@update')->name('user.update');
+});
+
 #--------------------------------END USER ROUTE------------------------------

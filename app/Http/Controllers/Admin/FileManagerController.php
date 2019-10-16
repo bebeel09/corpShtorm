@@ -13,7 +13,7 @@ class FileManagerController extends Controller
             'files' => 'file',
         ]);
 
-        $originalName=date('U').$request->file('files')->getClientOriginalName();
+        $originalName=date('U').'_'.$request->file('files')->getClientOriginalName();
 
         $linkToFile = $request->file('files')->storeAs('files',$originalName,'public');
         echo url($linkToFile);
@@ -23,8 +23,8 @@ class FileManagerController extends Controller
         return Storage::download('public/files/'.$fileName, $fileName);
     }
 
-    public function getCatalogFile($fileName){
-        return Storage::download('public/Catalog/'.$fileName, $fileName);
+    public function downloadCatalogFile($folderCatalog ,$fileName){
+        return Storage::download('public/Catalog/'.$folderCatalog.'/'.$fileName);
     }
 
     public function getImgURL(Request $request){
@@ -40,7 +40,7 @@ class FileManagerController extends Controller
         return Storage::download('public/img/'.$ImgName, $ImgName);
     }
 
-    public function getAvatar($avatarName){
-        return Storage::download('public/avatar/'.$avatarName, $avatarName);
+    public function getAvatar($userSlug="default", $avatarName){
+        return Storage::download('public/avatar/'.$userSlug.'/'.$avatarName, $avatarName);
     }
 }

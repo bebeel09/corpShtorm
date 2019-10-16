@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use App\Catalog;
+use App\catalogPost;
 
 class HomeController extends Controller
 {
@@ -49,40 +51,44 @@ class HomeController extends Controller
     return view('phoneBook', compact('users'));
   }
 
-  public function getProfilePage($id){
+  public function getProfilePage($id)
+  {
 
-    $userMetaData= User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'region_id', 'department_id', 'office_id')
-    ->with(['region:id,region_appellation'])
-    ->with(['department:id,department_appellation'])
-    ->with(['office:id,office_appellation'])
-    ->findOrFail($id);
+    $userMetaData = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'region_id', 'department_id', 'office_id')
+      ->with(['region:id,region_appellation'])
+      ->with(['department:id,department_appellation'])
+      ->with(['office:id,office_appellation'])
+      ->findOrFail($id);
 
     return view('profile', compact('userMetaData'));
-
   }
 
-  public function getRubricTypeList($idRubric){
+  public function showCategory($slug)
+  {
 
-    $currentCategory=Category::find($idRubric);
-    $postsСategories=Post::where('category_id',$idRubric)->get();
-    $subcategories=Category::where('parent_id',$idRubric)->get();
-
-    return view('listPage', compact('currentCategory', 'postsСategories', 'subcategories'));
-  }
-
-  public function getRubricTypeCategory($idRubric){
+    $category = Category::where('slug', $slug)->first();
 
     $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
-      ->where('category_id', $idRubric)
+      ->where('category_id', $category->id)
       ->with(['category:id,slug,title'])
       ->with(['user:id,last_name,sur_name,first_name,avatar'])
       ->orderBy('id', 'DESC')
       ->paginate(15);
 
-    return view('categoryPage', compact('postsData'));
+    // ->with(['category'=> function($category) use ($slug){
+    //   return $category->select('id', 'slug', 'title')->where('slug','=',$slug)->first();
+    //  }])
+
+    return view('categoryPage', compact('postsData', 'category'));
   }
 
-  public function getPostCatalog($catalogSlug, $catalogPostSlug){
+  public function getCatalog($catalogSlug)
+  {
 
+    $currentCatalog = Catalog::where('slug', $catalogSlug)->first();
+    $catalogPosts = catalogPost::where('catalog_id', $currentCatalog->id)->get();
+    $subcatalogs = Catalog::where('parent_id', $currentCatalog->id)->get();
+
+    return view("catalog", compact('currentCatalog', 'catalogPosts', 'subcatalogs'));
   }
 }

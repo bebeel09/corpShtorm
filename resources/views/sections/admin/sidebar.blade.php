@@ -5,60 +5,73 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header nav-small-cap"></li>
-                    @role('admin')
-                        <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
-                            <a href="{{ route('rubricTypeCategory', 1) }}">
-                                <i class="fa fa-arrow-left"></i> <span>Перейти на сайт</span>
-                            </a>
-                        </li>
-                        <li class="{{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
-                            <a href="{{route('admin.dashboard')}}">
-                                <i class="fa fa-lock"></i> <span>Админ-панель</span>
-                            </a>
-                        </li>
-                        <li class="{{ Request::routeIs('admin.events') ? 'active' : '' }}">
-                            <a href="{{route('admin.events')}}">
-                                <i class="fa fa-lock"></i> <span>События</span>
-                            </a>
-                        </li>
-                      
-                        <li class="{{ (Request::routeIs('admin.users.*')) ? 'active' : '' }}">
-                            <a href="{{route('admin.users.index')}}">
-                                <i class="fa fa-newspaper-o"></i> <span>Пользователи</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-right pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{{route('admin.users.create')}}"><i class="fa fa-circle-thin"></i>Добавить</a></li>
-                                <li><a href="{{route('admin.users.index')}}"><i class="fa fa-circle-thin"></i>Список пользователей</a></li>
-                            </ul>
-                        </li>
-                        <li class="{{ (Request::routeIs('admin.posts.*')) ? 'active' : '' }}">
-                            <a href="{{route('admin.posts.index')}}">
-                                <i class="fa fa-newspaper-o"></i> <span>Посты</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-right pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{{route('admin.posts.create')}}"><i class="fa fa-circle-thin"></i>Добавить пост</a></li>
-                                <li><a href="{{route('admin.posts.index')}}"><i class="fa fa-circle-thin"></i>Список постов</a></li>
-                            </ul>
-                        </li>
-                        <li class="{{ (Request::routeIs('admin.catalogPost.*')) ? 'active' : '' }}">
-                            <a href="{{route('admin.catalogPost.index')}}">
-                                <i class="fa fa-list "></i> <span>Каталоги</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-right pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{{route('admin.catalogPost.create')}}"><i class="fa fa-circle-thin"></i>Добавить каталог</a></li>
-                                <li><a href="{{route('admin.catalogPost.index')}}"><i class="fa fa-circle-thin"></i>Список каталогов</a></li>
-                            </ul>
-                        </li>
-                    @endrole
+
+                    <li>
+                        <a href="{{ route('showCategory', 'novosti') }}">
+                            <i class="fa fa-arrow-left"></i> <span>Перейти на сайт</span>
+                        </a>
+                    </li>
+                    @hasanyrole('admin|grant admin')
+                    <!-- <li class="{{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
+                        <a href="{{route('admin.dashboard')}}">
+                            <i class="fa fa-lock"></i> <span>Админ-панель</span>
+                        </a>
+                    </li> -->
+                    @endhasanyrole
+                    
+                    @hasanyrole('posts editor|grant admin')
+                    <li class="{{ Request::routeIs('admin.events') ? 'active' : '' }}">
+                        <a href="{{route('admin.events')}}">
+                            <i class="fa fa-calendar"></i> <span>События</span>
+                        </a>
+                    </li>
+                    @endhasanyrole
+
+                    @hasanyrole('admin|grant admin')
+                    <li class="{{ (Request::routeIs('admin.users.*')) ? 'active' : '' }}">
+                        <a href="{{route('admin.users.index')}}">
+                            <i class="fa fa-users"></i> <span>Пользователи</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('admin.users.create')}}"><i class="fa fa-circle-thin"></i>Добавить</a></li>
+                            <li><a href="{{route('admin.users.index')}}"><i class="fa fa-circle-thin"></i>Список пользователей</a></li>
+                            <li><a href="{{route('admin.users.index')}}"><i class="fa fa-circle-thin"></i>Редактирование ролей</a></li>
+                        </ul>
+                    </li>
+                    @endhasanyrole
+
+                    @hasanyrole('posts editor|grant admin')
+                    <li class="{{ (Request::routeIs('admin.posts.*')) ? 'active' : '' }}">
+                        <a href="{{route('admin.posts.index')}}">
+                            <i class="fa fa-newspaper-o"></i> <span>Посты</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('admin.posts.create')}}"><i class="fa fa-circle-thin"></i>Добавить пост</a></li>
+                            <li><a href="{{route('admin.posts.index')}}"><i class="fa fa-circle-thin"></i>Список постов</a></li>
+                        </ul>
+                    </li>
+                    @endhasanyrole
+
+                    @hasanyrole('catalogs editor|grant admin')
+                    <li class="{{ (Request::routeIs('admin.catalogPost.*')) ? 'active' : '' }}">
+                        <a href="{{route('admin.catalogPost.index')}}">
+                            <i class="fa fa-folder-open "></i> <span>Каталоги</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('admin.catalogPost.create')}}"><i class="fa fa-circle-thin"></i>Добавить каталог</a></li>
+                            <li><a href="{{route('admin.catalogPost.index')}}"><i class="fa fa-circle-thin"></i>Список каталогов</a></li>
+                        </ul>
+                    </li>
+                    @endhasanyrole
                 </ul>
             </section>
         </aside>

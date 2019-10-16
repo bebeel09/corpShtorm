@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Str;
 
 class RegisterController extends Controller
 {
@@ -33,7 +36,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/users/create';
+    protected $redirectTo = '/admin/users';
 
     /**
      * Create a new controller instance.
@@ -45,7 +48,7 @@ class RegisterController extends Controller
     //     $this->middleware('guest');
     // }
 
-    
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -55,22 +58,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-      
-		return Validator::make($data, [
+
+        return Validator::make($data, [
             'first_name' => 'required|max:255',
             'sur_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'login' => 'required|unique:users',
             'password' => 'required|min:6',
-            'mobile_phone'=>'required|numeric',
-            'work_phone'=>'required|numeric',
-            'region'=>'text|alpha',
-            'department'=>'text|alpha',
-            'office'=>'text|alpha', 
-            'position'=>'text|alpha',
-            'avatar' =>'image|nullable'
-		]);
+            'mobile_phone' => 'required|numeric',
+            'work_phone' => 'required|numeric',
+            'region' => 'text|alpha',
+            'department' => 'text|alpha',
+            'office' => 'text|alpha',
+            'position' => 'text|alpha',
+            'avatar' => 'image|nullable'
+        ]);
     }
 
     /**
@@ -81,35 +84,56 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $linkAvatar='';
+        $linkAvatar = '';
 
-       if(isset($data['avatar'])){
-        $linkAvatar = url($data['avatar']->store('avatar','public'));
-       }
-
-        return User::create([
+        $user = User::create([
             'login' => $data['login'],
             'first_name' => $data['first_name'],
             'sur_name' => $data['sur_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'mobile_phone'=>$data['mobile_phone'],
-            'work_phone'=>$data['work_phone'],
-            'region_id'=>$data['region'],
-            'position'=>$data['position'],
-            'department_id'=>$data['department'],
-            'office_id'=>$data['office'],
-            'avatar' => $linkAvatar 
+            'mobile_phone' => $data['mobile_phone'],
+            'work_phone' => $data['work_phone'],
+            'region_id' => $data['region'],
+            'position' => $data['position'],
+            'department_id' => $data['department'],
+            'office_id' => $data['office'],
         ]);
+
+        if (isset($data['avatar'])) {
+            $savePath = 'avatar/' . Str::slug($user->id . '_' . $data['first_name'] . "_" . $data['sur_name'] . "_" . $data['last_name']);
+            $linkAvatar = url($data['avatar']->store($savePath, 'public'));
+        } else {
+            $linkAvatar = url('avatar/default/default.png');
+        }
+
+        $user->avatar = $linkAvatar;
+        $user->save();
+        $user->assignRole('user');
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $this->validator($request->all());
+
+        // [
+        //     'login' =>'',
+        //     'first_name' => '',
+        //     'sur_name' =>'',
+        //     'last_name' =>'',
+        //     'email' =>'',
+        //     'password' =>'',
+        //     'mobile_phone' => '',
+        //     'work_phone' =>'',
+        //     'region_id' =>'',
+        //     'position' =>'',
+        //     'department_id' =>'',
+        //     'office_id' =>''
+        // ]
 
         event(new Registered($user = $this->create($request->all())));
 
         return redirect()->back();
     }
-
 }

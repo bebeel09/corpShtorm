@@ -199,7 +199,6 @@ class CatalogPostsController extends Controller
             //перекидываем файлы из старой в новую дерикторию
             foreach ($filesPath as $path) {
                 $nameFile = substr($path, strripos($path, '/')+1);
-                dump($nameFile);
                 Storage::copy($savePath.'/'. $nameFile, $newSavePath .'/'. $nameFile);
             }
             Storage::deleteDirectory($savePath);
@@ -208,7 +207,6 @@ class CatalogPostsController extends Controller
         }
 
         $filesPath=Storage::allFiles($savePath);
-        dump($filesPath);
 
         $catalogPost->catalog_id = $valid['catalog'];
         $catalogPost->title = $valid['post_title'];
@@ -223,7 +221,7 @@ class CatalogPostsController extends Controller
 
             $res = ['url' => route('catalogPost.show', ['catalogSlug' => $catalog->slug, 'catalogPostSlug' => $catalogPost->slug])];
             return Response::json($res, 200);
-        }
+        }else return abort("500", "Не удалось сохранить изменения.");
     }
 
     /**
@@ -234,7 +232,17 @@ class CatalogPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $catalogPost=CatalogPost::find($id);
+
+        $pathCatalogDirectory='public/Catalog/' . $catalogPost->catalog_id . '_' . $catalogPost->slug;
+        Storage::deleteDirectory($pathCatalogDirectory);
+
+        $catalogPost->delete();
+
+        return redirect()
+        ->route('admin.catalogPost.index')
+        ->with(['success' => 'Каталог удалён.']);
+
     }
 
     public function addCatalog(Request $request)

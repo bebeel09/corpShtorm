@@ -2,14 +2,13 @@
 
     <ul class="sidebar-menu ">
         @foreach ($typeCategory as $categoryItem)
-        <li class="p-0 {{ request()->path() == 'category/'.$categoryItem['id']  ? 'active' : '' }}"><a href="{{route('rubricTypeCategory', $categoryItem['id'])}}"><i class="fa fa-newspaper-o"></i>{{$categoryItem['title']}}</a></li>
+        <li class="p-0 {{ request()->path() == 'category/'.$categoryItem['slug']  ? 'active' : '' }}"><a href="{{route('showCategory', $categoryItem['slug'])}}"><i class="fa fa-newspaper-o"></i>{{$categoryItem['title']}}</a></li>
         @endforeach
         
         <li class="p-0 {{ (Request::routeIs('phoneBook')) ? 'active' : '' }}"><a href="{{ route('phoneBook') }}"><i class="fa fa-phone"></i>Телефонный справочник</a></li>
         <li class="p-0 {{ (Request::routeIs('events')) ? 'active' : '' }}"><a href="{{ route('events') }}"><i class="fa fa-calendar"></i>Календарь событий</a></li>
-
-        @foreach ($typeList as $listItem)
-        <li class="p-0 {{ request()->path() == 'list/'.$listItem['id']  ? 'active' : '' }} "><a href="{{route('rubricTypeList', $listItem['id'])}}"><i class="fa fa-folder-open"></i>{{$listItem['title']}}</a></li>
+        @foreach ($mainCatalogs as $catalog)
+        <li class="p-0 {{ request()->path() == 'catalog/'.$catalog['slug']  ? 'active' : '' }} "><a href="{{route('catalog.show', $catalog['slug'])}}"><i class="fa fa-folder-open"></i>{{$catalog['title']}}</a></li>
         @endforeach
     </ul>
     <hr>
@@ -48,13 +47,12 @@
     <ul>
        {{-- <li class="p-0 {{ (Request::routeIs('news')) ? 'active' : '' }}"><a href="{{route('news')}}"><i class="fa fa-newspaper-o"></i>Новости</a></li>--}}
         @foreach ($typeCategory as $categoryItem)
-        <li class="p-0"><a href=""><i class="fa fa-folder-open"></i>{{$categoryItem['title']}}</a></li>
+        <li class="p-0 {{ request()->path() == 'category/'.$categoryItem['id']  ? 'active' : '' }}"><a href="{{route('showCategory', $categoryItem['slug'])}}"><i class="fa fa-newspaper-o"></i>{{$categoryItem['title']}}</a></li>
         @endforeach
         <li class="p-0 {{ (Request::routeIs('phoneBook')) ? 'active' : '' }}"><a href="{{ route('phoneBook') }}"><i class="fa fa-phone"></i>Телефонный справочник</a></li>
-        @foreach ($typeCategory as $listItem)
-        <li class="p-0"><a href="{{route('rubricTypeList', $listItem['id'])}}"><i class="fa">&#128447;</i>{{$listItem['title']}}</a></li>
+        @foreach ($mainCatalogs as $catalog)
+        <li class="p-0 {{ request()->path() == 'catalog/'.$catalog['slug']  ? 'active' : '' }} "><a href="{{route('catalog.show', $catalog['slug'])}}"><i class="fa fa-folder-open"></i>{{$catalog['title']}}</a></li>
         @endforeach
-
     </ul>
 </div>
 

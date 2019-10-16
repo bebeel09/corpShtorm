@@ -25,6 +25,7 @@ class CreateCatalogPostsTable extends Migration
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('catalog_id')->references('id')->on('catalogs');
             $table->index('is_published');

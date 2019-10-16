@@ -238,6 +238,7 @@
                 $('html,body').animate({
                     scrollTop: 0
                 }, 300);
+            
                 $('.alert').removeClass('alert-danger').addClass('alert-success').html(
                     'Новость успешно опубликована, просмотреть: <a href="' + jqXhr.url + '">' + jqXhr.url +
                     '</a>').slideDown(800);

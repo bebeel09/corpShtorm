@@ -2,8 +2,6 @@
 @section('additional_css')
 
 <link rel="stylesheet" href="{{ asset ('vendor_components/select2/dist/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset ('vendor/summernote/dist/summernote.css') }}">
-<link rel="stylesheet" href="{{ asset ('vendor/summernote/dist/summernote-bs4.css') }}">
 <style>
     #uploadForm,
     #uploadFormAnounce {
@@ -15,13 +13,17 @@
         line-height: 60px !important;
         font-size: 14px !important;
     }
+
+    label>span {
+        color: red;
+    }
 </style>
 @endsection
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Добавить пользователя
+        Изменить данные пользователя
     </h1>
 </section>
 <section class="content">
@@ -45,16 +47,16 @@
                     <form name="updateUser">
                         <div class="form-group">
                             <div class="d-flex">
-                                <div class="col">
-                                    <label for="exampleInputFirstName1">Фамилия</label>
+                                <div class="col pl-0">
+                                    <label for="exampleInputFirstName1">Фамилия <span>*</span></label>
                                     <input type="text" autocomplete="off" name="first_name" class="form-control" aria-describedby="nameHelp" placeholder="Петров" value="{{$user['first_name']}}">
                                 </div>
                                 <div class="col">
-                                    <label for="exampleInputSurName1">Имя</label>
+                                    <label for="exampleInputSurName1">Имя <span>*</span></label>
                                     <input type="text" autocomplete="off" name="sur_name" class="form-control" aria-describedby="nameHelp" placeholder="Пётр" value="{{$user['sur_name']}}">
                                 </div>
-                                <div class="col">
-                                    <label for="exampleInputLastName1">Отчество</label>
+                                <div class="col pr-0">
+                                    <label for="exampleInputLastName1">Отчество <span>*</span></label>
                                     <input type="text" autocomplete="off" name="last_name" class="form-control" aria-describedby="nameHelp" placeholder="Петрович" value="{{$user['last_name']}}">
                                 </div>
                             </div>
@@ -68,7 +70,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputDepartment1">Отдел</label>
+                            <label for="exampleInputDepartment1">Отдел <span>*</span></label>
                             <select type="text" autocomplete="off" id="department" class="form-control" aria-describedby="DepartmentHelp">
                                 @foreach ($departments as $department )
                                 <option @if($department->id == $user->department->id) selected @endif
@@ -98,25 +100,25 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPos1">Должность</label>
+                            <label for="exampleInputPos1">Должность <span>*</span></label>
                             <input type="text" autocomplete="off" name="position" class="form-control" aria-describedby="posHelp" placeholder="Старший специалист" value="{{$user['position']}}">
                             <small id="posHelp" class="form-text text-muted">Введите должность сотрудника</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputworkPhone1">Рабочий телефон</label>
+                            <label for="exampleInputworkPhone1">Рабочий телефон </label>
                             <input id="workPhone" type="text" autocomplete="off" name="work_phone" class="form-control" aria-describedby="workPhoneHelp" placeholder="911" value="{{$user['work_phone']}}">
                             <small id="workPhoneHelp" class="form-text text-muted">Рабочий телефон сотрудника</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPhone1">Личный телефон</label>
+                            <label for="exampleInputPhone1">Личный телефон <span>*</span></label>
                             <input id='personalPhone' type="text" autocomplete="off" name="mobile_phone" class="form-control" aria-describedby="phoneHelp" placeholder="79929999999" value="{{$user['mobile_phone']}}">
                             <small id="phoneHelp" class="form-text text-muted">Личный телефон сотрудника</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputReg1">Регион</label>
+                            <label for="exampleInputReg1">Регион <span>*</span></label>
                             <select type="text" autocomplete="off" id="region" class="form-control" aria-describedby="regHelp">
                                 @foreach ($regions as $region)
                                 <option @if($region->id == $user->office->id) selected @endif
@@ -147,7 +149,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputReg1">филиал </label>
+                            <label for="exampleInputReg1">филиал <span>*</span> </label>
                             <select type="text" autocomplete="off" id="office" class="form-control" aria-describedby="regHelp">
                                 @foreach ($offices as $office)
                                 <option @if($office->id == $user->office->id) selected @endif
@@ -186,8 +188,29 @@
                 </div>
             </div>
 
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Форма изменения пароля</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <a data-widget="hider" style="text-decoration: underline;"> Изменить пароль</a>
+                        <form id="changePassword" method="POST" style="margin-top: 15px; display: none;">
+                            @csrf
+                            <div class="form-group">
+                                <label for="newCategoryName">Введите новый пароль</label>
+                                <input type="password" name="newPassword" id="newPassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCategoryName">Введите пароль повторно</label>
+                                <input type='password' class="form-control" id="newPassword_confirmation" name="newPassword_confirmation">
+                            </div>
+                            <button class="btn btn-block btn-success" onclick="editPassword(this); return false;"> Изменить пароль</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 </section>
 @endsection
 
@@ -197,10 +220,25 @@
 
 <script>
     $(document).ready(function() {
+        $('.select2').select2();
+        $('[data-widget=hider]').on('click', function(event) {
+            if (event) event.preventDefault();
+            var isOpen = $('#changePassword').is('.collapsed-box');
+            if (isOpen) {
+                $('#changePassword').slideUp(300, function() {
+                    $(this).removeClass('collapsed-box');
+                });
+            } else {
+                $('#changePassword').slideDown(300, function() {
+                    $(this).addClass('collapsed-box');
+                });
+            }
+        })
+
 
         jQuery(function($) {
             $("#personalPhone").mask("+7(999) 99-99-999");
-            $("#workPhone").mask("+7(999) 99-99-999");
+            $("#workPhone").mask("999");
         });
     });
 </script>
@@ -259,8 +297,8 @@
 
 <script>
     function addOffice(el) {
-        var data={};
-         data['office_appellation'] = $('input[name="office_appellation"]').val();
+        var data = {};
+        data['office_appellation'] = $('input[name="office_appellation"]').val();
 
         $.ajax({
             headers: {
@@ -283,8 +321,8 @@
 
 <script>
     function addDepartment(el) {
-        var data={};
-         data['department_appellation'] = $('input[name="department_appellation"]').val();
+        var data = {};
+        data['department_appellation'] = $('input[name="department_appellation"]').val();
         console.log(data);
 
         $.ajax({
@@ -308,8 +346,8 @@
 
 <script>
     function addRegion(el) {
-        var data={};
-         data['region_appellation'] = $('input[name="region_appellation"]').val();
+        var data = {};
+        data['region_appellation'] = $('input[name="region_appellation"]').val();
 
         $.ajax({
             headers: {
@@ -325,6 +363,77 @@
             },
             error: function(jqXhr, json, errorThrown) {
                 console.log('NO Успех');
+            }
+        });
+    }
+
+
+    function editPassword(el) {
+        var data = $('#changePassword').serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-Token': '{{csrf_token()}}'
+            },
+            type: "POST",
+            url: "{{route('admin.users.changePassword', ['id'=>$user['id']])}}",
+            data: data,
+            success: function(jqXhr, json, errorThrown) {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 300);
+                $('.alert').removeClass('alert-danger').addClass('alert-success').html(
+                    jqXhr.message).slideDown(800);
+            },
+            error: function(jqXhr, json, errorThrown) {
+                var errors = jqXhr.responseJSON.errors;
+                var errorsHtml = '<ul>';
+                $.each(errors.newPassword, function(index, value) {
+                    errorsHtml += '<li>' + value + '</li>';
+                });
+                errorsHtml += '</ul>';
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 300);
+                $('.alert').addClass('alert-danger').html(errorsHtml).slideDown(800);
+            }
+        });
+    }
+
+
+    function editPassword(el) {
+        var data = $('#changePassword').serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-Token': '{{csrf_token()}}'
+            },
+            type: "POST",
+            url: "{{route('admin.users.changePassword', ['id'=>$user['id']])}}",
+            data: data,
+            success: function(jqXhr, json, errorThrown) {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 300);
+
+                $('.alert').removeClass('alert-danger').addClass('alert-success').html(jqXhr.message).slideDown(800);
+            },
+            error: function(jqXhr, json, errorThrown) {
+                if (jqXhr.responseJSON.errors != undefined) {
+                    var errors = jqXhr.responseJSON.errors;
+
+                    var errorsHtml = '<ul>';
+                    $.each(errors.newPassword, function(index, value) {
+                        errorsHtml += '<li>' + value + '</li>';
+                    });
+                    errorsHtml += '</ul>';
+                } else {
+                    errorsHtml = jqXhr.responseJSON.message;
+                }
+
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 300);
+
+                $('.alert').removeClass('alert-success').addClass('alert-danger').html(errorsHtml).slideDown(800);
             }
         });
     }
