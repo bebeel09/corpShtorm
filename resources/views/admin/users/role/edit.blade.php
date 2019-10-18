@@ -1,7 +1,6 @@
 @extends('layouts.admin.app')
-@section('additional_css')
 
-<link rel="stylesheet" href="{{ asset ('vendor_components/select2/dist/css/select2.min.css') }}">
+@section('additional_css')
 <style>
     #uploadForm,
     #uploadFormAnounce {
@@ -15,20 +14,31 @@
     }
 </style>
 @endsection
+
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Изменение ролей и прав пользователя
+        Редактировать роль
     </h1>
 </section>
 <section class="content">
-    <div class="alert hide"></div>
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{session()->get('success')}}
+    </div>
+    @endif
+
+    @if(session('status'))
+    <div class="alert alert-danger">
+        {{session()->get('status')}}
+    </div>
+    @endif
     <div class="row">
         <div class="col-9">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">{{$user->first_name." ". $user->sur_name ." ".$user->last_name}}</h3>
+                    <h3 class="box-title">Роль: {{$role->name}}</h3>
                     <!-- tools box -->
                     <div class="pull-right box-tools">
                         <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -42,27 +52,13 @@
 
                     <div class="d-flex">
                         <div class="col-4">
-                            <h2>Роль</h2>
-                            <form action="" name="roles">
-                                @foreach($roles as $role)
-                                @if($role->name!='grant admin' || Auth::user()->hasRole('grant admin'))
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="{{$role->name}}" id="{{$role->name}}" {{($user->hasRole($role->name)) ? 'checked' : ''}}>
-                                    <label class="form-check-label" for="{{$role->name}}">
-                                        {{$role->name}}
-                                    </label>
-                                </div>
-                                @endif
-                                @endforeach
-                            </form>
-                        </div>
-                        <div class="col-4">
                             <h2>Разрешения</h2>
-                            <form action="" name="permissions">
+                            <form action="{{route('admin.roles.update', $role->id)}}" method="POST" name="permissionsViaRole" id="permissionsViaRole">
+                                {{ method_field('PUT') }}
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 @foreach($permissions as $permission)
-
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="{{$permission->name}}" id="{{$permission->name}}" {{($user->hasPermissionTo($permission->name)) ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="checkbox" name="{{$permission->name}}" id="{{$permission->name}}" {{($role->hasPermissionTo($permission->name)) ? 'checked' : ''}}>
                                     <label class="form-check-label" for="{{$permission->name}}">
                                         {{$permission->name}}
                                     </label>
@@ -77,7 +73,7 @@
         <div class="col">
             <div class="box">
                 <div class="box-body">
-                    <button type="submit" class="btn btn-success col-12" onclick="editRoleAndPermission()">Опубликовать</button>
+                    <button type="submit" form="permissionsViaRole" class="btn btn-success col-12">Изменить</button>
                 </div>
             </div>
         </div>
@@ -111,7 +107,7 @@
                 'X-CSRF-Token': '{{csrf_token()}}'
             },
             type: "POST",
-            url: "{{ route('admin.users.permission.update', $user->id) }}",
+            url: "",
             contentType: false,
             processData: false,
             data: formData,

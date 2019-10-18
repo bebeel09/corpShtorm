@@ -22,7 +22,6 @@ class UsersTableSeeder extends Seeder
         $user->first_name = "Неизвестен";
         $user->sur_name = "Неизвестен";
         $user->last_name = "Неизвестен";
-        $user->region_id = 1;
         $user->office_id = 1;
         $user->department_id = 1;
         $user->position = "Неизвестен";

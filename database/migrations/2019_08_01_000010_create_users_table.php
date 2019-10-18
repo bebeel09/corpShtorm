@@ -24,7 +24,6 @@ class CreateUsersTable extends Migration
             $table->string('mobile_phone')->nullable();
             $table->string('work_phone')->nullable();
 
-            $table->integer('region_id')->unsigned();
             $table->integer('office_id')->unsigned();
             $table->integer('department_id')->unsigned();
             
@@ -33,7 +32,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             
-            $table->foreign('region_id')->references('id')->on('regions');
             $table->foreign('office_id')->references('id')->on('offices');
             $table->foreign('department_id')->references('id')->on('departments');
             

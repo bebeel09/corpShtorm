@@ -52,18 +52,22 @@ Route::group(['middleware' => ['role_or_permission:grant admin|admin|create user
 			->only(['index', 'create', 'edit', 'destroy'])
 			->names('users.permission');
 		Route::post('permission/update/{id}', 'PermissionController@update')->name('users.permission.update');
-		Route::post('role/edit')->name('editRole');
 	});
-
+	
 	
 Route::post('/users/addOffice', 'UserController@addOffice')->name('addOffice');
-Route::post('/users/addRegion', 'UserController@addRegion')->name('addRegion');
 Route::post('/users/addDepartment', 'UserController@addDepartment')->name('addDepartment');
 
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/updateUser', 'Auth\RegisterController@register')->name('updateUser');
 
 Route::post('/users/update/{id}', 'UserController@update')->name('user.update');
+});
+
+Route::group(['middleware' => ['role_or_permission:grant admin|admin|edit rolesAndPermissions']], function () {
+	Route::resource('/role', 'RoleController')
+	->only(['index', 'create', 'edit', 'destroy', 'update'])
+	->names('roles');
 });
 
 #--------------------------------END USER ROUTE------------------------------

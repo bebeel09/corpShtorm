@@ -8,8 +8,9 @@ use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Auth;
+use URL;
 
-class PermissionController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,6 +19,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        $roles = Role::all();
+
+        return view('admin.users.role.list', compact('roles'));
     }
 
     /**
@@ -60,18 +64,15 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        if($user->hasRole('grant admin') && !Auth::user()->hasRole('grant admin')){
-            return redirect()->back()->with('status', 'Изменение прав этого пользователя может осуществить только великий админ.');
+
+        $role = Role::findOrFail($id);
+        if (Auth::user()->hasRole('grant admin') == false && ($role->name == 'grant admin' || $role->name == 'admin')) {
+            return redirect()->route('admin.roles.index')->with('status', 'У вас нет доступа для изменения это роли.');
         }
 
-        if(Auth::user()->id == $id && Auth::user()->hasPermissionTo('edit rolesAndPermissions') && !Auth::user()->hasRole('grant admin')){
-           return redirect()->back()->with('status', 'Администратору запрещается изменять себе права доступа.');
-        }
-        
         $permissions = Permission::all();
-        $roles = Role::all();
-        return view('admin.users.permission.edit', compact('user', 'permissions', 'roles'));
+
+        return view('admin.users.role.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -83,32 +84,21 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        $user = User::find($id);
-        $assignableRole = [];
-        $assignablePermissions = [];
+        $role = Role::findOrFail($id);
 
-        foreach ($data as $key => $value) {
-            if (stripos($key, 'r') !== false) {
-                $assignableRole[] .= $data[$key];
-            } else {
-                $assignablePermissions[] .= $data[$key];
-            }
+        if (strpos(URL::previous(),$id)===false) {
+            return redirect()->back()->with('status', 'Была предпринята попытка назначить права другой роли в обход. Не делайте так пожалуйста.');
         }
 
-        $user->syncPermissions();
-
-        foreach ($assignablePermissions as $key => $permission) {
-            if (!$user->hasPermissionTo($permission)) {
-                $user->givePermissionTo($permission);
-            }
+        $permissions=array_slice($request->all(), 2);
+        $role->revokePermissionTo(Permission::all());
+        
+        foreach($permissions as $permission => $bool){
+            $permission=str_replace("_"," ",$permission);
+            $role->givePermissionTo($permission);
         }
 
-        $user->syncRoles($assignableRole);
-
-
-
-        return abort(200, 'Роли и разрешения были удачно заменены');
+        return redirect()->back()->with('success', 'Права доступа для роли [' . $role->name . '] были успешно заменены.');
     }
 
     /**

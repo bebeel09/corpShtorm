@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use App\Department;
 use app\User;
 use App\Office;
-use App\Region;
 use Str;
 use Hash;
 
@@ -39,10 +38,9 @@ class UserController extends Controller
     public function create()
     {
         $departments = Department::all();
-        $regions = Region::all();
         $offices = Office::all();
 
-        return view('admin.users.create', compact('departments', 'regions', 'offices'));
+        return view('admin.users.create', compact('departments', 'offices'));
     }
 
     /**
@@ -75,17 +73,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'region_id', 'department_id', 'office_id')
-            ->with(['region:id,region_appellation'])
+        $user = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'department_id', 'office_id')
             ->with(['department:id,department_appellation'])
             ->with(['office:id,office_appellation'])
             ->findOrFail($id);
 
         $departments = Department::all();
-        $regions = Region::all();
         $offices = Office::all();
 
-        return view('admin.users.edit', compact('user', 'departments', 'regions', 'offices'));
+        return view('admin.users.edit', compact('user', 'departments', 'offices'));
     }
 
 
@@ -98,26 +94,6 @@ class UserController extends Controller
         ]);
 
         $item = (new Office())->create($data);
-
-        if ($item) {
-            echo $item;
-        } else {
-            return back()
-                ->withErrors(['msg' => 'Ошибка сохранения'])
-                ->withInput();
-        }
-    }
-
-
-    public function addRegion(Request $request)
-    {
-        $data = $request->input();
-
-        Validator::make($data, [
-            'region_appellation' => 'requaire|alpha|unique:region'
-        ]);
-
-        $item = (new Region())->create($data);
 
         if ($item) {
             echo $item;
@@ -193,7 +169,7 @@ class UserController extends Controller
         if ($result) {
             return redirect()
                 ->route('admin.users.index')
-                ->with(['success' => 'Users Deleted.']);
+                ->with(['success' => 'Пользователь удалён.']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка удаления']);
         }

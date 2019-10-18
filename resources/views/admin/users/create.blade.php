@@ -14,7 +14,7 @@
         font-size: 14px !important;
     }
 
-    label>span{
+    label>span {
         color: red;
     }
 </style>
@@ -27,7 +27,21 @@
     </h1>
 </section>
 <section class="content">
-    <div class="alert hide"></div>
+
+    @if($errors->all()!=null)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $message)
+            <li>{{$message}}</li>
+            @endforeach
+        </ul>
+    </div>
+    @elseif(session('status'))
+    <div class="alert alert-success">
+        {{session('status')}}
+    </div>
+    @endif
+
     <div class="row">
 
         <div class="col-9">
@@ -76,10 +90,19 @@
                             <small id="loginHelp" class="form-text text-muted">Придумайте логин</small>
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Пароль <span>*</span></label>
-                            <input type="password" autocomplete="off" name="password" class="form-control" aria-describedby="passwordHelp" placeholder="">
-                            <small id="passwordHelp" class="form-text text-muted">Придумайте пароль</small>
+                        <div class="form-group d-flex">
+                            <div class="col pl-0">
+                                <label for="exampleInputPassword1">Пароль <span>*</span></label>
+                                <input type="password" autocomplete="off" name="password" class="form-control" aria-describedby="passwordHelp" placeholder="">
+                                <small id="passwordHelp" class="form-text text-muted">Придумайте пароль</small>
+                            </div>
+                            <div class="col pr-0">
+                                <label for="exampleInputPassword1">Повторите пароль <span>*</span></label>
+                                <input type="password" autocomplete="off" name="password_confirmation" class="form-control" aria-describedby="passwordHelp" placeholder="">
+                                <small id="passwordHelp" class="form-text text-muted">Повторите пароль</small>
+                            </div>
+
+
                         </div>
 
                         <div class="form-group">
@@ -105,14 +128,14 @@
                                 </a>
                             </p>
                             <div class="collapse" id="collapseDepartment">
-                                
-                                    <div class="form-row align-items-center">
-                                        <input type="text" class="col form-control bg-dark text-white" name="department_appellation" placeholder="Название города в котором располагается новый филиал">
-                                        <div class="col-auto">
-                                            <button  onclick="addDepartment(this); return false;" class="col btn btn-success">Добавить</button>
-                                        </div>
+
+                                <div class="form-row align-items-center">
+                                    <input type="text" class="col form-control bg-dark text-white" name="department_appellation" placeholder="Название города в котором располагается новый филиал">
+                                    <div class="col-auto">
+                                        <button onclick="addDepartment(this); return false;" class="col btn btn-success">Добавить</button>
                                     </div>
-                                
+                                </div>
+
                             </div>
                             <!-- end collapse department -->
 
@@ -137,37 +160,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputReg1">Регион <span>*</span></label>
-                            <select type="text" autocomplete="off" name="region" id="region" class="form-control" aria-describedby="regHelp" placeholder="Верхняя Пышма">
-                                @foreach($regions as $region)
-                                <option value="{{$region['id']}}">{{$region->region_appellation}}</option>
-                                @endforeach
-                            </select>
-
-                            <small id="regHelp" class="form-text text-muted">Регион филиала где работает
-                                сотрудник</small>
-
-                            <!-- collapse region -->
-                            <p>
-                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseRegion" role="button" aria-expanded="false" aria-controls="collapseRegion">
-                                    Добавить новый регион
-                                </a>
-                            </p>
-                            <div class="collapse" id="collapseRegion">
-                               
-                                    <div class="form-row align-items-center">
-                                        <input type="text" class="col form-control bg-dark text-white" name="region_appellation" placeholder="Название города в котором располагается новый филиал">
-                                        <div class="col-auto">
-                                            <button onclick="addRegion(this); return false;" class="col btn btn-success">Добавить</button>
-                                        </div>
-                                    </div>
-                               
-                            </div>
-                            <!-- end collapse region -->
-
-                        </div>
-
-                        <div class="form-group">
                             <label for="exampleInputReg1">филиал <span>*</span> </label>
                             <select type="text" name="office" id="Office" class="form-control" aria-describedby="regHelp">
                                 @foreach($offices as $office)
@@ -183,20 +175,20 @@
                                 </a>
                             </p>
                             <div class="collapse" id="collapseOffice">
-                               
-                                    <div class="form-row align-items-center">
-                                        <input type="text" class="col form-control bg-dark text-white" name="office_appellation" placeholder="Название города в котором располагается новый филиал">
-                                        <div class="col-auto">
-                                            <button onclick="addOffice(this);  return false;" class="col btn btn-success">Добавить</button>
-                                        </div>
+
+                                <div class="form-row align-items-center">
+                                    <input type="text" class="col form-control bg-dark text-white" name="office_appellation" placeholder="Название города в котором располагается новый филиал">
+                                    <div class="col-auto">
+                                        <button onclick="addOffice(this);  return false;" class="col btn btn-success">Добавить</button>
                                     </div>
-                               
+                                </div>
+
                             </div>
                             <!--end collapse office -->
 
                         </div>
 
-                    </div>
+                </div>
             </div>
         </div>
         <div class="col-3">
@@ -227,8 +219,8 @@
 
 <script>
     function addOffice(el) {
-        var data={};
-         data['office_appellation'] = $('input[name="office_appellation"]').val();
+        var data = {};
+        data['office_appellation'] = $('input[name="office_appellation"]').val();
 
         $.ajax({
             headers: {
@@ -251,8 +243,8 @@
 
 <script>
     function addDepartment(el) {
-        var data={};
-         data['department_appellation'] = $('input[name="department_appellation"]').val();
+        var data = {};
+        data['department_appellation'] = $('input[name="department_appellation"]').val();
         console.log(data);
 
         $.ajax({
@@ -274,27 +266,4 @@
     }
 </script>
 
-<script>
-    function addRegion(el) {
-        var data={};
-         data['region_appellation'] = $('input[name="region_appellation"]').val();
-
-        $.ajax({
-            headers: {
-                'X-CSRF-Token': '{{csrf_token()}}'
-            },
-            type: "POST",
-            url: "{{route('admin.addRegion')}}",
-            data: data,
-            success: function(jqXhr, json, errorThrown) {
-                console.log('Успех');
-                var data = JSON.parse(jqXhr);
-                $('#region').append('<option selected value="' + data['id'] + '">' + data['region_appellation'] + '</option>');
-            },
-            error: function(jqXhr, json, errorThrown) {
-                console.log('NO Успех');
-            }
-        });
-    }
-</script>
 @endsection

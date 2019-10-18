@@ -28,10 +28,6 @@
                         <th><a href="mailTo:{{$userMetaData->email}}">{{$userMetaData->email}}</a></th>
                     </tr>
                     <tr>
-                        <th>Регион: </th>
-                        <th>{{$userMetaData->region->region_appellation}}</th>
-                    </tr>
-                    <tr>
                         <th>Офис: </th>
                         <th>{{$userMetaData->office->office_appellation}}</th>
                     </tr>

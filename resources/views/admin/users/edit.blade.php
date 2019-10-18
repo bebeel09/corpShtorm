@@ -118,37 +118,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputReg1">Регион <span>*</span></label>
-                            <select type="text" autocomplete="off" id="region" class="form-control" aria-describedby="regHelp">
-                                @foreach ($regions as $region)
-                                <option @if($region->id == $user->office->id) selected @endif
-                                    value="{{$region->id}}">{{$region->region_appellation}}</option>
-                                @endforeach
-                            </select>
-                            <small id="regHelp" class="form-text text-muted">Регион филиала где работает
-                                сотрудник</small>
-
-                            <!-- collapse region -->
-                            <p>
-                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseRegion" role="button" aria-expanded="false" aria-controls="collapseRegion">
-                                    Добавить новый регион
-                                </a>
-                            </p>
-                            <div class="collapse" id="collapseRegion">
-
-                                <div class="form-row align-items-center">
-                                    <input type="text" class="col form-control bg-dark text-white" name="region_appellation" placeholder="Название города в котором располагается новый филиал">
-                                    <div class="col-auto">
-                                        <button onclick="addRegion(this); return false;" class="col btn btn-success">Добавить</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- end collapse region -->
-
-                        </div>
-
-                        <div class="form-group">
                             <label for="exampleInputReg1">филиал <span>*</span> </label>
                             <select type="text" autocomplete="off" id="office" class="form-control" aria-describedby="regHelp">
                                 @foreach ($offices as $office)
@@ -254,7 +223,6 @@
         formData.append('first_name', $('input[name="first_name"]')[0].value);
         formData.append('sur_name', $('input[name="sur_name"]')[0].value);
         formData.append('last_name', $('input[name="last_name"]')[0].value);
-        formData.append('region_id', $('#region').val());
         formData.append('office_id', $('#office').val());
         formData.append('work_phone', $('input[name="work_phone"]')[0].value);
         formData.append('mobile_phone', $('input[name="mobile_phone"]')[0].value);
@@ -345,29 +313,6 @@
 </script>
 
 <script>
-    function addRegion(el) {
-        var data = {};
-        data['region_appellation'] = $('input[name="region_appellation"]').val();
-
-        $.ajax({
-            headers: {
-                'X-CSRF-Token': '{{csrf_token()}}'
-            },
-            type: "POST",
-            url: "{{route('admin.addRegion')}}",
-            data: data,
-            success: function(jqXhr, json, errorThrown) {
-                console.log('Успех');
-                var data = JSON.parse(jqXhr);
-                $('#region').append('<option selected value="' + data['id'] + '">' + data['region_appellation'] + '</option>');
-            },
-            error: function(jqXhr, json, errorThrown) {
-                console.log('NO Успех');
-            }
-        });
-    }
-
-
     function editPassword(el) {
         var data = $('#changePassword').serialize();
         $.ajax({

@@ -42,8 +42,7 @@ class HomeController extends Controller
 
   public function getPhoneBookPage()
   {
-    $users = User::select('id', 'email', 'first_name', 'sur_name', 'last_name', 'mobile_phone', 'work_phone', 'position', 'avatar', 'region_id', 'department_id', 'office_id')->orderBy('office_id')
-      ->with(['region:id,region_appellation'])
+    $users = User::select('id', 'email', 'first_name', 'sur_name', 'last_name', 'mobile_phone', 'work_phone', 'position', 'avatar', 'department_id', 'office_id')->orderBy('office_id')
       ->with(['department:id,department_appellation'])
       ->with(['office:id,office_appellation'])
       ->get();
@@ -54,8 +53,7 @@ class HomeController extends Controller
   public function getProfilePage($id)
   {
 
-    $userMetaData = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'region_id', 'department_id', 'office_id')
-      ->with(['region:id,region_appellation'])
+    $userMetaData = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'department_id', 'office_id')
       ->with(['department:id,department_appellation'])
       ->with(['office:id,office_appellation'])
       ->findOrFail($id);

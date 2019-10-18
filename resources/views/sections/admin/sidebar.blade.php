@@ -11,13 +11,7 @@
                             <i class="fa fa-arrow-left"></i> <span>Перейти на сайт</span>
                         </a>
                     </li>
-                    @hasanyrole('admin|grant admin')
-                    <!-- <li class="{{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <a href="{{route('admin.dashboard')}}">
-                            <i class="fa fa-lock"></i> <span>Админ-панель</span>
-                        </a>
-                    </li> -->
-                    @endhasanyrole
+
                     
                     @hasanyrole('posts editor|grant admin')
                     <li class="{{ Request::routeIs('admin.events') ? 'active' : '' }}">
@@ -38,7 +32,20 @@
                         <ul class="treeview-menu">
                             <li><a href="{{route('admin.users.create')}}"><i class="fa fa-circle-thin"></i>Добавить</a></li>
                             <li><a href="{{route('admin.users.index')}}"><i class="fa fa-circle-thin"></i>Список пользователей</a></li>
-                            <li><a href="{{route('admin.users.index')}}"><i class="fa fa-circle-thin"></i>Редактирование ролей</a></li>
+                        </ul>
+                    </li>
+                    @endhasanyrole
+
+                    @hasanyrole('admin|grant admin')
+                    <li class="{{ (Request::routeIs('admin.roles.*')) ? 'active' : '' }}">
+                        <a href="{{route('admin.roles.index')}}">
+                            <i class="fa fa-shield"></i> <span>Роли</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('admin.roles.index')}}"><i class="fa fa-circle-thin"></i>Список ролей</a></li>
                         </ul>
                     </li>
                     @endhasanyrole

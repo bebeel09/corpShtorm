@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'sur_name', 'last_name', 'email', 'login', 'password','mobile_phone','work_phone','region_id', 'office_id', 'department_id', 'position', 'avatar'
+        'first_name', 'sur_name', 'last_name', 'email', 'login', 'password','mobile_phone','work_phone', 'office_id', 'department_id', 'position', 'avatar'
     ];
 
     /**
@@ -45,10 +45,6 @@ class User extends Authenticatable
         return $this->belongsTo(Office::class);
     }
 
-    public function Region()
-    {
-        return $this->belongsTo(Region::class);
-    }
 
     public function department()
     {

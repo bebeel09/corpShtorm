@@ -59,21 +59,43 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
 
-        return Validator::make($data, [
-            'first_name' => 'required|max:255',
-            'sur_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
+        Validator::make($data, [
+            'first_name' => 'required|max:255|alpha',
+            'sur_name' => 'required|max:255|alpha',
+            'last_name' => 'required|max:255|alpha',
             'email' => 'required|email|unique:users',
             'login' => 'required|unique:users',
-            'password' => 'required|min:6',
-            'mobile_phone' => 'required|numeric',
-            'work_phone' => 'required|numeric',
-            'region' => 'text|alpha',
-            'department' => 'text|alpha',
-            'office' => 'text|alpha',
-            'position' => 'text|alpha',
+            'password' => 'required|min:6|alpha_dash|confirmed|max:20',
+            'mobile_phone' => 'required',
+            'position' => 'max:255',
             'avatar' => 'image|nullable'
-        ]);
+        ], [
+            'first_name.required' => 'Поле "Фамилия" должно быть заполнено.',
+            'first_name.alpha' => 'Поле "Фамилия" может содержать только буквы.',
+            'first_name.max' => 'Поле "Фамилия" не должно превышать 255 символов.',
+            
+            'sur_name.required' => 'Поле "Имя" должно быть заполнено.',
+            'sur_name.alpha' => 'Поле "Имя" может содержать только буквы.',
+            'sur_name.max' => 'Поле "Имя" не должно превышать 255 символов.',
+            
+            'last_name.required' => 'Поле "Отчество" должно быть заполнено.',
+            'last_name.alpha' => 'Поле "Отчество" может содержать только буквы.',
+            'last_name.max' => 'Поле "Отчество" не должно превышать 255 символов.',
+
+            'email.required' => 'Поле "mail" должно быть заполнено.',
+            'login.required' => 'Поле "Логин" должно быть заполнено.',
+            
+            'password.required' => 'Поле "Пароль" должно быть заполнено.',
+            'password.min' => 'Пароль должен состоять не меньще чем из 6 символов.',
+            'password.alpha_dash' => 'Пароль может содержать только буквы, цифры, тире и символы подчеркивания.',
+            'password.confirmed' => 'Пароль и контрольный пароль не соответствуют.',
+            'password.max' => 'Пароль не должен быть больше чем 20 символов.',
+            
+            'mobile_phone.required' => 'Поле "Личный телефон" должно быть заполнено.',
+            'position.max' =>'Поле "Должность" не должно превышать 255 символов.',
+
+            'avatar.image' => 'Поле "Аватар" может содержать только файл картинку.'
+        ])->validate();
     }
 
     /**
@@ -95,7 +117,6 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'mobile_phone' => $data['mobile_phone'],
             'work_phone' => $data['work_phone'],
-            'region_id' => $data['region'],
             'position' => $data['position'],
             'department_id' => $data['department'],
             'office_id' => $data['office'],
@@ -117,23 +138,8 @@ class RegisterController extends Controller
     {
         $this->validator($request->all());
 
-        // [
-        //     'login' =>'',
-        //     'first_name' => '',
-        //     'sur_name' =>'',
-        //     'last_name' =>'',
-        //     'email' =>'',
-        //     'password' =>'',
-        //     'mobile_phone' => '',
-        //     'work_phone' =>'',
-        //     'region_id' =>'',
-        //     'position' =>'',
-        //     'department_id' =>'',
-        //     'office_id' =>''
-        // ]
-
         event(new Registered($user = $this->create($request->all())));
 
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Пользователь добавлен.');
     }
 }

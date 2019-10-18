@@ -1,4 +1,5 @@
 @extends('layouts.admin.app')
+
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -12,6 +13,12 @@
     @if(session('success'))
     <div class="alert alert-success">
         {{session()->get('success')}}
+    </div>
+    @endif
+
+    @if(session('status'))
+    <div class="alert alert-danger">
+        {{session()->get('status')}}
     </div>
     @endif
     <div class="row">
@@ -28,19 +35,25 @@
                         </tr>
                         @foreach($users as $user)
                         <tr>
-                            <td>{{$user->id}}</td>
-                            <td><a href="">{{$user->first_name}} {{$user->sur_name}} {{$user->last_name}}</a></td>
-                            <td>{{$user->position}}</td>
-                            <td><time>{{$user->email}}</time></td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-around">
-                                    <a href="{{route('admin.users.edit', $user->id)}}"><button title="Редактировать пользователя" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
-                                    <a href="{{route('admin.users.permission.edit', $user->id)}}"><button title="Редактировать права пользователя" type="submit"><span class="fa fa-shield text-primary"></span></button></a>
+                            <td class="align-middle">{{$user->id}}</td>
+                            <td class="align-middle"><a href="">{{$user->first_name}} {{$user->sur_name}} {{$user->last_name}}</a></td>
+                            <td class="align-middle">{{$user->position}}</td>
+                            <td class="align-middle">{{$user->email}}</td>
+                            <td class="align-middle">
+                                <div class="d-flex justify-content-between">
+
+                                    @if(Auth::user()->hasPermissionTo('edit users'))
+                                    <a class="btn btn-secondary" title="изменить данные пользователя" href="{{route('admin.users.edit', $user->id)}}"><span class="fa fa-pencil text-primary"></span></a>
+                                    @endif
+                                    <a class="btn btn-secondary {{((Auth::user()->hasPermissionTo('edit rolesAndPermissions') && !$user->hasAnyRole(['admin','grant admin'])) || Auth::user()->hasRole('grant admin')) ? '' : 'disabled'}}" title="изменить права доступа" href="{{route('admin.users.permission.edit', $user->id)}}"><span class="fa fa-shield text-primary"></span></a>
+                                    @if(Auth::user()->hasPermissionTo('delete users'))
                                     <form action="{{route('admin.users.destroy', $user->id)}}" method="POST">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button title="Удалить пользователя" type="submit"><span class="fa fa-trash text-danger"></span></button>
+                                        <button class="btn btn-secondary " title="Удалить пользователя" type="submit"><span class="fa fa-trash text-danger"></span></button>
                                     </form>
+
+                                    @endif
                                 </div>
                             </td>
                         </tr>
