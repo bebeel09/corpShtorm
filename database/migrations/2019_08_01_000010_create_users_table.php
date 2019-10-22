@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
             
             $table->foreign('office_id')->references('id')->on('offices');
             $table->foreign('department_id')->references('id')->on('departments');

@@ -44,23 +44,23 @@
                         <div class="col-4">
                             <h2>Роль</h2>
                             <form action="" name="roles">
+
                                 @foreach($roles as $role)
-                                @if($role->name!='grant admin' || Auth::user()->hasRole('grant admin'))
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="{{$role->name}}" id="{{$role->name}}" {{($user->hasRole($role->name)) ? 'checked' : ''}}>
                                     <label class="form-check-label" for="{{$role->name}}">
                                         {{$role->name}}
                                     </label>
                                 </div>
-                                @endif
                                 @endforeach
+
                             </form>
                         </div>
                         <div class="col-4">
                             <h2>Разрешения</h2>
                             <form action="" name="permissions">
-                                @foreach($permissions as $permission)
 
+                                @foreach($permissions as $permission)
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="{{$permission->name}}" id="{{$permission->name}}" {{($user->hasPermissionTo($permission->name)) ? 'checked' : ''}}>
                                     <label class="form-check-label" for="{{$permission->name}}">
@@ -68,6 +68,7 @@
                                     </label>
                                 </div>
                                 @endforeach
+
                             </form>
                         </div>
                     </div>
@@ -91,11 +92,6 @@
 
 <script>
     function editRoleAndPermission() {
-
-        // var data = new FormData();
-        // data.append('roles', JSON.stringify( $('form[name="roles"]').serializeArray()));
-        // data.append('permissions', JSON.stringify($('form[name="permissions"]').serializeArray()));
-
         var formData = new FormData();
 
         $('form[name="roles"]').find('input:checkbox:checked').each(function(i, elem) {

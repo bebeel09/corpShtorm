@@ -41,19 +41,15 @@
                             <td class="align-middle">{{$user->email}}</td>
                             <td class="align-middle">
                                 <div class="d-flex justify-content-between">
+                                    <a class="btn btn-secondary {{($currentUser->hasPermissionTo('edit users') && !$user->hasAnyRole(['grant admin', 'admin']) || $currentUser->hasAnyRole(['grant admin', 'admin']))? '': 'disabled'}}" title="изменить данные пользователя" href="{{route('admin.users.edit', $user->id)}}"><span class="fa fa-pencil text-primary"></span></a>
+                                    <a class="btn btn-secondary {{(($currentUser->hasPermissionTo('edit rolesAndPermissions') && !$user->hasAnyRole(['admin','grant admin'])) || $currentUser->hasRole('grant admin')) ? '' : 'disabled'}}" title="изменить права доступа" href="{{route('admin.users.permission.edit', $user->id)}}"><span class="fa fa-shield text-primary"></span></a>
 
-                                    @if(Auth::user()->hasPermissionTo('edit users'))
-                                    <a class="btn btn-secondary" title="изменить данные пользователя" href="{{route('admin.users.edit', $user->id)}}"><span class="fa fa-pencil text-primary"></span></a>
-                                    @endif
-                                    <a class="btn btn-secondary {{((Auth::user()->hasPermissionTo('edit rolesAndPermissions') && !$user->hasAnyRole(['admin','grant admin'])) || Auth::user()->hasRole('grant admin')) ? '' : 'disabled'}}" title="изменить права доступа" href="{{route('admin.users.permission.edit', $user->id)}}"><span class="fa fa-shield text-primary"></span></a>
-                                    @if(Auth::user()->hasPermissionTo('delete users'))
                                     <form action="{{route('admin.users.destroy', $user->id)}}" method="POST">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-secondary " title="Удалить пользователя" type="submit"><span class="fa fa-trash text-danger"></span></button>
+                                        <button class="btn btn-secondary" title="Удалить пользователя" type="submit" {{($currentUser->hasPermissionTo('delete users') && !$user->hasAnyRole(['grant admin', 'admin']) || $currentUser->hasAnyRole(['grant admin', 'admin']))? '': 'disabled'}}><span class="fa fa-trash text-danger"></span></button>
                                     </form>
 
-                                    @endif
                                 </div>
                             </td>
                         </tr>

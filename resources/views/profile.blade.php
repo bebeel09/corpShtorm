@@ -14,7 +14,6 @@
         <div>
             <table>
                 <tbody>
-
                     <tr>
                         <th>Рабочий телефон: </th>
                         <th>{{$userMetaData->work_phone}}</th>
@@ -46,7 +45,7 @@
 </div>
 <div class="post achivment">
 
-    @if(Auth::user()->id == $userMetaData->id)
+    @if($currentUser->id == $userMetaData->id && $currentUser->can('change password'))
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         <i class="fa fa-key"></i> Сменить пароль
     </button>
@@ -88,7 +87,7 @@
 
 
 @section('additional_js')
-@if(Auth::user()->id == $userMetaData->id)
+@if($currentUser->id == $userMetaData->id)
 <script>
     function editPassword(el) {
         var data = $('#changePassword').serialize();

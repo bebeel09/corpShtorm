@@ -27,7 +27,7 @@
         </div>
         <h3 class="post_title"><a href=""></a></h3>
         <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{$category->title}}</a>
-            @role('admin')
+            @can('edit posts')
             <a href="{{route('admin.posts.edit', $post->id)}}"><button title="Редактировать пост" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
             @endrole</p>
 

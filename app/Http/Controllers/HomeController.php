@@ -63,13 +63,12 @@ class HomeController extends Controller
 
   public function showCategory($slug)
   {
-
     $category = Category::where('slug', $slug)->first();
 
     $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
       ->where('category_id', $category->id)
       ->with(['category:id,slug,title'])
-      ->with(['user:id,last_name,sur_name,first_name,avatar'])
+      ->with(['user:id,last_name,sur_name,first_name,avatar'])->withTrashed()
       ->orderBy('id', 'DESC')
       ->paginate(15);
 

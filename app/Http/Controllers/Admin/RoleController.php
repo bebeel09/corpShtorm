@@ -64,13 +64,19 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-
         $role = Role::findOrFail($id);
-        if (Auth::user()->hasRole('grant admin') == false && ($role->name == 'grant admin' || $role->name == 'admin')) {
-            return redirect()->route('admin.roles.index')->with('status', 'У вас нет доступа для изменения это роли.');
+
+        if (Auth::user()->hasRole('grant admin') == false && $role->hasPermissionTo('edit rolesAndPermissions')) {
+            return redirect()->route('admin.roles.index')->with('status', 'У вас нет доступа для изменения этой роли.');
         }
 
-        $permissions = Permission::all();
+        if (Auth::user()->hasRole('grant admin')) {
+            $permissions = Permission::all();
+        } else {
+            $permissions = Permission::where([
+                ['name', '!=', 'edit rolesAndPermissions']
+            ])->get();
+        }
 
         return view('admin.users.role.edit', compact('role', 'permissions'));
     }
@@ -86,15 +92,15 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
 
-        if (strpos(URL::previous(),$id)===false) {
+        if (strpos(URL::previous(), $id) === false) {
             return redirect()->back()->with('status', 'Была предпринята попытка назначить права другой роли в обход. Не делайте так пожалуйста.');
         }
 
-        $permissions=array_slice($request->all(), 2);
+        $permissions = array_slice($request->all(), 2);
         $role->revokePermissionTo(Permission::all());
-        
-        foreach($permissions as $permission => $bool){
-            $permission=str_replace("_"," ",$permission);
+
+        foreach ($permissions as $permission => $bool) {
+            $permission = str_replace("_", " ", $permission);
             $role->givePermissionTo($permission);
         }
 

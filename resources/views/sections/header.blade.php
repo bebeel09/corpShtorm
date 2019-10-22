@@ -19,7 +19,7 @@
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item ml-0" href="{{ route('profile', $currentUser['id'])}}">Моя страница</a>
-                @if($currentUser->hasPermissionTo('access webPanel') || $currentUser->hasAnyRole(['admin','grant admin','posts editor', 'catalogs editor']))
+                @if($currentUser->hasPermissionTo('access webPanel'))
                 <a class="dropdown-item ml-0" href="{{route('admin.dashboard')}}">Админ панель</a>
                 @endif
                 <div class="dropdown-divider"></div>

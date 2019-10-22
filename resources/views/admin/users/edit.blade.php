@@ -315,38 +315,7 @@
 <script>
     function editPassword(el) {
         var data = $('#changePassword').serialize();
-        $.ajax({
-            headers: {
-                'X-CSRF-Token': '{{csrf_token()}}'
-            },
-            type: "POST",
-            url: "{{route('admin.users.changePassword', ['id'=>$user['id']])}}",
-            data: data,
-            success: function(jqXhr, json, errorThrown) {
-                $('html,body').animate({
-                    scrollTop: 0
-                }, 300);
-                $('.alert').removeClass('alert-danger').addClass('alert-success').html(
-                    jqXhr.message).slideDown(800);
-            },
-            error: function(jqXhr, json, errorThrown) {
-                var errors = jqXhr.responseJSON.errors;
-                var errorsHtml = '<ul>';
-                $.each(errors.newPassword, function(index, value) {
-                    errorsHtml += '<li>' + value + '</li>';
-                });
-                errorsHtml += '</ul>';
-                $('html,body').animate({
-                    scrollTop: 0
-                }, 300);
-                $('.alert').addClass('alert-danger').html(errorsHtml).slideDown(800);
-            }
-        });
-    }
-
-
-    function editPassword(el) {
-        var data = $('#changePassword').serialize();
+        console.log("asdasdasd");
         $.ajax({
             headers: {
                 'X-CSRF-Token': '{{csrf_token()}}'

@@ -73,10 +73,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
         $user = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'department_id', 'office_id')
             ->with(['department:id,department_appellation'])
             ->with(['office:id,office_appellation'])
             ->findOrFail($id);
+
+        if (!(Auth::user()->hasPermissionTo('edit users') && !$user->hasAnyRole(['grant admin', 'admin']) || Auth::user()->hasAnyRole(['grant admin', 'admin']))) {
+            return redirect()->back()->with('status', 'У вас нет доступа к изменению этого пользователя');
+        }
 
         $departments = Department::all();
         $offices = Office::all();
@@ -164,7 +169,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $result = $user->forceDelete();
+        if ($user->hasPermissionTo('edit rolesAndPermissions')) {
+            return redirect()->back()->with('status', 'Вы не можете удалить администратора.');
+        }
+
+        $result = $user->delete();
 
         if ($result) {
             return redirect()
@@ -204,15 +213,18 @@ class UserController extends Controller
 
     private function changePassword($request, $id)
     {
-        $data = $request->validate([
-            'newPassword' => 'required|min:6|alpha_dash|confirmed|max:20',
-        ], [
-            'newPassword.required' => 'Поля паролей не заполнены',
-            'newPassword.min' => 'Пароль должен состоять не меньще чем из 6 символов.',
-            'newPassword.alpha_dash' => 'Пароль может содержать только буквы, цифры, тире и символы подчеркивания.',
-            'newPassword.confirmed' => 'Контрольный пароль не соответствует паролю в первой строке.',
-            'newPassword.max' => 'Пароль не должен быть больше чем 20 символов.'
-        ]);
+        $data = $request->validate(
+            [
+                'newPassword' => 'required|min:6|alpha_dash|confirmed|max:20',
+            ],
+            [
+                'newPassword.required' => 'Поля паролей не заполнены',
+                'newPassword.min' => 'Пароль должен состоять не меньще чем из 6 символов.',
+                'newPassword.alpha_dash' => 'Пароль может содержать только буквы, цифры, тире и символы подчеркивания.',
+                'newPassword.confirmed' => 'Контрольный пароль не соответствует паролю в первой строке.',
+                'newPassword.max' => 'Пароль не должен быть больше чем 20 символов.'
+            ]
+        );
 
         $user = User::find($id);
 

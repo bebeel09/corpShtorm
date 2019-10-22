@@ -17,8 +17,7 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-    }
+    { }
 
     /**
      * Show the form for creating a new resource.
@@ -61,16 +60,23 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        if($user->hasRole('grant admin') && !Auth::user()->hasRole('grant admin')){
+
+        if ($user->hasPermissionTo('edit rolesAndPermissions') && !Auth::user()->hasRole('grant admin')) {
             return redirect()->back()->with('status', 'Изменение прав этого пользователя может осуществить только великий админ.');
         }
 
-        if(Auth::user()->id == $id && Auth::user()->hasPermissionTo('edit rolesAndPermissions') && !Auth::user()->hasRole('grant admin')){
-           return redirect()->back()->with('status', 'Администратору запрещается изменять себе права доступа.');
-        }
+        $permissions = Permission::where('name', '!=', 'edit rolesAndPermissions')->get();
         
-        $permissions = Permission::all();
-        $roles = Role::all();
+        if (Auth::user()->hasRole('grant admin')) {
+            $roles = Role::all();
+        } else {
+            $roles = Role::where([
+                ['name', '!=', 'grant admin'],
+                ['name', '!=', 'admin']
+            ])->get();
+        }
+
+
         return view('admin.users.permission.edit', compact('user', 'permissions', 'roles'));
     }
 
@@ -84,7 +90,7 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $assignableRole = [];
         $assignablePermissions = [];
 
@@ -105,8 +111,6 @@ class PermissionController extends Controller
         }
 
         $user->syncRoles($assignableRole);
-
-
 
         return abort(200, 'Роли и разрешения были удачно заменены');
     }

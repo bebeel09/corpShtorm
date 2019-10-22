@@ -79,6 +79,7 @@
                             </select>
                         </div>
                     </div>
+                    @can('create categories')
                     <div class="form-group">
                         <a data-widget="hider" style="text-decoration: underline;"> Добавить новую рубрику</a>
                         <form id="addCategoryForm" method="POST" style="margin-top: 15px; display: none;">
@@ -99,6 +100,7 @@
                             <button class="btn btn-block btn-success" onclick="addCategory(this); return false;"><i class="fa fa-plus"></i> Добавить новую рубрику</button>
                         </form>
                     </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -220,6 +222,7 @@
         });
     }
 
+    @can('create categories')
     function addCategory(el) {
         var data = $('#addCategoryForm').serialize();
         $.ajax({
@@ -239,5 +242,6 @@
             }
         });
     }
+    @endcan
 </script>
 @endsection

@@ -86,7 +86,7 @@ class PostController extends Controller
 
 
     //Осторожно рекрусия!!!
-    // $category - объект категории для поиска родительской категорий
+    // $category - объект модели "категория" для поиска родительской категорий
     // &$arraySave - ссылка на массив куда записываем найденные объекты
     protected function breadcrumbs($category, &$arraySave)
     {
