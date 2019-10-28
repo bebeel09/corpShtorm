@@ -37,6 +37,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermissionTo('create users')){
+            return redirect()->back()->with('status','У вас нет доступа для этого действия.');
+        }
         $departments = Department::all();
         $offices = Office::all();
 
@@ -73,7 +76,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-
         $user = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'department_id', 'office_id')
             ->with(['department:id,department_appellation'])
             ->with(['office:id,office_appellation'])
@@ -158,6 +160,7 @@ class UserController extends Controller
             $validatedData['avatar'] = url($validatedData['avatar']->store($savePath, 'public'));
         }
 
+        $validatedData += ['name' => $validatedData['first_name'] . " " . $validatedData['sur_name'] . " " . $validatedData['last_name']];
         $item->update($validatedData);
     }
 

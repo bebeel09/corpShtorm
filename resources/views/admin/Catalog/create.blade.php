@@ -92,6 +92,7 @@
                             </select>
                         </div>
                     </div>
+                    @can('create catalogs')
                     <div class="form-group">
                         <a data-widget="hider" style="text-decoration: underline;"> Добавить новый каталог</a>
                         <form id="addCatalogForm" method="POST" style="margin-top: 15px; display: none;">
@@ -112,6 +113,7 @@
                             <button class="btn btn-block btn-success" onclick="addCatalog(this); return false;"><i class="fa fa-plus"></i> Добавить новую рубрику</button>
                         </form>
                     </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -222,6 +224,7 @@
         });
     }
 
+@can('create catalogs')
     function addCatalog(el) {
         var data = $('#addCatalogForm').serialize();
 
@@ -240,5 +243,6 @@
             error: function(jqXhr, json, errorThrown) {}
         });
     }
+    @endcan
 </script>
 @endsection

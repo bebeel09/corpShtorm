@@ -28,8 +28,8 @@
         <h3 class="post_title"><a href=""></a></h3>
         <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{$category->title}}</a>
             @can('edit posts')
-            <a href="{{route('admin.posts.edit', $post->id)}}"><button title="Редактировать пост" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
-            @endrole</p>
+            <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-secondary" title="Редактировать пост"><span class="fa fa-pencil text-white"></span></a>
+            @endcan</p>
 
         {!! $post->content_html !!}
 

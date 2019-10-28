@@ -156,7 +156,7 @@
                     <button class="btn btn-success col-12" onclick="editUser(this)">Обновить</button>
                 </div>
             </div>
-
+            @if(!$user->hasRole('grant admin'))
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Форма изменения пароля</h3>
@@ -179,6 +179,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
 </section>
 @endsection

@@ -9,9 +9,15 @@
 <!-- Main content -->
 <section class="content">
 
-    @if(session('success'))
+@if(session('success'))
     <div class="alert alert-success">
         {{session()->get('success')}}
+    </div>
+    @endif
+
+    @if(session('status'))
+    <div class="alert alert-danger">
+        {{session()->get('status')}}
     </div>
     @endif
     <input type="text" id="search" placeholder="Поиск" class="col p-2 mt-3 mb-3" style=" font-size: 14px;">
@@ -37,11 +43,11 @@
                         </thead>
                         @foreach($items as $item)
                         <tr>
-                            <td>{{$item->id}}</td>
-                            <td><a href="{{route('blog.posts.show', $item->category->slug.'/'.$item->slug)}}">{{$item->title}}</a></td>
-                            <td class="text-break">{{$item->category->title}}</td>
-                            <td><time>{{$item->created_at->diffForHumans()}}</time></td>
-                            <td class="text-center">
+                            <td class="align-middle">{{$item->id}}</td>
+                            <td class="align-middle"><a href="{{route('blog.posts.show', $item->category->slug.'/'.$item->slug)}}">{{$item->title}}</a></td>
+                            <td class="align-middle text-break">{{$item->category->title}}</td>
+                            <td class="align-middle"><time>{{$item->created_at->diffForHumans()}}</time></td>
+                            <td class="align-middle text-center">
                                 <div class="d-flex justify-content-around">
 
                                     <a class="btn btn-secondary {{($currentUser->hasPermissionTo('edit posts') ? '' : 'disabled')}}" href="{{route('admin.posts.edit', $item->id)}}"><span class="fa fa-pencil text-primary"></span></a>

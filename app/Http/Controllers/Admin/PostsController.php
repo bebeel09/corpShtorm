@@ -29,7 +29,9 @@ class PostsController extends Controller
 
     public function index(Request $request)
     {
-
+        if (!Auth::user()->hasPermissionTo('edit posts')) {
+            return redirect()->back()->with('status', 'У вас нет доступа для этого действия.');
+        }
         $columns = [
             'id',
             'title',
@@ -88,13 +90,18 @@ class PostsController extends Controller
             $category = Category::where('id', $valid['category'])->get();
 
 
-            $res = ['url' => route('blog.posts.index') . "/" . $category[0]->slug . "/" . Str::slug($valid['post_title'])];
+            $res = ['url' => route('showPost', ['categorySlug' => $category[0]->slug, 'postSlug' => Str::slug($valid['post_title'])])];
             return Response::json($res, 200);
         } else return abort(500, 'Пост с таким названием существует в этой категории');
     }
 
     public function create()
     {
+
+        if (!Auth::user()->hasPermissionTo('create posts')) {
+            return redirect()->back()->with('status', 'У вас нет доступа для этого действия.');
+        }
+
         $categories = Category::all();
 
         return view('admin.posts.create', compact('categories'));
@@ -102,6 +109,10 @@ class PostsController extends Controller
 
     public function edit($id)
     {
+        if (!Auth::user()->hasPermissionTo('edit posts')) {
+            return redirect()->back()->with('status', 'У вас нет доступа для этого действия.');
+        }
+
         $item = $this->PostRepository->getEdit($id);
         $categories = Category::all();
 
@@ -110,6 +121,11 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
+
+        if (!Auth::user()->hasPermissionTo('delete posts')) {
+            return redirect()->back()->with('status', 'У вас нет доступа для этого действия.');
+        }
+
         $result = $post->forceDelete();
 
         if ($result) {

@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
         $user->first_name = "Неизвестен";
         $user->sur_name = "Неизвестен";
         $user->last_name = "Неизвестен";
+        $user->name=$user->first_name." ".$user->sur_name." ".$user->last_name;
         $user->office_id = 1;
         $user->department_id = 1;
         $user->position = "Неизвестен";

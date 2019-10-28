@@ -28,7 +28,7 @@
         <h3 class="post_title"><a href=""></a></h3>
         <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{$catalog->title}}</a>
             @can('edit postsCatalog')
-            <a href="{{route('admin.catalogPost.edit', $post->id)}}"><button title="Редактировать пост" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
+            <a href="{{route('admin.catalogPost.edit', $post->id)}}" title="Редактировать пост" class="btn btn-secondary"><span class="fa fa-pencil text-white"></span></a>
             @endrole</p>
 
         @foreach(json_decode($post->content_json) as $pathFile)

@@ -41,7 +41,17 @@
                             <td class="align-middle">{{$user->email}}</td>
                             <td class="align-middle">
                                 <div class="d-flex justify-content-between">
-                                    <a class="btn btn-secondary {{($currentUser->hasPermissionTo('edit users') && !$user->hasAnyRole(['grant admin', 'admin']) || $currentUser->hasAnyRole(['grant admin', 'admin']))? '': 'disabled'}}" title="изменить данные пользователя" href="{{route('admin.users.edit', $user->id)}}"><span class="fa fa-pencil text-primary"></span></a>
+                                    <a class="btn btn-secondary
+                                    @if($currentUser->hasPermissionTo('edit users') && !$user->hasPermissionTo('edit rolesAndPermissions'))
+                                    ''
+                                    @elseif($currentUser->hasRole('admin') && $user->hasRole('admin'))
+                                    ''                       
+                                    @elseif($currentUser->hasRole('grant admin'))
+                                    ''
+                                    @else
+                                    disabled
+                                    @endif
+                                    " title="изменить данные пользователя" href="{{route('admin.users.edit', $user->id)}}"><span class="fa fa-pencil text-primary"></span></a>
                                     <a class="btn btn-secondary {{(($currentUser->hasPermissionTo('edit rolesAndPermissions') && !$user->hasAnyRole(['admin','grant admin'])) || $currentUser->hasRole('grant admin')) ? '' : 'disabled'}}" title="изменить права доступа" href="{{route('admin.users.permission.edit', $user->id)}}"><span class="fa fa-shield text-primary"></span></a>
 
                                     <form action="{{route('admin.users.destroy', $user->id)}}" method="POST">

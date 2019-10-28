@@ -55,6 +55,10 @@ class CatalogPostsController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermissionTo('create postsCatalog')){
+            return redirect()->back()->with('status','У вас нет доступа для этого действия.');
+        }
+
         $catalogs = Catalog::all();
 
         return view('admin.catalog.create', compact('catalogs'));
@@ -136,6 +140,9 @@ class CatalogPostsController extends Controller
      */
     public function edit($id)
     {
+        if(!Auth::user()->hasPermissionTo('edit postsCatalog')){
+            return redirect()->back()->with('status','У вас нет доступа для этого действия.');
+        }
         $postCatalog = CatalogPost::where('id', $id)
             ->with(['catalog:id,title,slug'])
             ->first();
@@ -232,6 +239,10 @@ class CatalogPostsController extends Controller
      */
     public function destroy($id)
     {
+        if(!Auth::user()->hasPermissionTo('delete postsCatalog')){
+            return redirect()->back()->with('status','У вас нет доступа для этого действия.');
+        }
+
         $catalogPost=CatalogPost::find($id);
 
         $pathCatalogDirectory='public/Catalog/' . $catalogPost->catalog_id . '_' . $catalogPost->slug;

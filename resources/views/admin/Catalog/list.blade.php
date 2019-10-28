@@ -9,9 +9,15 @@
 <!-- Main content -->
 <section class="content">
 
-    @if(session('success'))
+@if(session('success'))
     <div class="alert alert-success">
         {{session()->get('success')}}
+    </div>
+    @endif
+
+    @if(session('status'))
+    <div class="alert alert-danger">
+        {{session()->get('status')}}
     </div>
     @endif
     <input type="text" id="search" placeholder="Поиск" class="col p-2 mt-3 mb-3" style=" font-size: 14px;">
@@ -37,17 +43,17 @@
                         </thead>
                         @foreach($catalogs as $catalog)
                         <tr>
-                            <td>{{$catalog->id}}</td>
-                            <td><a href="{{route('catalogPost.show', [ 'catalogSlug'=> $catalog->catalog->slug,'catalogPostSlug'=> $catalog->slug])}}">{{$catalog->title}}</a></td>
-                            <td class="text-break">{{$catalog->catalog->title}}</td>
-                            <td><time>{{$catalog->created_at->diffForHumans()}}</time></td>
-                            <td class="text-center">
+                            <td class="align-middle">{{$catalog->id}}</td>
+                            <td class="align-middle"><a href="{{route('catalogPost.show', [ 'catalogSlug'=> $catalog->catalog->slug,'catalogPostSlug'=> $catalog->slug])}}">{{$catalog->title}}</a></td>
+                            <td class="align-middle text-break">{{$catalog->catalog->title}}</td>
+                            <td class="align-middle"><time>{{$catalog->created_at->diffForHumans()}}</time></td>
+                            <td class="align-middle text-center">
                                 <div class="d-flex justify-content-around">
-                                    <a href="{{route('admin.catalogPost.edit', $catalog->id)}}"><button title="Редактировать" type="submit"><span class="fa fa-pencil text-primary"></span></button></a>
+                                    <a class="btn btn-secondary {{($currentUser->hasPermissionTo('edit postsCatalog') ? '' : 'disabled')}}" href="{{route('admin.catalogPost.edit', $catalog->id)}}" title="Редактировать пост"><span class="fa fa-pencil text-primary"></span></a>
                                     <form action="{{route('admin.catalogPost.destroy', $catalog->id)}}" method="POST">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button title="Удалить пост" type="submit"><span class="fa fa-trash text-danger"></span></button>
+                                        <button class="btn btn-secondary" title="Удалить пост" type="submit" {{($currentUser->hasPermissionTo('delete postsCatalog') ? '' : 'disabled')}}><span class="fa fa-trash text-danger"></span></button>
                                     </form>
                                 </div>
                             </td>

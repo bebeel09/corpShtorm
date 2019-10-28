@@ -63,10 +63,14 @@
 						<div class="modal-body"></div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-success save-event waves-effect waves-light">Создать
-								событие</button>
+							
+							@can('create events')
+							<button type="button" class="btn btn-success save-event waves-effect waves-light">Создать событие</button>
+							@endcan
 
+							@can('delete events')
 							<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Удалить</button>
+							@endcan
 						</div>
 					</div>
 				</div>
@@ -117,9 +121,9 @@
 
 @section('additional_js')
 <script>
-	var urlRouteAdd="{{route('admin.addEvent')}}",
-		urlRouteDelete="{{route('admin.deleteEvent')}}",
-		urlRouteUpdate="{{route('admin.updateEvent')}}",
+	var urlRouteAdd = "{{route('admin.addEvent')}}",
+		urlRouteDelete = "{{route('admin.deleteEvent')}}",
+		urlRouteUpdate = "{{route('admin.updateEvent')}}",
 		token = "{{csrf_token()}}",
 		eventData = {!!$eventData!!};
 </script>

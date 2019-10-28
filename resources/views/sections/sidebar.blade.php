@@ -1,14 +1,16 @@
 <div class="sidebar d-md-block d-none col-4 pl-0">
 
     <ul class="sidebar-menu ">
+
         @foreach ($typeCategory as $categoryItem)
-        <li class="p-0 {{ request()->path() == 'category/'.$categoryItem['slug']  ? 'active' : '' }}"><a href="{{route('showCategory', $categoryItem['slug'])}}"><i class="fa fa-newspaper-o"></i>{{$categoryItem['title']}}</a></li>
+        <li class="p-0 {{ request()->is('category/'.$categoryItem['slug'].'*')  ? 'active' : '' }}"><a href="{{route('showCategory', $categoryItem['slug'])}}"><i class="fa fa-newspaper-o"></i>{{$categoryItem['title']}}</a></li>
         @endforeach
-        
+
         <li class="p-0 {{ (Request::routeIs('phoneBook')) ? 'active' : '' }}"><a href="{{ route('phoneBook') }}"><i class="fa fa-phone"></i>Телефонный справочник</a></li>
         <li class="p-0 {{ (Request::routeIs('events')) ? 'active' : '' }}"><a href="{{ route('events') }}"><i class="fa fa-calendar"></i>Календарь событий</a></li>
+        
         @foreach ($mainCatalogs as $catalog)
-        <li class="p-0 {{ request()->path() == 'catalog/'.$catalog['slug']  ? 'active' : '' }} "><a href="{{route('catalog.show', $catalog['slug'])}}"><i class="fa fa-folder-open"></i>{{$catalog['title']}}</a></li>
+        <li class="p-0 {{ request()->is('catalog/'.$catalog['slug'].'*')  ? 'active' : '' }} "><a href="{{route('catalog.show', $catalog['slug'])}}"><i class="fa fa-folder-open"></i>{{$catalog['title']}}</a></li>
         @endforeach
     </ul>
     <hr>
