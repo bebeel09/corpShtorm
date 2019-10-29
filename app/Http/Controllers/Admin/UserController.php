@@ -121,12 +121,12 @@ class UserController extends Controller
         if ($data['birthday'] != null) {
 
             $birthdayEvent = Event::firstOrNew([
-                'user_id'=> $id,
-                'className'=> 'bg-pink'
+                'user_id' => $id,
+                'className' => 'bg-pink'
             ]);
             $birthdayEvent->title = $fullName . " празднует день рождения.";
 
-            $birthdayEvent->repeats=2;
+            $birthdayEvent->repeats = 2;
             $birthdayEvent->start = $data['birthday'];
             $birthdayEvent->end = $data['birthday'];
 
@@ -156,7 +156,14 @@ class UserController extends Controller
             return redirect()->back()->with('status', 'Вы не можете удалить администратора.');
         }
 
+        Event::where([
+            ['user_id', $user->id], 
+            ['className', 'bg-pink']
+        ])->delete();
+
         $result = $user->delete();
+
+        
 
         if ($result) {
             return redirect()
