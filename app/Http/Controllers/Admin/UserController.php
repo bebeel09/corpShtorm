@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Department;
 use app\User;
 use App\Office;
+use App\Event;
 use Str;
 use Hash;
 
@@ -37,8 +38,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(!Auth::user()->hasPermissionTo('create users')){
-            return redirect()->back()->with('status','У вас нет доступа для этого действия.');
+        if (!Auth::user()->hasPermissionTo('create users')) {
+            return redirect()->back()->with('status', 'У вас нет доступа для этого действия.');
         }
         $departments = Department::all();
         $offices = Office::all();
@@ -76,7 +77,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::select('id', 'first_name', 'sur_name', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'department_id', 'office_id')
+        $user = User::select('id', 'first_name', 'sur_name', 'birthday', 'last_name', 'email', 'mobile_phone', 'work_phone', 'position', 'avatar', 'department_id', 'office_id')
             ->with(['department:id,department_appellation'])
             ->with(['office:id,office_appellation'])
             ->findOrFail($id);
@@ -92,45 +93,6 @@ class UserController extends Controller
     }
 
 
-    public function addOffice(Request $request)
-    {
-        $data = $request->input();
-
-        Validator::make($data, [
-            'office_appellation' => 'requaire|alpha|unique:office'
-        ]);
-
-        $item = (new Office())->create($data);
-
-        if ($item) {
-            echo $item;
-        } else {
-            return back()
-                ->withErrors(['msg' => 'Ошибка сохранения'])
-                ->withInput();
-        }
-    }
-
-
-    public function addDepartment(Request $request)
-    {
-        $data = $request->input();
-        Validator::make($data, [
-            'department_appellation' => 'requaire|alpha|unique:department'
-        ]);
-
-        $item = (new Department())->create($data);
-
-        if ($item) {
-            echo $item;
-        } else {
-            return back()
-                ->withErrors(['msg' => 'Ошибка сохранения'])
-                ->withInput();
-        }
-    }
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -140,9 +102,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        $validatedData = $request->all();
+        $data = $request->all();
 
         Validator::make($request->all(), [
             'first_name' => 'required|max:255',
@@ -150,18 +112,36 @@ class UserController extends Controller
             'last_name' => 'required|max:255',
             'work_phone' => 'required|numeric',
             'position' => 'text|alpha',
+            'birthday' => 'date',
             'avatar' => 'image|nullable'
         ]);
 
-        if ($validatedData['avatar'] == 'undefined') {
-            $validatedData['avatar'] = $item['avatar'];
-        } else {
-            $savePath = 'avatar/' . Str::slug($item['id'] . '_' . $validatedData['first_name'] . "_" . $validatedData['sur_name'] . "_" . $validatedData['last_name']);
-            $validatedData['avatar'] = url($validatedData['avatar']->store($savePath, 'public'));
+        $fullName = $data['first_name'] . " " . $data['sur_name'] . " " . $data['last_name'];
+
+        if ($data['birthday'] != null) {
+
+            $birthdayEvent = Event::firstOrNew([
+                'user_id'=> $id,
+                'className'=> 'bg-pink'
+            ]);
+            $birthdayEvent->title = $fullName . " празднует день рождения.";
+
+            $birthdayEvent->repeats=2;
+            $birthdayEvent->start = $data['birthday'];
+            $birthdayEvent->end = $data['birthday'];
+
+            $birthdayEvent->save();
         }
 
-        $validatedData += ['name' => $validatedData['first_name'] . " " . $validatedData['sur_name'] . " " . $validatedData['last_name']];
-        $item->update($validatedData);
+        if ($data['avatar'] == 'undefined') {
+            $data['avatar'] = $user['avatar'];
+        } else {
+            $savePath = 'avatar/' . Str::slug($user['id'] . '_' . str_replace(' ', '_', $fullName));
+            $data['avatar'] = url($data['avatar']->store($savePath, 'public'));
+        }
+
+        $data += ['name' => $fullName];
+        $user->update($data);
     }
 
     /**
@@ -237,6 +217,45 @@ class UserController extends Controller
             $user->password = Hash::make($data['newPassword']);
             $user->save();
             abort(200, 'Пароль успешно изменён');
+        }
+    }
+
+
+    public function addOffice(Request $request)
+    {
+        $data = $request->input();
+
+        Validator::make($data, [
+            'office_appellation' => 'requaire|alpha|unique:office'
+        ]);
+
+        $item = (new Office())->create($data);
+
+        if ($item) {
+            echo $item;
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
+    }
+
+
+    public function addDepartment(Request $request)
+    {
+        $data = $request->input();
+        Validator::make($data, [
+            'department_appellation' => 'requaire|alpha|unique:department'
+        ]);
+
+        $item = (new Department())->create($data);
+
+        if ($item) {
+            echo $item;
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
         }
     }
 }

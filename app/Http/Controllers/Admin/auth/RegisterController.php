@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin\Auth;
 
 use App\Conversation;
 use App\User;
+use App\Event;
 use App\Invite;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
@@ -66,6 +67,7 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users',
             'login' => 'required|unique:users',
             'password' => 'required|min:6|alpha_dash|confirmed|max:20',
+            'birthday' => 'required|date',
             'mobile_phone' => 'required',
             'position' => 'max:255',
             'avatar' => 'image|nullable'
@@ -73,26 +75,29 @@ class RegisterController extends Controller
             'first_name.required' => 'Поле "Фамилия" должно быть заполнено.',
             'first_name.alpha' => 'Поле "Фамилия" может содержать только буквы.',
             'first_name.max' => 'Поле "Фамилия" не должно превышать 255 символов.',
-            
+
             'sur_name.required' => 'Поле "Имя" должно быть заполнено.',
             'sur_name.alpha' => 'Поле "Имя" может содержать только буквы.',
             'sur_name.max' => 'Поле "Имя" не должно превышать 255 символов.',
-            
+
             'last_name.required' => 'Поле "Отчество" должно быть заполнено.',
             'last_name.alpha' => 'Поле "Отчество" может содержать только буквы.',
             'last_name.max' => 'Поле "Отчество" не должно превышать 255 символов.',
 
             'email.required' => 'Поле "mail" должно быть заполнено.',
             'login.required' => 'Поле "Логин" должно быть заполнено.',
-            
+
             'password.required' => 'Поле "Пароль" должно быть заполнено.',
             'password.min' => 'Пароль должен состоять не меньще чем из 6 символов.',
             'password.alpha_dash' => 'Пароль может содержать только буквы, цифры, тире и символы подчеркивания.',
             'password.confirmed' => 'Пароль и контрольный пароль не соответствуют.',
             'password.max' => 'Пароль не должен быть больше чем 20 символов.',
-            
+
+            'birthday.required' => 'Поле "день рождения" должно быть установлено.',
+            'birthday.date' => 'Поле "день рождения" должно быть датой.',
+
             'mobile_phone.required' => 'Поле "Личный телефон" должно быть заполнено.',
-            'position.max' =>'Поле "Должность" не должно превышать 255 символов.',
+            'position.max' => 'Поле "Должность" не должно превышать 255 символов.',
 
             'avatar.image' => 'Поле "Аватар" может содержать только файл картинку.'
         ])->validate();
@@ -108,14 +113,17 @@ class RegisterController extends Controller
     {
         $linkAvatar = '';
 
+        $fullName = $data['first_name'] . " " . $data['sur_name'] . " " . $data['last_name'];
+
         $user = User::create([
             'login' => $data['login'],
             'first_name' => $data['first_name'],
             'sur_name' => $data['sur_name'],
             'last_name' => $data['last_name'],
-            'name'=>$data['first_name']." ".$data['sur_name']." ".$data['last_name'],
+            'name' => $fullName,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'birthday' => $data['birthday'],
             'mobile_phone' => $data['mobile_phone'],
             'work_phone' => $data['work_phone'],
             'position' => $data['position'],
@@ -124,7 +132,7 @@ class RegisterController extends Controller
         ]);
 
         if (isset($data['avatar'])) {
-            $savePath = 'avatar/' . Str::slug($user->id . '_' . $data['first_name'] . "_" . $data['sur_name'] . "_" . $data['last_name']);
+            $savePath = 'avatar/' . Str::slug($user->id . '_' . str_replace(' ', '_', $fullName));
             $linkAvatar = url($data['avatar']->store($savePath, 'public'));
         } else {
             $linkAvatar = url('avatar/default/default.png');
@@ -133,14 +141,22 @@ class RegisterController extends Controller
         $user->avatar = $linkAvatar;
         $user->save();
         $user->assignRole('user');
+
+        //Создаём событие "День рождения"
+        $eventModel = new Event();
+        $eventModel->title = $fullName . " празднует день рождения.";
+        $eventModel->className = "bg-pink";
+        $eventModel->start = $data['birthday'];
+        $eventModel->end = $data['birthday'];
+        $eventModel->user_id = $user->id;
+        $eventModel->repeats = "2";
+        $eventModel->save();
     }
 
     public function register(Request $request)
     {
         $this->validator($request->all());
-
         event(new Registered($user = $this->create($request->all())));
-
-        return redirect()->back()->with('status', 'Пользователь добавлен.');
+        return redirect()->back()->with('status', 'Пользователь создан.');
     }
 }

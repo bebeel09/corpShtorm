@@ -112,6 +112,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="exampleInputBirthday1">День рождения</label>
+                            <input type="date" name="birthday" class="form-control" aria-describedby="birthdayHelp">
+                            <small id="birthdayHelp" class="form-text text-muted">Выбирите картинку для аватарки пользователя</small>
+                        </div>
+
+                        <div class="form-group">
                             <label for="exampleInputDepartment1">Отдел <span>*</span></label>
                             <select type="text" autocomplete="off" name="department" id="department" class="form-control" aria-describedby="DepartmentHelp" placeholder="Логистика">
                                 @foreach($departments as $department)

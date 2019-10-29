@@ -1,6 +1,6 @@
 <header class="header container-fluid">
     <div class=" row align-items-center justify-content-between pl-3 pr-3">
-        <label for="nav-toggle" class="nav-toggle d-block d-md-none">
+        <label for="nav-toggle" class="nav-toggle d-block d-md-none btn btn-success">
         </label>
         <div class="">
             <a href="{{route('showCategory', 'novosti')}}"><span class="header_logo" style="background-size: 80%; background-repeat: no-repeat; background-position: center;"></span></a>

@@ -70,6 +70,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="exampleInputBirthday1">День рождения</label>
+                            <input type="date" name="birthday" class="form-control" aria-describedby="birthdayHelp" value="{{$user->birthday}}">
+                            <small id="birthdayHelp" class="form-text text-muted">Установите дату рождения пользователя</small>
+                        </div>
+
+
+                        <div class="form-group">
                             <label for="exampleInputDepartment1">Отдел <span>*</span></label>
                             <select type="text" autocomplete="off" id="department" class="form-control" aria-describedby="DepartmentHelp">
                                 @foreach ($departments as $department )
@@ -104,7 +111,7 @@
                             <input type="text" autocomplete="off" name="position" class="form-control" aria-describedby="posHelp" placeholder="Старший специалист" value="{{$user['position']}}">
                             <small id="posHelp" class="form-text text-muted">Введите должность сотрудника</small>
                         </div>
-
+    
                         <div class="form-group">
                             <label for="exampleInputworkPhone1">Рабочий телефон </label>
                             <input id="workPhone" type="text" autocomplete="off" name="work_phone" class="form-control" aria-describedby="workPhoneHelp" placeholder="911" value="{{$user['work_phone']}}">
@@ -217,9 +224,6 @@
 
 <script>
     function editUser(msg) {
-
-        var avatar = $('form[name="updateUser"]').serializeArray();
-
         var formData = new FormData();
         formData.append('first_name', $('input[name="first_name"]')[0].value);
         formData.append('sur_name', $('input[name="sur_name"]')[0].value);
@@ -230,6 +234,7 @@
         formData.append('position', $('input[name="position"]')[0].value);
         formData.append('department_id', $('#department').val());
         formData.append('avatar', $('input[name="avatar"]')[0].files[0]);
+        formData.append('birthday', $('input[name="birthday"]')[0].value);
 
         $.ajax({
             headers: {
