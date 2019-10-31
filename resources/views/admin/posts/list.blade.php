@@ -50,12 +50,12 @@
                             <td class="align-middle text-center">
                                 <div class="d-flex justify-content-around">
 
-                                    <a class="btn btn-secondary {{($currentUser->hasPermissionTo('edit posts') ? '' : 'disabled')}}" href="{{route('admin.posts.edit', $item->id)}}"><span class="fa fa-pencil text-primary"></span></a>
+                                    <a class="btn btn-secondary {{(Auth::user()->hasPermissionTo('edit posts') ? '' : 'disabled')}}" href="{{route('admin.posts.edit', $item->id)}}"><span class="fa fa-pencil text-primary"></span></a>
 
                                     <form action="{{route('admin.posts.destroy', $item->id)}}" method="POST">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-secondary" title="Удалить пост" type="submit" {{($currentUser->hasPermissionTo('delete posts') ? '' : 'disabled')}}><span class="fa fa-trash text-danger"></span></button>
+                                        <button class="btn btn-secondary" title="Удалить пост" type="submit" {{(Auth::user()->hasPermissionTo('delete posts') ? '' : 'disabled')}}><span class="fa fa-trash text-danger"></span></button>
                                     </form>
                                 </div>
                             </td>

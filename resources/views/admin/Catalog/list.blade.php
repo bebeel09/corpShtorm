@@ -49,11 +49,11 @@
                             <td class="align-middle"><time>{{$catalog->created_at->diffForHumans()}}</time></td>
                             <td class="align-middle text-center">
                                 <div class="d-flex justify-content-around">
-                                    <a class="btn btn-secondary {{($currentUser->hasPermissionTo('edit postsCatalog') ? '' : 'disabled')}}" href="{{route('admin.catalogPost.edit', $catalog->id)}}" title="Редактировать пост"><span class="fa fa-pencil text-primary"></span></a>
+                                    <a class="btn btn-secondary {{(Auth::user()->hasPermissionTo('edit postsCatalog') ? '' : 'disabled')}}" href="{{route('admin.catalogPost.edit', $catalog->id)}}" title="Редактировать пост"><span class="fa fa-pencil text-primary"></span></a>
                                     <form action="{{route('admin.catalogPost.destroy', $catalog->id)}}" method="POST">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-secondary" title="Удалить пост" type="submit" {{($currentUser->hasPermissionTo('delete postsCatalog') ? '' : 'disabled')}}><span class="fa fa-trash text-danger"></span></button>
+                                        <button class="btn btn-secondary" title="Удалить пост" type="submit" {{(Auth::user()->hasPermissionTo('delete postsCatalog') ? '' : 'disabled')}}><span class="fa fa-trash text-danger"></span></button>
                                     </form>
                                 </div>
                             </td>
