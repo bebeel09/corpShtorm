@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="pageTitle-block">
-    <h2>Телефонный справочник</h2>
-</div>
 <div class="post">
+    <h3 class="post_title">Телефонный справочник</h3>
     <input type="text" id="search" placeholder="Поиск по справочнику" class="col p-2 mt-3 mb-3" style="border: 2px solid #cc0f04; font-size: 14px;">
 
     <?php

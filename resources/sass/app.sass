@@ -43,30 +43,6 @@ a
 	margin-top: 30px
 	margin-left: auto
 	margin-right: auto
-.header
-	position: relative
-	background: #ffffff
-	&_inner
-		height: 94px
-	&_logo, &_section-title
-		display: inline-block
-		vertical-align: middle
-	&_logo
-		background: url("../img/logo.png")
-		width: 167px
-		height: 57px
-		background-size: 80%
-		background-repeat: no-repeat
-	&_section-title
-		font-weight: 400
-		line-height: 20px
-		font-size: 16px
-		color: #DC2B34
-		margin-left: 10px
-	&_user-profile>a>img
-		width: 50px
-		border-radius: 100%
-		margin-right: 10px
 .user-profile
 	position: relative
 	img
@@ -100,5 +76,173 @@ a
 		border-top: 1px solid #D2D7DB
 		padding-top: 10px
 		margin-top: 25px
-@import "sections/sidebar"
+//////////////////////////////////////////////////////////////////////////////////////
+body
+	font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif !important
+	background-color: #e9e9e9
+	font-size: 14px
+.container
+	max-width: 1400px
+.header-1
+	height: 60px
+	padding: 0
+	&__navigation
+		transition: box-shadow .4s ease
+		border-top: 3px solid #0088cc
+		&.sticky
+			background: #ffffff
+			box-shadow: 0 2px 10px rgba(0,0,0,.1) !important
+			position: fixed
+			top: 0
+			left: 0
+			width: 100%
+			padding: 0
+			z-index: 2000
+	&__inner
+		height: 60px
+		position: relative
+	&__item
+		@extend .d-flex, .col
+		position: relative
+	&__logo
+		vertical-align: middle
+		display: inline-block
+	&__section-title
+		color: red
+		border-left: 2px solid rgba(0,0,0,.1)
+		padding-left: 10px
+		margin-left: 6px
+		height: 40px
+		vertical-align: middle
+		&_normal
+			font-weight: 400
+			line-height: 33px
+			font-size: 30px
+			color: #dc2b34
+	&__search
+		font-size: 15px
+		position: relative
+		min-width: 200px
+		width: 100%
+		&_input
+			width: 100%
+			line-height: normal
+			background: #f7f7f6
+			padding: 4px 10px 4px 30px
+			border: none
+			height: 37px
+			border-radius: 2px
+			outline: none
+			box-sizing: border-box
+			&-icon
+				position: absolute
+				top: 10px
+				font-size: 18px
+				padding-left: 8px
+				color: #686868
+	.header-logo
+		background: url("../images/logo.png") no-repeat
+		background-size: 100%
+		height: 48px
+		width: 145px
+		font-size: inherit
+		color: #222
+		display: inline-block
+		vertical-align: top
+		margin: 0
+.sidebar_container
+	min-width: 225px
+	max-width: 225px
+.sidebar
+	position: fixed
+	min-width: 225px
+	max-width: 225px
+	&-menu
+		white-space: nowrap
+		overflow: hidden
+		list-style: none
+		margin: 0
+		padding: 0 0 0 0
+		&>li
+			position: relative
+			margin: 0
+			&>a
+				display: block
+				padding: 15px 5px 15px 15px
+				color: #404040
+				.fa,
+				.ion
+					width: 30px
+					font-size: 18px
+					display: inline-block
+					vertical-align: middle
+					padding-left: 5px
+					margin-right: 10px
+				&:active,
+				&:focus,
+				&:hover
+					color: #404040
+					background: #D9D9D6
+					text-decoration: none
+			&.active > a
+				background: #c2222e
+				color: #ffffff
+				i
+					color: #ffffff
+main
+	margin-top: 15px
+.post, .box
+	box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1)
+	background: #ffffff
+	margin-bottom: 20px
+	padding: 20px
+	&_title
+		width: 90%
+		max-width: 90%
+		font-weight: 400
+	&_back
+		font-size: 14px
+	&_date-publish
+		font-size: 12px
+		color: #8A8A8A
+		text-transform: lowercase
+		display: flex
+		justify-content: flex-end
+		& a
+			color: #8A8A8A
+		& a:hover
+			text-decoration: none
+			color: black
+
+	&-body
+		position: relative
+		&>img+p
+			margin-top: 20px
+	&-footer
+		border-top: 1px solid #D2D7DB
+		padding-top: 10px
+		margin-top: 25px
+.user-profile
+	position: relative
+	display: flex
+	align-items: center
+	img
+		width: 50px
+		border-radius: 100%
+		margin-right: 10px
+
+.content
+	padding-left: 15px
+	padding-right: 15px
+	width: 100%
+.content_wrapper
+	flex-wrap: nowrap
+.info-block_container
+	min-width: 325px
+	max-width: 325px
+.info-block
+	position: fixed
+	min-width: 325px
+	max-width: 325px
+
 @import "sections/login-page"

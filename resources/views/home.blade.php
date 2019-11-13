@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <div class="pageTitle-block">
-        <h2>Новости</h2>
-    </div>
     @if ($postsData)
         @foreach($postsData as $post)
             <div class="post">
@@ -13,7 +9,7 @@
                         {{$post->created_at}}
                     </div>
                     <h3 class="post_title"><a href="{{ route('blog.posts.show', $post->category->slug.'/'.$post->slug) }}">{{ $post->title }}</a></h3>
-                    <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{ $post->category->title }}</a></p>
+                    <p><a class="text-purple text-uppercase text-break" style="background-color:#ff0015; color:white; padding: 2px 10px">{{ $post->category->title }}</a></p>
 
                     {{$post->excerpt}}
 

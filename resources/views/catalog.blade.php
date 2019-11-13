@@ -1,12 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="pageTitle-block">
-    <h2>{{$currentCatalog->title}}</h2>
-</div>
-
 <div class="post">
+    <h3 class="post_title">{{$currentCatalog->title}}</h3>
     @if (!$subcatalogs->isEmpty() || !$catalogPosts->isEmpty())
     @foreach($subcatalogs as $subcatalog)
     <div class="post-body">

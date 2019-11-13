@@ -2,18 +2,14 @@
 
 @section('content')
 @if (!$postsData->isEmpty())
-    <div class="pageTitle-block">
-        <h2>{{$category->title}}</h2>
-    </div>
-   
     @foreach($postsData as $post)
     <div class="post">
         <div class="post-body">
             <div class="text-right post_date-publish">
                 {{$post->created_at}}
             </div>
-            <h3 class="post_title"><a href="{{ route('showPost', ['categorySlug'=>$post->category->slug,'postSlug'=>$post->slug]) }}">{{ $post->title }}>></a></h3>
-            <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{ $post->category->title }}</a></p>
+            <h3 class="post_title"><a href="{{ route('showPost', ['categorySlug'=>$post->category->slug,'postSlug'=>$post->slug]) }}">{{ $post->title }}</a></h3>
+            <p><a class="text-purple text-uppercase text-break" style="background-color:#ff0015; color:white; padding: 2px 10px">{{ $post->category->title }}</a></p>
 
             {{$post->excerpt}}
 

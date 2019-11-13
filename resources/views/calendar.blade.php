@@ -12,10 +12,8 @@
 
 
 @section('content')
-<div class="pageTitle-block">
-	<h2>Календарь событий</h2>
-</div>
 <div class="post">
+	<h3 class="post_title">Календарь событий</h3>
 	<div id="calendar"></div>
 </div>
 
