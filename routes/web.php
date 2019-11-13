@@ -13,25 +13,25 @@
 
 use Illuminate\Http\Request;
 
+Route::get('/', "HomeController@index")->name('main');
+
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
-Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/employee', 'HomeController@getPhoneBookPage')->name('employee');
 
 Route::get('/files/{fileName}','Admin\FileManagerController@getFile');
 Route::get('/public/Catalog/{folderCatalog}/{fileName}','Admin\FileManagerController@downloadCatalogFile');
 
 Route::get('/img/{ImgName}','Admin\FileManagerController@getImg');
-Route::get('/phone-directory', 'HomeController@getPhoneBookPage')->name('phoneBook');
+
 Route::get('/profile/{id}','HomeController@getProfilePage')->name('profile');
 Route::get('/avatar/{userSlug}/{avatarName}', 'Admin\FileManagerController@getAvatar');
 Route::get('events', 'Admin\EventsController@getFrontPage')->name('events');
 
 Route::post('profile/{id}/changePassword', 'Admin\UserController@changePasswordOnlyUser')->name('changePassword');
 
-Auth::routes();
-
-Route::get('/', "HomeController@index")->name('main');
-// Route::get('/news', 'HomeController@index')->name('news');
 Route::get('catalog/{catalogSlug}', 'HomeController@getCatalog')->name('catalog.show');
 Route::get('catalog/{catalogSlug}/{catalogPostSlug}', 'Blog\PostController@showPostCatalog')->name('catalogPost.show');
 
