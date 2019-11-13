@@ -9,7 +9,7 @@
 <!-- Main content -->
 <section class="content">
 
-@if(session('success'))
+    @if(session('success'))
     <div class="alert alert-success">
         {{session()->get('success')}}
     </div>

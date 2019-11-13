@@ -15,7 +15,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 use Str;
+use  GuzzleHttp\RequestOptions;
+use App\IdUserInExternalService;
 
 class RegisterController extends Controller
 {
@@ -66,7 +70,7 @@ class RegisterController extends Controller
             'last_name' => 'required|max:255|alpha',
             'email' => 'required|email|unique:users',
             'login' => 'required|unique:users',
-            'password' => 'required|min:6|alpha_dash|confirmed|max:20',
+            'password' => 'required|min:8|alpha_dash|confirmed|max:20',
             'birthday' => 'required|date',
             'mobile_phone' => 'required',
             'position' => 'max:255',
@@ -88,7 +92,7 @@ class RegisterController extends Controller
             'login.required' => 'Поле "Логин" должно быть заполнено.',
 
             'password.required' => 'Поле "Пароль" должно быть заполнено.',
-            'password.min' => 'Пароль должен состоять не меньще чем из 6 символов.',
+            'password.min' => 'Пароль должен состоять не меньще чем из 8 символов.',
             'password.alpha_dash' => 'Пароль может содержать только буквы, цифры, тире и символы подчеркивания.',
             'password.confirmed' => 'Пароль и контрольный пароль не соответствуют.',
             'password.max' => 'Пароль не должен быть больше чем 20 символов.',
@@ -109,7 +113,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $data, array $IdUserInExternalService)
     {
         $linkAvatar = '';
 
@@ -141,22 +145,52 @@ class RegisterController extends Controller
         $user->avatar = $linkAvatar;
         $user->save();
         $user->assignRole('user');
-
-        //Создаём событие "День рождения"
-        $eventModel = new Event();
-        $eventModel->title = $fullName . " празднует день рождения.";
-        $eventModel->className = "bg-pink";
-        $eventModel->start = $data['birthday'];
-        $eventModel->end = $data['birthday'];
-        $eventModel->user_id = $user->id;
-        $eventModel->repeats = "2";
-        $eventModel->save();
+        $this->createBirthdayEvent($data['birthday'], $fullName, $user->id);
+        IdUserInExternalService::UpdateOrCreate(
+            ['user_id' => $user->id],
+            ['netAngels_id' => $IdUserInExternalService['netAngels_id']]
+        );
     }
 
     public function register(Request $request)
     {
         $this->validator($request->all());
-        event(new Registered($user = $this->create($request->all())));
-        return redirect()->back()->with('status', 'Пользователь создан.');
+        $data = $request->all();
+        $mailData = $this->registerInNetAngels($data);
+
+        if (isset($mailData['errors']['name'])) {
+            return redirect()->back()->with('status', 'NetAngels: ' . $mailData['errors']['name'][0] . '. Пользователь не создан.');
+        } elseif (isset($mailData['errors']['password'])) {
+            return redirect()->back()->with('status', 'NetAngels: ' . $mailData['errors']['password'][0] . '. Пользователь не создан.');
+        }
+
+        $IdUserInExternalService = [
+            'netAngels_id' => $mailData['id']
+        ];
+
+        event(new Registered($user = $this->create($request->all(), $IdUserInExternalService)));
+        return redirect()->back()->with('success', 'Пользователь создан.');
+    }
+
+    private function registerInNetAngels($userData)
+    {
+        $client = new Client();
+        $res = $client->post(config("services.externalApiURL.shtorm-its") . "netAngels/register", [
+            RequestOptions::JSON => json_encode($userData)
+        ]);
+
+        return json_decode($res->getBody(true)->getContents(), true);
+    }
+
+    private function createBirthdayEvent($date, $fullName, $userID)
+    {
+        $eventModel = new Event();
+        $eventModel->title = $fullName . " празднует день рождения.";
+        $eventModel->className = "bg-pink";
+        $eventModel->start = $date;
+        $eventModel->end = $date;
+        $eventModel->user_id = $userID;
+        $eventModel->repeats = "2";
+        $eventModel->save();
     }
 }

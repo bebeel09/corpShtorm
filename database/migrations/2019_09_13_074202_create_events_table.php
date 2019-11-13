@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->tinyInteger('repeats')->comment('Повтор событий: 1-ежемесячно, 2-ежегодно');
             $table->string('className');
+            $table->integer('user_id')->nullable($value = NULL);
             $table->date('start');
             $table->date('end');
             $table->timestamps();

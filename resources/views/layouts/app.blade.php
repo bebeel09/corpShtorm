@@ -20,8 +20,9 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/rightMenu.css') }}">
 
-   
+
 </head>
+@livewireAssets
 
 <body class="skin-corp">
     @include('sections.header')

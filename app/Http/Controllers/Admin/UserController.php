@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Http\Request;
 use App\Department;
 use app\User;
@@ -14,8 +16,8 @@ use App\Office;
 use App\Event;
 use Str;
 use Hash;
-
-
+use App\IdUserInExternalService;
+use Exception;
 
 class UserController extends Controller
 {
@@ -27,9 +29,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
         return view('admin.users.list', compact('users'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,6 +49,7 @@ class UserController extends Controller
         return view('admin.users.create', compact('departments', 'offices'));
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -58,6 +61,7 @@ class UserController extends Controller
         //
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -68,6 +72,7 @@ class UserController extends Controller
     {
         //
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -144,6 +149,7 @@ class UserController extends Controller
         $user->update($data);
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -157,15 +163,18 @@ class UserController extends Controller
         }
 
         Event::where([
-            ['user_id', $user->id], 
+            ['user_id', $user->id],
             ['className', 'bg-pink']
         ])->delete();
 
         $result = $user->delete();
-
-        
-
         if ($result) {
+            $idUserInExternalService = IdUserInExternalService::where('user_id', $user->id)->first();
+
+            $client = new Client();
+            $res = $client->delete(config("services.externalApiURL.shtorm-its")."netAngels/{$idUserInExternalService->netAngels_id}/delete");
+            $idUserInExternalService->delete();
+
             return redirect()
                 ->route('admin.users.index')
                 ->with(['success' => 'Пользователь удалён.']);
@@ -174,10 +183,12 @@ class UserController extends Controller
         }
     }
 
+
     public function changePasswordAdmin(Request $request, $id)
     {
         $this->changePassword($request, $id);
     }
+
 
     public function changePasswordOnlyUser(Request $request, $id)
     {

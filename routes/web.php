@@ -28,14 +28,11 @@ Route::get('events', 'Admin\EventsController@getFrontPage')->name('events');
 
 Route::post('profile/{id}/changePassword', 'Admin\UserController@changePasswordOnlyUser')->name('changePassword');
 
-Auth::routes();
-
-
 // Route::get('/news', 'HomeController@index')->name('news');
 Route::get('catalog/{catalogSlug}', 'HomeController@getCatalog')->name('catalog.show');
 Route::get('catalog/{catalogSlug}/{catalogPostSlug}', 'Blog\PostController@showPostCatalog')->name('catalogPost.show');
 
-
+Route::auth();
 
 Route::get('category/{slug}','HomeController@showCategory')->name('showCategory');
 Route::get('category/{categorySlug}/{postSlug}', 'Blog\PostController@showPost')->name('showPost');

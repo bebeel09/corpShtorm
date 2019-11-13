@@ -36,9 +36,17 @@
             @endforeach
         </ul>
     </div>
-    @elseif(session('status'))
+    @endif
+
+    @if(session('success'))
     <div class="alert alert-success">
-        {{session('status')}}
+        {{session()->get('success')}}
+    </div>
+    @endif
+
+    @if(session('status'))
+    <div class="alert alert-danger">
+        {{session()->get('status')}}
     </div>
     @endif
 

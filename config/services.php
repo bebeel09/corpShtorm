@@ -44,4 +44,8 @@ return [
         ],
     ],
 
+    'externalApiURL'=>[
+        'shtorm-its'=> 'http://api.shtorm-its.ru/api/'
+    ],
+
 ];

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="d-flex-column  d-md-flex">
     <div class="post col-12 col-md-4 align-self-start">
         <img style="width: 100%;" src="{{$userMetaData->avatar}}" alt="">
@@ -45,7 +44,7 @@
 </div>
 <div class="post achivment">
 
-    @if($currentUser->id == $userMetaData->id && $currentUser->can('change password'))
+    @if(Auth::user()->id == $userMetaData->id && Auth::user()->can('change password'))
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         <i class="fa fa-key"></i> Сменить пароль
     </button>
@@ -87,7 +86,7 @@
 
 
 @section('additional_js')
-@if($currentUser->id == $userMetaData->id)
+@if(Auth::user()->id == $userMetaData->id)
 <script>
     function editPassword(el) {
         var data = $('#changePassword').serialize();
