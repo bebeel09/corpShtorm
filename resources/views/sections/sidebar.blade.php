@@ -3,7 +3,7 @@
     <ul class="sidebar-menu ">
 
         @foreach ($typeCategory as $categoryItem)
-        <li class="p-0 {{ request()->is('category/'.$categoryItem['slug'].'*')  ? 'active' : '' }}"><a href="{{route('showCategory', $categoryItem['slug'])}}"><i class="fa fa-newspaper-o"></i>{{$categoryItem['title']}}</a></li>
+        <li class="p-0 {{ request()->is('/')  ? 'active' : '' }}"><a href="{{route('main')}}"><i class="fa fa-newspaper-o"></i>{{$categoryItem['title']}}</a></li>
         @endforeach
 
         <li class="p-0 {{ (Request::routeIs('phoneBook')) ? 'active' : '' }}"><a href="{{ route('phoneBook') }}"><i class="fa fa-phone"></i>Телефонный справочник</a></li>
@@ -16,21 +16,24 @@
     <hr>
     <div class="post">
         <h3>События недели</h3>
-        @if ($eventsDate != Null)
+        @if ($events)
         <ul class="list-unstyled">
-            @foreach ($eventsDate as $eventDate)
+            @foreach ($events as $event)
+                @if($event[0]->start < date('Y-m-d'))
+                    @continue
+                @endif
             <hr>
             <li id="">
                 <time class="text-muted">
                     <em class="text-danger">
-                        @if ($eventDate[0]->start == date("Y-m-d"))
+                        @if ($event[0]->start == date("Y-m-d"))
                         Сегодня
                         @endif
                     </em>
-                    <small class="">{{$eventDate[0]->start}}</small><br>
+                    <small class="">{{$event[0]->start}}</small><br>
                 </time>
-                @foreach ($eventDate as $event)
-                    <a class="text-break"><i class="{{$event->className}} pr-2">&nbsp;&nbsp;</i>&nbsp;{{$event->title}}</a><br>
+                @foreach ($event as $item)
+                    <a class="text-break"><i class="{{$item->className}} pr-2">&nbsp;&nbsp;</i>&nbsp;{{$item->title}}</a><br>
 
                 @endforeach
             </li>

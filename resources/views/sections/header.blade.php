@@ -3,8 +3,7 @@
         <label for="nav-toggle" class="nav-toggle d-block d-md-none btn btn-success">
         </label>
         <div class="">
-            <a href="{{route('showCategory', 'novosti')}}"><span class="header_logo" style="background-size: 80%; background-repeat: no-repeat; background-position: center;"></span></a>
-            <span class="header_section-title d-xl-inline d-none">Корпоративный портал</span>
+            <a href="{{route('main')}}" class="header_logo"></a>
         </div>
 
         <div class=" offset-md-6 col-auto header_user-profile dropdown p-0">
@@ -14,7 +13,6 @@
                 @endif
                 <span class="d-xl-inline d-none ">{{$currentUser->first_name}} {{$currentUser->sur_name}} {{$currentUser->last_name}}</span>
             </a>
-
 
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

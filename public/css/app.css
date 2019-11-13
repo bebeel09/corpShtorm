@@ -232,8 +232,7 @@ caption {
   padding-bottom: 0.75rem;
   color: #6c757d;
   text-align: left;
-  caption-side: top;
-  font-size:22px;
+  caption-side: bottom;
 }
 
 th {
@@ -25645,6 +25644,8 @@ a:hover {
   background: url(/images/logo.png?a062ed360e9c7cc7e61dcafdc9e994a8);
   width: 167px;
   height: 57px;
+  background-size: 80%;
+  background-repeat: no-repeat;
 }
 
 .header_section-title {
@@ -25652,12 +25653,10 @@ a:hover {
   line-height: 20px;
   font-size: 16px;
   color: #DC2B34;
-  text-transform: lowercase;
   margin-left: 10px;
 }
 
 .header_user-profile > a > img {
-  height: 50px;
   width: 50px;
   border-radius: 100%;
   margin-right: 10px;
@@ -25668,7 +25667,6 @@ a:hover {
 }
 
 .user-profile img {
-  height: 50px;
   width: 50px;
   border-radius: 100%;
   margin-right: 10px;

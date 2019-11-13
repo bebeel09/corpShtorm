@@ -29,16 +29,16 @@ class HomeController extends Controller
    * @return \Illuminate\Contracts\Support\Renderable
    */
 
-  // public function index()
-  // {
-  //   $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
-  //     ->where('category_id','1')
-  //     ->with(['category:id,slug,title'])
-  //     ->with(['user:id,last_name,sur_name,first_name,avatar'])
-  //     ->paginate(15);
+   public function index()
+   {
+     $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
+       ->where('category_id','1')
+       ->with(['category:id,slug,title'])
+       ->with(['user:id,last_name,sur_name,first_name,avatar'])
+       ->paginate(6);
 
-  //   return view('home', compact('postsData'));
-  // }
+     return view('home', compact('postsData'));
+   }
 
   public function getPhoneBookPage()
   {
@@ -61,7 +61,7 @@ class HomeController extends Controller
     return view('profile', compact('userMetaData'));
   }
 
-  public function showCategory($slug)
+  public function showCategory($slug = 'novosti')
   {
     $category = Category::where('slug', $slug)->first();
 

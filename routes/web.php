@@ -13,7 +13,7 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -30,7 +30,7 @@ Route::post('profile/{id}/changePassword', 'Admin\UserController@changePasswordO
 
 Auth::routes();
 
-
+Route::get('/', "HomeController@index")->name('main');
 // Route::get('/news', 'HomeController@index')->name('news');
 Route::get('catalog/{catalogSlug}', 'HomeController@getCatalog')->name('catalog.show');
 Route::get('catalog/{catalogSlug}/{catalogPostSlug}', 'Blog\PostController@showPostCatalog')->name('catalogPost.show');
