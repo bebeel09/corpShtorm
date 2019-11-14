@@ -49711,8 +49711,8 @@ function debounce(func, wait, immediate) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OpenServer\OSPanel\domains\corp2.shtorm-its.ru\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OpenServer\OSPanel\domains\corp2.shtorm-its.ru\resources\sass\app.sass */"./resources/sass/app.sass");
+__webpack_require__(/*! C:\OSPanel\domains\corp.shtorm\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\corp.shtorm\resources\sass\app.sass */"./resources/sass/app.sass");
 
 
 /***/ })
