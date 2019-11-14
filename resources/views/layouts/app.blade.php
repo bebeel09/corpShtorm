@@ -24,6 +24,7 @@
 </head>
 
 <body class="skin-corp">
+    <div id="app">
     @include('sections.header')
     <main class="container">
         <div class="row content_wrapper">
@@ -84,10 +85,7 @@
         </div>
     </main>
 
-
-
-
-
+    </div>
 
 
 
@@ -113,6 +111,7 @@
     <script src="{{ asset('vendor_components/bootstrap/assets/js/vendor/popper.min.js') }}"></script>
     <!-- Bootstrap 4.0-->
     <script src="{{ asset('vendor_components/bootstrap/dist/js/bootstrap.js') }}"></script>
+    <script src="{{ mix('/js/app.js') }}"></script>
     @yield('additional_js')
 
 </body>

@@ -38,12 +38,7 @@
                     </span>
                 </div>
                 <div class="header-1__item header-1__item__fullwidth">
-                    <div class="header-1__search">
-                        <div class="header-1__search_input-block">
-                            <i class="fa fa-search header-1__search_input-icon"></i>
-                            <input type="text" class="header-1__search_input" id="search_input" placeholder="Сотрудник, новости или любой контент" spellcheck="false" autocomplete="off">
-                        </div>
-                    </div>
+                    <search-component></search-component>
                 </div>
                 <div class="header-1__item profile nowrap col-auto">
                     <a class="user-profile dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
