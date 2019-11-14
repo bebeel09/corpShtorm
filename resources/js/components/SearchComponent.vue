@@ -1,18 +1,56 @@
+<style>
+  .header-1__search_input:focus+.searchList {
+        display: flex;
+    }
+
+    .mobilePh {
+        color: red;
+    }
+
+    .workPh {
+        color: blue;
+    }
+
+    .searchList {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        margin-top: 15px;
+
+        background-color: #fff;
+        border: 1px solid black;
+        z-index: 1001;
+    }
+
+    .searchList:hover{
+        display: flex;
+    }
+</style>
+
+
 <template>
     <div class="header-1__search">
         <div class="header-1__search_input-block">
             <i class="fa fa-search header-1__search_input-icon"></i>
-            <input
-                    v-model="search"
-                    type="text" class="header-1__search_input" id="search_input" placeholder="Сотрудник, новости или любой контент" spellcheck="false" autocomplete="off">
-            <ul v-cloak v-if="posts" v-bind:style="{ width: width + 'px' }">
-                <li v-for="(post,key) in posts" :id="key+1"
-                    v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]">
+            <input v-model="search" type="text" class="header-1__search_input" id="search_input" placeholder="Сотрудник, новости или любой контент" spellcheck="false" autocomplete="off">
+            <!-- <ul v-cloak v-if="posts" v-bind:style="{ width: width + 'px' }">
+                <li v-for="(post,key) in searchData" :id="key+1" v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]">
 
                     <a v-bind:href="post.url">{{ post.name }}</a>
 
                 </li>
-            </ul>
+            </ul> -->
+            <div class="searchList" v-bind:style="{ width: width + 'px' }">
+                Пользователи
+                    <a v-for="(user, key) in searchData.users" :id="key+1" v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]" :href="user.path">
+                        {{user.name}}
+                    </a>
+
+Посты
+                    <a v-for="(post, key) in searchData.posts" :id="key+1" v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]" :href="post.path">
+                        {{post.title}}
+                    </a>    
+            </div>
         </div>
     </div>
 </template>
@@ -26,7 +64,7 @@
         data() {
             return {
                 search: '',
-                posts: '',
+                searchData: '',
                 count: 0,
                 width: 0,
                 activeClass: 'active',
@@ -35,7 +73,7 @@
         },
         methods: {
             getPosts: debounce(function() {
-                this.posts = '';
+                this.searchData = '';
                 this.count = 0;
                 self = this;
                 if(this.search.trim() != ''){
@@ -45,7 +83,7 @@
                             search : self.search
                         }
                     ).then(response => {
-                        self.posts = response.data;
+                        self.searchData = response.data;
                     }).catch(error => {
                         console.log('error');
                     })
@@ -88,6 +126,7 @@
                 // проверяем какая кнопка была нажата
                 // Валидные кнопки, нажатая кнопка
                 let validKeys = [], keyCode;
+
                 // Проверяем поддержку новой спецификации получения id кнопки
                 if(e.key !== undefined) {
                     keyCode = e.key;
@@ -96,12 +135,13 @@
                 } else if (e.keyCode !== undefined) {
                     keyCode = e.keyCode;
                 }
+
                 if(validKeys.includes(keyCode)) {
                     if(keyCode === 38 || keyCode === 40){
                         e.preventDefault();
                     }
 
-                    if(keyCode === 40 && self.posts == "") {
+                    if(keyCode === 40 && self.searchData == "") {
                         // Если посты пусты и строка поиска не пуста то вызовем поиск
                         self.getPosts();
                         return;
