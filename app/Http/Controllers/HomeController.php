@@ -31,11 +31,11 @@ class HomeController extends Controller
 
    public function index()
    {
-     $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
-       ->where('category_id','1')
-       ->with(['category:id,slug,title'])
-       ->with(['user:id,last_name,sur_name,first_name,avatar'])
-       ->paginate(6);
+	   $postsData = Post::select('slug', 'title', 'excerpt', 'content_html', 'created_at', 'user_id', 'category_id')
+		   ->with(['category:id,slug,title'])
+		   ->with(['user:id,last_name,sur_name,first_name,avatar'])->withTrashed()
+		   ->orderBy('id', 'DESC')
+		   ->paginate(15);
 
      return view('home', compact('postsData'));
    }

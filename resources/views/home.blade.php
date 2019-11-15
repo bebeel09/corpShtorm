@@ -8,8 +8,8 @@
                     <div class="text-right post_date-publish">
                         {{$post->created_at}}
                     </div>
-                    <h3 class="post_title"><a href="{{ route('blog.posts.show', $post->category->slug.'/'.$post->slug) }}">{{ $post->title }}</a></h3>
-                    <p><a class="text-purple text-uppercase text-break" style="background-color:#ff0015; color:white; padding: 2px 10px">{{ $post->category->title }}</a></p>
+                    <h3 class="post_title"><a href="{{ route('showPost', [$post->category->slug, $post->slug]) }}">{{ $post->title }}</a></h3>
+                    <p><a class="text-purple text-uppercase text-break" style="background-color:#ff0015; color:white; padding: 2px 10px">#{{ $post->category->title }}</a></p>
 
                     {{$post->excerpt}}
 

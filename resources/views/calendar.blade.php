@@ -24,12 +24,12 @@
 <script src="{{asset('vendor_components/fullcalendar/js/fullcalendar.min.js') }}"></script>
 
 
-<script>
+<script type="application/javascript">
 	// Any value represanting monthly repeat flag
 	var REPEAT_MONTHLY = 1;
 	// Any value represanting yearly repeat flag
 	var REPEAT_YEARLY = 2;
-	
+
 
 	$("#calendar").fullCalendar({
 		slotDuration: "00:15:00",
@@ -100,6 +100,6 @@
 			});
 
 		}
-	})
+	});
 </script>
 @endsection

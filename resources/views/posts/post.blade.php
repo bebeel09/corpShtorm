@@ -9,20 +9,20 @@
 @endsection
 
 @section('content')
-<div>
-    <span>
-        @foreach ($postBreadcrump as $breadcrump)
-        <a href="{{route('showCategory', $breadcrump->slug)}}">{{$breadcrump->title}} </a>
-        @endforeach
-    </span>
-</div>
+{{--<div>--}}
+{{--    <span>--}}
+{{--        @foreach ($postBreadcrump as $breadcrump)--}}
+{{--        <a href="{{route('showCategory', $breadcrump->slug)}}">{{$breadcrump->title}} </a>--}}
+{{--        @endforeach--}}
+{{--    </span>--}}
+{{--</div>--}}
 <div class="post">
     <div class="post-body">
         <div class="text-right post_date-publish">
-            {{$post->created_at}}
+            {{ $post->created_at }}
         </div>
         <h3 class="post_title"><a href="#">{{ $post->title }}</a></h3>
-        <p><a class="text-purple text-uppercase text-break" style="background-color:#ff0015; color:white; padding: 2px 10px">{{$category->title}}</a>
+        <p><a href="{{ route('showCategory', $category->slug) }}" class="text-purple text-uppercase text-break" style="background-color: rgb(255, 0, 21); color: white; padding: 2px 10px;">#{{$category->title}}</a>
             @can('edit posts')
             <a href="{{route('admin.posts.edit', $post->id)}}" title="Редактировать пост">редактировать пост</a>
             @endcan

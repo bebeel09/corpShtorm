@@ -13,20 +13,20 @@
 <div class="pageTitle-block">
     <h2>{{ $post->title }}</h2>
 </div>
-<div>
-    <span>
-        @foreach ($postBreadcrump as $breadcrump)
-        <a href="{{route('catalog.show', $breadcrump->slug)}}">{{$breadcrump->title}} </a>>>
-        @endforeach
-        <span>
-</div>
+{{--<div>--}}
+{{--    <span>--}}
+{{--        @foreach ($postBreadcrump as $breadcrump)--}}
+{{--        <a href="{{route('catalog.show', $breadcrump->slug)}}">{{$breadcrump->title}} </a>>>--}}
+{{--        @endforeach--}}
+{{--    <span>--}}
+{{--</div>--}}
 <div class="post">
     <div class="post-body">
         <div class="text-right post_date-publish">
             {{$post->created_at}}
         </div>
         <h3 class="post_title"><a href=""></a></h3>
-        <p><a class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">{{$catalog->title}}</a>
+        <p><a href="{{ route('showCategory', $catalog->slug) }}" class="text-purple text-uppercase text-break" style="background-color:#ff8a3c; color:white; padding: 2px">#{{$catalog->title}}</a>
             @can('edit postsCatalog')
             <a href="{{route('admin.catalogPost.edit', $post->id)}}" title="Редактировать пост" class="btn btn-secondary"><span class="fa fa-pencil text-white"></span></a>
             @endrole</p>
