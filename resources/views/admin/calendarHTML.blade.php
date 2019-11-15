@@ -63,7 +63,7 @@
 						<div class="modal-body"></div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Закрыть</button>
-							
+
 							@can('create events')
 							<button type="button" class="btn btn-success save-event waves-effect waves-light">Создать событие</button>
 							@endcan

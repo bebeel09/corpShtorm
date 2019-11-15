@@ -32,6 +32,7 @@
 
 
 	$("#calendar").fullCalendar({
+		firstDay: 1,
 		slotDuration: "00:15:00",
 		minTime: "08:00:00",
 		maxTime: "19:00:00",
@@ -46,6 +47,19 @@
 		eventLimit: 3,
 		selectable: !0,
 		eventDurationEditable: !1,
+
+		//loaclezation
+		monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'οюнь', 'οюль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+		monthNamesShort: ['Янв.', 'Фев.', 'Март', 'Апр.', 'Май', 'οюнь', 'οюль', 'Авг.', 'Сент.', 'Окт.', 'Ноя.', 'Дек.'],
+		dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+		dayNamesShort: ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"],
+		buttonText: {
+			today: "Сегодня",
+			month: "Месяц",
+			week: "Неделя",
+			day: "День",
+		},
+
 		// themeSystem: "bootstrap4",
 		eventClick: function(calEvent, jsEvent, view) {
 			alert(calEvent.title);
