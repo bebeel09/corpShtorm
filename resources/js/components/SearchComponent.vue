@@ -2,24 +2,80 @@
     <div class="header-1__search">
         <div class="header-1__search_input-block">
             <i class="fa fa-search header-1__search_input-icon"></i>
-            <input
-                    v-model="search"
-                    type="text" class="header-1__search_input" id="search_input" placeholder="Сотрудник, новости или любой контент" spellcheck="false" autocomplete="off">
-            <ul v-cloak v-if="posts" v-bind:style="{ width: width + 'px' }">
-                <li v-for="(post,key) in posts" :id="key+1"
-                    v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]">
+            <input v-model="search" type="text" class="header-1__search_input" id="search_input" placeholder="Сотрудник, новости или любой контент" spellcheck="false" autocomplete="off">
+            <div v-cloak v-bind:style="{ width: width + 'px', display: (search.trim() != '') ? 'block' : 'none' }" class="search-results" id="suggestion">
 
-                    <a v-bind:href="post.url">{{ post.name }}</a>
+                <div class="suggestions-header">
+                    <span>Пользователи</span>
+                </div>
 
-                </li>
-            </ul>
+                <div v-if="posts && posts['users'].length > 0" class="suggestions-body">
+
+                    <a v-for="(post,key) in posts['users']"
+                       :id="key+1"
+                       v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]" href="#">
+                        <div class="d-flex align-items-center">
+                            <img src="http://corp.loc/avatar/2-lunina-evgeniya-vyacheslavovna/W1XfRVscbIDTdS5cpUCpO7MnRvMBhAxcZSxmMARZ.jpeg" alt="user" style="width: 50px; height: 50px;">
+                            <div>
+                                <div>{{post.name}}</div>
+                                <div style="font-size: 11px; font-style: italic">{{post.position}}</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-around flex-wrap">
+                            <div class="d-flex align-items-center" style="color: rgba(0,0,0, .5)">
+                                <i class="fa fa-phone d-flex justify-content-center align-items-center" style="font-size: 24px"></i>
+                                <span class="phone-number">{{post.work_phone}}</span>
+                            </div>
+                            <div class="d-flex align-items-center" style="margin: 0 20px; color: rgba(0,0,0, .5)">
+                                <i class="fa fa-mobile d-flex justify-content-center align-items-center" style="font-size: 27px"></i>
+                                <span class="phone-number">{{post.mobile_phone}}</span>
+                            </div>
+                            <div class="d-flex align-items-center" style="color: rgba(0,0,0, .5)">
+                                <i class="fa fa-envelope d-flex justify-content-center align-items-center" style="font-size: 20px"></i>
+                                <span class="phone-number">{{post.email}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="all-results suggest-string">
+                        Все результаты
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+                <div v-else class="suggest-string-disabled">
+                    нет резутатов
+                </div>
+
+                <div class="suggestions-header">
+                    <span>Посты</span>
+                </div>
+
+                <div v-if="posts && posts['posts'].length > 0" class="suggestions-body">
+                    <a v-for="(post,key) in posts['posts']"
+                       :id="key+1"
+                       v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]" href="#">
+                        <span>{{post.title}}</span>
+                        <div class="text-uppercase" style="background-color:#ff0015; color:white; padding: 1px 10px; font-size: 12px">#новости</div>
+                    </a>
+                    <a href="#" class="all-results suggest-string">
+                        Все результаты
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+                <div v-else class="suggest-string-disabled">
+                    нет резутатов
+                </div>
+
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import axios from 'axios';
-    import {debounce} from "../helpers";
+    import $ from 'jquery';
+    import {debounce, index} from "../helpers";
 
     export default {
         // name: "SearchComponent",
@@ -30,7 +86,7 @@
                 count: 0,
                 width: 0,
                 activeClass: 'active',
-                menuItem: 'menu-item'
+                menuItem: 'suggest-string'
             }
         },
         methods: {
@@ -52,10 +108,10 @@
                 }
             },500),
             selectPost(keyCode) {
-                if(keyCode == 40 && this.count < this.posts.length) {
+                if(keyCode == 40 || keyCode == 'ArrowDown' && this.count < this.posts['posts'].length || this.count < this.posts['users'].length) {
                     this.count++;
                 }
-                if(keyCode ==38 && this.count > 1) {
+                if(keyCode == 38 || keyCode == 'ArrowUp' && this.count > 1) {
                     this.count--;
                 }
                 if(keyCode == 13) {
@@ -66,6 +122,30 @@
                 if(event.target.id != "search_input") {
                     this.posts = '', this.count = 0
                 }
+            },
+            filterSearch(e) {
+                self.getPosts();
+            },
+            navigateByArrows(el, increment) {
+                let suggestions_item = $('#suggestion').find('.suggest-string'),
+                    selected_suggestions_item = $('#suggestion').find('.suggest-string.active'),
+                    item = suggestions_item.index(selected_suggestions_item),
+                    current;
+                el.preventDefault();
+                current = item + increment;
+
+                if(current <= -1) {
+                    current = suggestions_item.length - 1;
+                }
+                if(current >= suggestions_item.length) {
+                    current = 0;
+                }
+                selected_suggestions_item.toggleClass('active', false);
+                selected_suggestions_item = $(suggestions_item[current]);
+                selected_suggestions_item.toggleClass('active', true);
+            },
+            hideResult() {
+                console.log('hide');
             }
         },
         mounted() {
@@ -80,14 +160,20 @@
             });
 
             // Очищаем поле при клике на боди
-            document.body.addEventListener('click', function(e) {
-                self.clearData(e);
+            // document.body.addEventListener('click', function(e) {
+            //     self.clearData(e);
+            // });
+
+            document.getElementById('search_input').addEventListener('input', function(e){
+                if(self) {
+                    self.filterSearch(e);
+                }
             });
 
-            document.getElementById('search_input').addEventListener('keydown', function(e){
+            document.getElementById('search_input').addEventListener('keydown', function (e) {
                 // проверяем какая кнопка была нажата
                 // Валидные кнопки, нажатая кнопка
-                let validKeys = [], keyCode;
+                let validKeys = [37, 38, 39, 40, 13, 'ArrowUp', 'ArrowDown'], keyCode;
                 // Проверяем поддержку новой спецификации получения id кнопки
                 if(e.key !== undefined) {
                     keyCode = e.key;
@@ -97,21 +183,18 @@
                     keyCode = e.keyCode;
                 }
                 if(validKeys.includes(keyCode)) {
-                    if(keyCode === 38 || keyCode === 40){
-                        e.preventDefault();
+                    e.preventDefault();
+                    if (keyCode === 13) {
+                        self.filterSearch(e);
+                    } else if (keyCode === 38 || keyCode === 'ArrowUp') {
+                        self.navigateByArrows(e, -1);
+                    } else if (keyCode === 40 || keyCode === 'ArrowDown') {
+                        self.navigateByArrows(e, +1);
+                    } else if (keyCode === 27) {
+                        self.hideResult();
                     }
-
-                    if(keyCode === 40 && self.posts == "") {
-                        // Если посты пусты и строка поиска не пуста то вызовем поиск
-                        self.getPosts();
-                        return;
-                    }
-
-                    self.selectPost(keyCode);
-                } else {
-                    self.getPosts();
                 }
-            })
+            });
 
 
         }
@@ -119,5 +202,7 @@
 </script>
 
 <style scoped>
-
+    [v-cloak] {
+        display: none;
+    }
 </style>
