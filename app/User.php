@@ -40,6 +40,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+	protected $appends = [
+		'path'
+	];
 
     public function office()
     {
@@ -52,4 +55,9 @@ class User extends Authenticatable
         return $this->belongsTo(department::class);
     }
 
+
+	public function getPathAttribute()
+	{
+		return route('profile', $this->id);
+	}
 }

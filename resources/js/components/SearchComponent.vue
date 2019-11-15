@@ -13,9 +13,10 @@
 
                     <a v-for="(post,key) in posts['users']"
                        :id="key+1"
-                       v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]" href="#">
+                       v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]"
+                       :href="post.path">
                         <div class="d-flex align-items-center">
-                            <img src="http://corp.loc/avatar/2-lunina-evgeniya-vyacheslavovna/W1XfRVscbIDTdS5cpUCpO7MnRvMBhAxcZSxmMARZ.jpeg" alt="user" style="width: 50px; height: 50px;">
+                            <img :src='post.avatar' alt="user" style="width: 50px; height: 50px;">
                             <div>
                                 <div>{{post.name}}</div>
                                 <div style="font-size: 11px; font-style: italic">{{post.position}}</div>
@@ -53,7 +54,8 @@
                 <div v-if="posts && posts['posts'].length > 0" class="suggestions-body">
                     <a v-for="(post,key) in posts['posts']"
                        :id="key+1"
-                       v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]" href="#">
+                       v-bind:class="[(key+1 == count) ? activeClass : '', menuItem]"
+                       :href="post.path">
                         <span>{{post.title}}</span>
                         <div class="text-uppercase" style="background-color:#ff0015; color:white; padding: 1px 10px; font-size: 12px">#новости</div>
                     </a>

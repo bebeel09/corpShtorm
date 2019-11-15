@@ -121,6 +121,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -25681,7 +25683,7 @@ var render = function() {
                           key + 1 == _vm.count ? _vm.activeClass : "",
                           _vm.menuItem
                         ],
-                        attrs: { id: key + 1, href: "#" }
+                        attrs: { id: key + 1, href: post.path }
                       },
                       [
                         _c(
@@ -25690,11 +25692,7 @@ var render = function() {
                           [
                             _c("img", {
                               staticStyle: { width: "50px", height: "50px" },
-                              attrs: {
-                                src:
-                                  "http://corp.loc/avatar/2-lunina-evgeniya-vyacheslavovna/W1XfRVscbIDTdS5cpUCpO7MnRvMBhAxcZSxmMARZ.jpeg",
-                                alt: "user"
-                              }
+                              attrs: { src: post.avatar, alt: "user" }
                             }),
                             _vm._v(" "),
                             _c("div", [
@@ -25809,7 +25807,7 @@ var render = function() {
                           key + 1 == _vm.count ? _vm.activeClass : "",
                           _vm.menuItem
                         ],
-                        attrs: { id: key + 1, href: "#" }
+                        attrs: { id: key + 1, href: post.path }
                       },
                       [
                         _c("span", [_vm._v(_vm._s(post.title))]),

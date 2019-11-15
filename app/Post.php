@@ -9,6 +9,9 @@ class Post extends Model
 {
     use SoftDeletes;
     protected $fillable = array('title', 'category_id','content_html', 'excerpt');
+	protected $appends = [
+		'path',
+	];
 
     public function category()
     {
@@ -19,4 +22,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
+
+    public function getPathAttribute()
+	{
+		return route('showPost', ['categorySlug' => $this->category->slug, 'postSlug' => $this->slug]);
+	}
 }
