@@ -21,12 +21,4 @@
     <span class="text-muted">Здесь пока что ничего нет :D </span>
     @endif
 </div>
-
-<div class="row">
-    <div class="col">
-        <div id="pagination">
-            <!-- ПАГИНАЦИЯ -->
-        </div>
-    </div>
-</div>
 @endsection

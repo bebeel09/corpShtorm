@@ -25,7 +25,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
 		View::composer(
-			['layouts.app', 'layouts.admin.app'], 'App\Http\ViewComposers\CurrentUser'
+			['layouts.*'], 'App\Http\ViewComposers\CurrentUser'
 		);
     }
 }
