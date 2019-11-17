@@ -57,7 +57,7 @@
 
 @section('additional_js')
 <script>
-    (function($) {
+    $(document).ready(function () {
         $("#search").keyup(function() {
             _this = this;
             $.each($("#spravochnik tr"), function() {
@@ -70,6 +70,6 @@
                 };
             });
         });
-    })(jQuery);
+    });
 </script>
 @endsection
