@@ -36,26 +36,13 @@
             </div>
         </main>
     </div>
-    <!-- jQuery 3 -->
-    <script src="{{ asset('vendor_components/jquery/dist/jquery.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('vendor_components/jquery-ui/jquery-ui.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
-
-    <!-- popper -->
-    <script src="{{ asset('vendor_components/bootstrap/assets/js/vendor/popper.min.js') }}"></script>
-    <!-- Bootstrap 4.0-->
-    <script src="{{ asset('vendor_components/bootstrap/dist/js/bootstrap.js') }}"></script>
 
 
-    {{--  Custom javascript  --}}
-    @yield('additional_js')
     <script src="{{ mix('/js/manifest.js') }}"></script>
     <script src="{{ mix('/js/vendor.js') }}"></script>
     <script src="{{ mix('/js/app.js') }}"></script>
+    {{--  Custom javascript  --}}
+    @yield('additional_js')
 </body>
 
 </html>

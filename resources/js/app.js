@@ -11,6 +11,10 @@
 import bootstrap from './bootstrap';
 import Vue from 'vue';
 import axios from 'axios';
+window.moment = require('moment/moment');
+import {fullCalendar} from 'fullcalendar';
+
+
 
 
 /**

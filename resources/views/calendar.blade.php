@@ -20,11 +20,10 @@
 @endsection
 
 @section('additional_js')
-<script src="{{asset('vendor_components/moment/moment.min.js') }}"></script>
-<script src="{{asset('vendor_components/fullcalendar/js/fullcalendar.min.js') }}"></script>
-
-
 <script type="application/javascript">
+	$(document).ready(function(){
+
+
 	// Any value represanting monthly repeat flag
 	var REPEAT_MONTHLY = 1;
 	// Any value represanting yearly repeat flag
@@ -114,6 +113,7 @@
 			});
 
 		}
+	});
 	});
 </script>
 @endsection
